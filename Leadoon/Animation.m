@@ -10,6 +10,9 @@
 
 
 @implementation Animation
+//Блок анимации
+
+//Анимация placeholder
 
 + (void) move_Label_Text_View_Right: (UIView*)label Points: (int) point
                   alpha: (CGFloat) alpha {
