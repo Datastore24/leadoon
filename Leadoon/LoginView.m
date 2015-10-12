@@ -11,6 +11,7 @@
 #import "Animation.h"
 
 @interface LoginView () <UITextFieldDelegate>
+//Атрибуты
 @property (weak, nonatomic) IBOutlet UIView* topBarLoginView; //верхний Бар
 @property (weak, nonatomic) IBOutlet UILabel* labelTopBarLoginView; //Заголовок
 @property (weak, nonatomic) IBOutlet UITextField* textFieldEmailLoginView; //Ввод текста "Email"
