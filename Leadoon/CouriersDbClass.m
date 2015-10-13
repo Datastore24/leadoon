@@ -49,7 +49,7 @@
     NSManagedObjectContext *localContext    = [NSManagedObjectContext MR_context];
     
     // Retrieve the first person who have the given firstname
-    NSPredicate *predicate                  = [NSPredicate predicateWithFormat:@"email ==[c] %@ AND login ==[c] %@ AND enter ==[c] %@", email, password, enter];
+    NSPredicate *predicate                  = [NSPredicate predicateWithFormat:@"email ==[c] %@ AND password ==[c] %@ AND enter ==[c] %@", email, password, enter];
     Couriers *couriersFounded                   = [Couriers MR_findFirstWithPredicate:predicate inContext:localContext];
     
     if (couriersFounded)
@@ -65,12 +65,12 @@
     }
 }
 
-- (BOOL)checkUsers{
+- (BOOL)checkUsers:(NSString*) email andPassword:(NSString*) password{
     
     NSManagedObjectContext *localContext    = [NSManagedObjectContext MR_context];
     
     
-    NSPredicate *predicate                  = [NSPredicate predicateWithFormat:@"courierId ==[c] 1"];
+    NSPredicate *predicate                  = [NSPredicate predicateWithFormat:@"email ==[c] %@ AND password ==[c] %@",email,password];
     Couriers *courierFounded                   = [Couriers MR_findFirstWithPredicate:predicate inContext:localContext];
     
     // If a person was founded
@@ -81,6 +81,8 @@
         return NO;
     }
 }
+
+
 
 -(NSArray *) showAllUsers{
     NSArray *users            = [Couriers MR_findAll];
