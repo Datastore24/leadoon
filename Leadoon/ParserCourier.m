@@ -13,16 +13,7 @@
 //Метод парсинга
 + (NSDictionary *)mts_mapping {
     
-    NSDictionary * dict = [[NSDictionary alloc] initWithObjectsAndKeys:mts_key(enter),@"enter", nil];
-    
-    NSInteger enter = [[dict objectForKey:@"enter"] integerValue];
-    
-    if(enter == 0){
-        return @{
-                    @"enter" : mts_key(enter),
-                 };
-    }else{
-        return @{
+          return @{
                  @"email" : mts_key(email),
                  @"password" : mts_key(password),
                  @"phone" : mts_key(phone),
@@ -38,8 +29,7 @@
                  
                  
                  };
-    }
-    return dict;
+    
     
 }
 @end

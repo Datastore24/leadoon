@@ -12,5 +12,5 @@
 -(void) authFist: (NSString *) email andPassword: (NSString *) password andEnter: (NSNumber *) enter;
 -(NSArray *) showAllUsers;
 - (void)deleteCourier;
-- (BOOL)checkUsers;
+- (BOOL)checkUsers:(NSString*) email andPassword:(NSString*) password;
 @end
