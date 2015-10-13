@@ -9,6 +9,11 @@
 #import "LoginView.h"
 #import "MainView.h"
 #import "Animation.h"
+#import "APIClass.h"
+#import "ParserCourier.h"
+#import "ParserResponseCourier.h"
+#import "CouriersDbClass.h"
+#import "Couriers.h"
 
 @interface LoginView () <UITextFieldDelegate>
 //Атрибуты
@@ -21,6 +26,8 @@
 @property (weak, nonatomic) IBOutlet UIButton* buttonEnterLoginView; //Кнопка запуска авторизации
 @property (weak, nonatomic) IBOutlet UIButton* buttonLostPasswordLoginView; //Кнопка потери пароля
 
+@property (strong, nonatomic) NSMutableArray * arrayResponce; //Массив с данными API
+
 - (IBAction)animLabelTextFieldEmailLoginView:(id)sender;
 - (IBAction)animLabelTextFielPasswordLoginView:(id)sender;
 
@@ -31,7 +38,9 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
+    
+    
+    
     isTextChoosen = YES;
     isTextChoosen2 = YES;
 
@@ -68,6 +77,31 @@
     [super didReceiveMemoryWarning];
 }
 
+#pragma mark - API
+
+//Авторизация пользователей
+-(void) getApiCourier:(NSString *) email password: (NSString *) password andBlock:(void (^)(void))block{
+    //Передаваемые параметры
+    NSDictionary * params = [[NSDictionary alloc] initWithObjectsAndKeys:
+                             email,@"email",
+                             password,@"password",
+                             nil];
+
+    APIClass * api =[APIClass new]; //создаем API
+    [api getDataFromServerWithParams:params method:@"action=auth" complitionBlock:^(id response) {
+        
+//        NSLog(@"%@",response);
+//        Запуск парсера
+        ParserResponseCourier * parsingResponce =[[ParserResponseCourier alloc] init];
+     
+        //парсинг данных и запись в массив
+        self.arrayResponce = [parsingResponce parsing:response];
+        block();
+    }];
+    
+}
+
+
 #pragma mark - ButtonsAction
 
 //Действие кнопки buttonEnterLoginView---------------------------------------
@@ -88,10 +122,43 @@
     }
 
     else {
-
-        MainView* detail = [self.storyboard instantiateViewControllerWithIdentifier:@"mainView"];
-        [self.navigationController pushViewController:detail animated:YES];
+        [self getApiCourier:self.textFieldEmailLoginView.text password:self.textFieldPasswordLoginView.text andBlock:^{
+            
+            ParserCourier * parse = [self.arrayResponce objectAtIndex:0];
+            if([parse.enter integerValue] == 1){
+                CouriersDbClass * courier = [[CouriersDbClass alloc] init];
+                
+                
+              
+                     [courier authFist:parse.email andPassword:parse.password andEnter:[NSNumber numberWithInt:1]];
+                
+                
+                MainView* detail = [self.storyboard instantiateViewControllerWithIdentifier:@"mainView"];
+                                   [self.navigationController pushViewController:detail animated:YES];
+                
+            }else{
+              [self showAlertViewWithMessage:@"Неверный логин или пароль"];
+            }
+        }];
+        
     }
+}
+
+//Проверяем входил ли пользователь, если входил перекидывай на меню
+-(void) CheckAuth{
+   
+    CouriersDbClass * courier = [[CouriersDbClass alloc] init];
+    
+    
+    Couriers *couriers = [[courier showAllUsers] objectAtIndex:2];
+
+    
+    
+//    if([[courier loadCourier] count]){
+//        MainView* detail = [self.storyboard instantiateViewControllerWithIdentifier:@"mainView"];
+//        [self.navigationController pushViewController:detail animated:YES];
+//
+//    }
 }
 
 //Действие кнопки buttonLostPasswordLoginView--------------------------------
