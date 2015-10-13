@@ -7,13 +7,13 @@
 //
 
 #import "LoginView.h"
-#import "MainView.h"
-#import "Animation.h"
-#import "APIClass.h"
-#import "ParserCourier.h"
-#import "ParserResponseCourier.h"
-#import "CouriersDbClass.h"
-#import "Couriers.h"
+#import "MainView.h" //Меню
+#import "Animation.h" //Анимации
+#import "APIClass.h" //Класс работы с API
+#import "ParserCourier.h" //Парсинг данных с Api (MOTIS)
+#import "ParserResponseCourier.h" //Парсинг ответа от сервера, добавление его в массив
+#import "CouriersDbClass.h" //Работа с CoreData, методы работы с базой
+#import "Couriers.h" //атрибуты из CoreData
 
 @interface LoginView () <UITextFieldDelegate>
 //Атрибуты
@@ -39,6 +39,17 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    /*
+     Проверка авторизации пользователя, если пользователь ранее авторизован и данные 
+     с сервера соответствуют, то ему буде показан MainView.
+     В случае если данные на сервере изменились, то мы считаем пользователя удаленным или забаненным (смена пароля, удаление и т.д) при этом удаляем данные из CoreData и выводим сообщение об ошибки.
+     В случае превого захода пользователя и отсутствия данных в  CoreData мы выводим LoginView с предложением ввести
+     логин и пароль. При вводе логина проверяем соответствие данных сервера и добавлем данные в CoreData. Главные атрибутов правильного входа в API является ключ enter - который возвращает:
+     1 и данные пользователя с сервера
+     0 - что означает пользоветль не найден, или не павильный логин и пароль
+     
+     */
+    
     [self CheckAuth];
     
     isTextChoosen = YES;
@@ -90,8 +101,6 @@
     APIClass * api =[APIClass new]; //создаем API
     [api getDataFromServerWithParams:params method:@"action=auth" complitionBlock:^(id response) {
         
-//        NSLog(@"%@",response);
-//        Запуск парсера
         ParserResponseCourier * parsingResponce =[[ParserResponseCourier alloc] init];
      
         //парсинг данных и запись в массив
@@ -112,8 +121,6 @@
     APIClass * api =[APIClass new]; //создаем API
     [api getDataFromServerWithParams:params method:@"action=auth" complitionBlock:^(id response) {
         
-        //        NSLog(@"%@",response);
-        //        Запуск парсера
         ParserResponseCourier * parsingResponce =[[ParserResponseCourier alloc] init];
         
         //парсинг данных и запись в массив
@@ -147,14 +154,18 @@
             
             ParserCourier * parse = [self.arrayResponce objectAtIndex:0];
             
+            //Проверка главного ключа входа 1- успешно, 0 - неуспешно
             if([parse.enter integerValue] == 1){
-                CouriersDbClass * courier = [[CouriersDbClass alloc] init];
+                CouriersDbClass * courierDbClass = [[CouriersDbClass alloc] init];
                 
-                if(![courier checkUsers:self.textFieldEmailLoginView.text andPassword:self.textFieldPasswordLoginView.text]){
-                     [courier authFist:self.textFieldEmailLoginView.text andPassword:self.textFieldPasswordLoginView.text andEnter:[NSNumber numberWithInt:1]];
+                //Проверка существует ли пользователь в CoreData
+                if(![courierDbClass checkUsers:self.textFieldEmailLoginView.text andPassword:self.textFieldPasswordLoginView.text]){
+                    
+                    //Добавление данных успешно вошедшего пользователя в CoreData
+                     [courierDbClass authFist:self.textFieldEmailLoginView.text andPassword:self.textFieldPasswordLoginView.text andEnter:[NSNumber numberWithInt:1]];
                 
                 }
-                
+                //Переход в меню
                 MainView* detail = [self.storyboard instantiateViewControllerWithIdentifier:@"mainView"];
                                    [self.navigationController pushViewController:detail animated:YES];
                 
@@ -169,23 +180,28 @@
 //Проверяем входил ли пользователь, если входил перекидывай на меню
 -(void) CheckAuth{
    
-   
     
     CouriersDbClass * courier = [[CouriersDbClass alloc] init];
-    NSArray * array = [courier showAllUsers];
+    NSArray * array = [courier showAllUsers]; //Массив данных CoreData
+    
     for (int i; i<array.count; i++) {
-        Couriers * cour = [array objectAtIndex:i];
+        Couriers * courierCoreData = [array objectAtIndex:i];
         
-         [self getApiCourierCheck:cour.email password:cour.password andBlock:^{
+        //Проверка существования пользователя
+         [self getApiCourierCheck:courierCoreData.email password:courierCoreData.password andBlock:^{
              ParserCourier * parse = [self.arrayCheck objectAtIndex:0];
           
+             //Перенаправление пользоваетеля в слуачае если данные из базы и данные с сервера соответствуют
              
-             if([parse.email isEqual: cour.email] && [parse.password isEqual: cour.password]){
+             if([parse.email isEqual: courierCoreData.email] && [parse.password isEqual: courierCoreData.password]){
+                 
                  MainView* detail = [self.storyboard instantiateViewControllerWithIdentifier:@"mainView"];
                  [self.navigationController pushViewController:detail animated:YES];
+                 
+                 
              }else{
-                 [courier deleteCourier];
-                 [self showAlertViewWithMessage:@"Вы вышли из системы"];
+                 [courier deleteCourier]; //Удаление устаревших данных
+                 [self showAlertViewWithMessage:@"Вы вышли из системы"]; //Вывод сообщения об ошибке
              }
              
          }];
