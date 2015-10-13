@@ -21,6 +21,13 @@
 		77FDDCDB1BCC207400B2C13B /* buttonSettingsImage.png in Resources */ = {isa = PBXBuildFile; fileRef = 77FDDCDA1BCC207400B2C13B /* buttonSettingsImage.png */; settings = {ASSET_TAGS = (); }; };
 		77FDDCDF1BCC261E00B2C13B /* SettingsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 77FDDCDE1BCC261E00B2C13B /* SettingsView.m */; settings = {ASSET_TAGS = (); }; };
 		77FDDCE11BCC36B800B2C13B /* buttonBack.png in Resources */ = {isa = PBXBuildFile; fileRef = 77FDDCE01BCC36B800B2C13B /* buttonBack.png */; settings = {ASSET_TAGS = (); }; };
+		AD87E9A51BCCF4AB00AF5C11 /* UsersModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = AD87E9A31BCCF4AB00AF5C11 /* UsersModel.xcdatamodeld */; settings = {ASSET_TAGS = (); }; };
+		AD87E9AA1BCCF56000AF5C11 /* Couriers+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = AD87E9A71BCCF56000AF5C11 /* Couriers+CoreDataProperties.m */; settings = {ASSET_TAGS = (); }; };
+		AD87E9AB1BCCF56000AF5C11 /* Couriers.m in Sources */ = {isa = PBXBuildFile; fileRef = AD87E9A91BCCF56000AF5C11 /* Couriers.m */; settings = {ASSET_TAGS = (); }; };
+		AD87E9AF1BCCF59800AF5C11 /* CouriersDbClass.m in Sources */ = {isa = PBXBuildFile; fileRef = AD87E9AE1BCCF59800AF5C11 /* CouriersDbClass.m */; settings = {ASSET_TAGS = (); }; };
+		AD87E9B31BCCF7F300AF5C11 /* APIClass.m in Sources */ = {isa = PBXBuildFile; fileRef = AD87E9B21BCCF7F300AF5C11 /* APIClass.m */; settings = {ASSET_TAGS = (); }; };
+		AD87E9B91BCCF9DD00AF5C11 /* ParserCourier.m in Sources */ = {isa = PBXBuildFile; fileRef = AD87E9B81BCCF9DD00AF5C11 /* ParserCourier.m */; settings = {ASSET_TAGS = (); }; };
+		AD87E9BD1BCD035800AF5C11 /* ParserResponseCourier.m in Sources */ = {isa = PBXBuildFile; fileRef = AD87E9BC1BCD035800AF5C11 /* ParserResponseCourier.m */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -66,6 +73,19 @@
 		77FDDCDE1BCC261E00B2C13B /* SettingsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsView.m; sourceTree = "<group>"; };
 		77FDDCE01BCC36B800B2C13B /* buttonBack.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = buttonBack.png; sourceTree = "<group>"; };
 		8086FCD04285A708D5862A6C /* Pods-Leadoon.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Leadoon.release.xcconfig"; path = "Pods/Target Support Files/Pods-Leadoon/Pods-Leadoon.release.xcconfig"; sourceTree = "<group>"; };
+		AD87E9A41BCCF4AB00AF5C11 /* UsersModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = UsersModel.xcdatamodel; sourceTree = "<group>"; };
+		AD87E9A61BCCF56000AF5C11 /* Couriers+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "Couriers+CoreDataProperties.h"; path = "../Couriers+CoreDataProperties.h"; sourceTree = "<group>"; };
+		AD87E9A71BCCF56000AF5C11 /* Couriers+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "Couriers+CoreDataProperties.m"; path = "../Couriers+CoreDataProperties.m"; sourceTree = "<group>"; };
+		AD87E9A81BCCF56000AF5C11 /* Couriers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Couriers.h; path = ../Couriers.h; sourceTree = "<group>"; };
+		AD87E9A91BCCF56000AF5C11 /* Couriers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Couriers.m; path = ../Couriers.m; sourceTree = "<group>"; };
+		AD87E9AD1BCCF59800AF5C11 /* CouriersDbClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CouriersDbClass.h; sourceTree = "<group>"; };
+		AD87E9AE1BCCF59800AF5C11 /* CouriersDbClass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CouriersDbClass.m; sourceTree = "<group>"; };
+		AD87E9B11BCCF7F300AF5C11 /* APIClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APIClass.h; sourceTree = "<group>"; };
+		AD87E9B21BCCF7F300AF5C11 /* APIClass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = APIClass.m; sourceTree = "<group>"; };
+		AD87E9B71BCCF9DD00AF5C11 /* ParserCourier.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParserCourier.h; sourceTree = "<group>"; };
+		AD87E9B81BCCF9DD00AF5C11 /* ParserCourier.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ParserCourier.m; sourceTree = "<group>"; };
+		AD87E9BB1BCD035800AF5C11 /* ParserResponseCourier.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParserResponseCourier.h; sourceTree = "<group>"; };
+		AD87E9BC1BCD035800AF5C11 /* ParserResponseCourier.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ParserResponseCourier.m; sourceTree = "<group>"; };
 		AEF5C251689197AD98D73673 /* Pods-Leadoon.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Leadoon.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Leadoon/Pods-Leadoon.debug.xcconfig"; sourceTree = "<group>"; };
 		C59AE2F176CF95A5A7C5D435 /* libPods-Leadoon.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Leadoon.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -147,20 +167,22 @@
 		779C5AA21BCAFD4600F4F31D /* Leadoon */ = {
 			isa = PBXGroup;
 			children = (
+				AD87E9B01BCCF7E200AF5C11 /* API */,
+				AD87E9AC1BCCF56500AF5C11 /* CoreData */,
 				77FDDCDC1BCC25E400B2C13B /* Settings */,
 				775A84F71BCBD284003BDC3D /* Animation */,
+				AD87E9BA1BCCFBFD00AF5C11 /* Images */,
 				779C5AD91BCB061A00F4F31D /* MainView */,
 				779C5AA61BCAFD4600F4F31D /* AppDelegate.h */,
 				779C5AA71BCAFD4600F4F31D /* AppDelegate.m */,
 				779C5AA91BCAFD4600F4F31D /* LoginView.h */,
 				779C5AAA1BCAFD4600F4F31D /* LoginView.m */,
 				779C5AAC1BCAFD4600F4F31D /* Main.storyboard */,
-				77FDDCE01BCC36B800B2C13B /* buttonBack.png */,
-				77FDDCDA1BCC207400B2C13B /* buttonSettingsImage.png */,
 				779C5AAF1BCAFD4600F4F31D /* Assets.xcassets */,
 				779C5AB11BCAFD4600F4F31D /* LaunchScreen.storyboard */,
 				779C5AB41BCAFD4600F4F31D /* Info.plist */,
 				779C5AA31BCAFD4600F4F31D /* Supporting Files */,
+				AD87E9A31BCCF4AB00AF5C11 /* UsersModel.xcdatamodeld */,
 			);
 			path = Leadoon;
 			sourceTree = "<group>";
@@ -207,6 +229,41 @@
 				77FDDCDE1BCC261E00B2C13B /* SettingsView.m */,
 			);
 			name = Settings;
+			sourceTree = "<group>";
+		};
+		AD87E9AC1BCCF56500AF5C11 /* CoreData */ = {
+			isa = PBXGroup;
+			children = (
+				AD87E9A61BCCF56000AF5C11 /* Couriers+CoreDataProperties.h */,
+				AD87E9A71BCCF56000AF5C11 /* Couriers+CoreDataProperties.m */,
+				AD87E9A81BCCF56000AF5C11 /* Couriers.h */,
+				AD87E9A91BCCF56000AF5C11 /* Couriers.m */,
+				AD87E9AD1BCCF59800AF5C11 /* CouriersDbClass.h */,
+				AD87E9AE1BCCF59800AF5C11 /* CouriersDbClass.m */,
+			);
+			name = CoreData;
+			sourceTree = "<group>";
+		};
+		AD87E9B01BCCF7E200AF5C11 /* API */ = {
+			isa = PBXGroup;
+			children = (
+				AD87E9B11BCCF7F300AF5C11 /* APIClass.h */,
+				AD87E9B21BCCF7F300AF5C11 /* APIClass.m */,
+				AD87E9B71BCCF9DD00AF5C11 /* ParserCourier.h */,
+				AD87E9B81BCCF9DD00AF5C11 /* ParserCourier.m */,
+				AD87E9BB1BCD035800AF5C11 /* ParserResponseCourier.h */,
+				AD87E9BC1BCD035800AF5C11 /* ParserResponseCourier.m */,
+			);
+			name = API;
+			sourceTree = "<group>";
+		};
+		AD87E9BA1BCCFBFD00AF5C11 /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				77FDDCE01BCC36B800B2C13B /* buttonBack.png */,
+				77FDDCDA1BCC207400B2C13B /* buttonSettingsImage.png */,
+			);
+			name = Images;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -395,12 +452,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AD87E9B91BCCF9DD00AF5C11 /* ParserCourier.m in Sources */,
 				775A84FA1BCBD2A2003BDC3D /* Animation.m in Sources */,
+				AD87E9B31BCCF7F300AF5C11 /* APIClass.m in Sources */,
 				779C5AAB1BCAFD4600F4F31D /* LoginView.m in Sources */,
 				779C5AD81BCB061300F4F31D /* MainView.m in Sources */,
+				AD87E9BD1BCD035800AF5C11 /* ParserResponseCourier.m in Sources */,
 				779C5AA81BCAFD4600F4F31D /* AppDelegate.m in Sources */,
+				AD87E9AF1BCCF59800AF5C11 /* CouriersDbClass.m in Sources */,
 				779C5AA51BCAFD4600F4F31D /* main.m in Sources */,
 				77FDDCDF1BCC261E00B2C13B /* SettingsView.m in Sources */,
+				AD87E9A51BCCF4AB00AF5C11 /* UsersModel.xcdatamodeld in Sources */,
+				AD87E9AA1BCCF56000AF5C11 /* Couriers+CoreDataProperties.m in Sources */,
+				AD87E9AB1BCCF56000AF5C11 /* Couriers.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -649,6 +713,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		AD87E9A31BCCF4AB00AF5C11 /* UsersModel.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				AD87E9A41BCCF4AB00AF5C11 /* UsersModel.xcdatamodel */,
+			);
+			currentVersion = AD87E9A41BCCF4AB00AF5C11 /* UsersModel.xcdatamodel */;
+			path = UsersModel.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 779C5A981BCAFD4500F4F31D /* Project object */;
 }
