@@ -8,6 +8,7 @@
 
 #import "SettingsView.h"
 #import "Animation.h"
+#import "SingleTone.h"
 
 @interface SettingsView ()
 @property (weak, nonatomic) IBOutlet UIView* topBarSettingsView; //Верхний бар
@@ -25,6 +26,8 @@
 @property (weak, nonatomic) IBOutlet UISwitch* switchTransport; //Выбор транспорта
 @property (weak, nonatomic) IBOutlet UIImageView* imageButtonBackSettingsView; //Изображение кнопки "Back"
 
+
+@property (strong, nonatomic) NSMutableArray * arrayResponce; //Массив с данными API
 @end
 
 @implementation SettingsView
@@ -33,6 +36,8 @@
 {
     [super viewDidLoad];
 
+    self.arrayResponce = [[SingleTone sharedManager] parsingArray];
+    NSLog(@"%@",self.arrayResponce);
     //Параметры settingsView------------------------------------------------------
     self.view.backgroundColor = [UIColor groupTableViewBackgroundColor];
 

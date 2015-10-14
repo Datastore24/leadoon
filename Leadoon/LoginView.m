@@ -14,6 +14,7 @@
 #import "ParserResponseCourier.h" //Парсинг ответа от сервера, добавление его в массив
 #import "CouriersDbClass.h" //Работа с CoreData, методы работы с базой
 #import "Couriers.h" //атрибуты из CoreData
+#import "SingleTone.h" //SingleTone для массива с данными
 
 @interface LoginView () <UITextFieldDelegate>
 //Атрибуты
@@ -105,6 +106,7 @@
      
         //парсинг данных и запись в массив
         self.arrayResponce = [parsingResponce parsing:response];
+        [[SingleTone sharedManager] setParsingArray:self.arrayResponce];
         block();
     }];
     
@@ -125,6 +127,7 @@
         
         //парсинг данных и запись в массив
         self.arrayCheck = [parsingResponce parsing:response];
+        [[SingleTone sharedManager] setParsingArray:self.arrayCheck];
         block();
     }];
     
