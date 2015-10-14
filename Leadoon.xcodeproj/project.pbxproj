@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		43CE65F39BA469C87A37D02C /* libPods-Leadoon.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C59AE2F176CF95A5A7C5D435 /* libPods-Leadoon.a */; };
 		775A84FA1BCBD2A2003BDC3D /* Animation.m in Sources */ = {isa = PBXBuildFile; fileRef = 775A84F91BCBD2A2003BDC3D /* Animation.m */; settings = {ASSET_TAGS = (); }; };
+		778D88AD1BCEEC84007E1F51 /* ScoreboardOrdersView.m in Sources */ = {isa = PBXBuildFile; fileRef = 778D88AC1BCEEC84007E1F51 /* ScoreboardOrdersView.m */; settings = {ASSET_TAGS = (); }; };
 		779C5AA51BCAFD4600F4F31D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 779C5AA41BCAFD4600F4F31D /* main.m */; };
 		779C5AA81BCAFD4600F4F31D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 779C5AA71BCAFD4600F4F31D /* AppDelegate.m */; };
 		779C5AAB1BCAFD4600F4F31D /* LoginView.m in Sources */ = {isa = PBXBuildFile; fileRef = 779C5AAA1BCAFD4600F4F31D /* LoginView.m */; };
@@ -51,6 +52,8 @@
 /* Begin PBXFileReference section */
 		775A84F81BCBD2A2003BDC3D /* Animation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Animation.h; sourceTree = "<group>"; };
 		775A84F91BCBD2A2003BDC3D /* Animation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Animation.m; sourceTree = "<group>"; };
+		778D88AB1BCEEC84007E1F51 /* ScoreboardOrdersView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScoreboardOrdersView.h; sourceTree = "<group>"; };
+		778D88AC1BCEEC84007E1F51 /* ScoreboardOrdersView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScoreboardOrdersView.m; sourceTree = "<group>"; };
 		779C5AA01BCAFD4500F4F31D /* Leadoon.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Leadoon.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		779C5AA41BCAFD4600F4F31D /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		779C5AA61BCAFD4600F4F31D /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -145,6 +148,15 @@
 			name = Animation;
 			sourceTree = "<group>";
 		};
+		778D88AA1BCEEC68007E1F51 /* ScoreboardOrders */ = {
+			isa = PBXGroup;
+			children = (
+				778D88AB1BCEEC84007E1F51 /* ScoreboardOrdersView.h */,
+				778D88AC1BCEEC84007E1F51 /* ScoreboardOrdersView.m */,
+			);
+			name = ScoreboardOrders;
+			sourceTree = "<group>";
+		};
 		779C5A971BCAFD4500F4F31D = {
 			isa = PBXGroup;
 			children = (
@@ -221,6 +233,7 @@
 		779C5AD91BCB061A00F4F31D /* MainView */ = {
 			isa = PBXGroup;
 			children = (
+				778D88AA1BCEEC68007E1F51 /* ScoreboardOrders */,
 				779C5AD61BCB061300F4F31D /* MainView.h */,
 				779C5AD71BCB061300F4F31D /* MainView.m */,
 			);
@@ -458,6 +471,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				AD87E9B91BCCF9DD00AF5C11 /* ParserCourier.m in Sources */,
+				778D88AD1BCEEC84007E1F51 /* ScoreboardOrdersView.m in Sources */,
 				775A84FA1BCBD2A2003BDC3D /* Animation.m in Sources */,
 				AD87E9B31BCCF7F300AF5C11 /* APIClass.m in Sources */,
 				779C5AAB1BCAFD4600F4F31D /* LoginView.m in Sources */,
