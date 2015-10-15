@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		43CE65F39BA469C87A37D02C /* libPods-Leadoon.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C59AE2F176CF95A5A7C5D435 /* libPods-Leadoon.a */; };
+		7713A3211BD0054F00F14506 /* basket.png in Resources */ = {isa = PBXBuildFile; fileRef = 7713A3201BD0054F00F14506 /* basket.png */; settings = {ASSET_TAGS = (); }; };
 		775A84FA1BCBD2A2003BDC3D /* Animation.m in Sources */ = {isa = PBXBuildFile; fileRef = 775A84F91BCBD2A2003BDC3D /* Animation.m */; settings = {ASSET_TAGS = (); }; };
 		778D88AD1BCEEC84007E1F51 /* ScoreboardOrdersView.m in Sources */ = {isa = PBXBuildFile; fileRef = 778D88AC1BCEEC84007E1F51 /* ScoreboardOrdersView.m */; settings = {ASSET_TAGS = (); }; };
 		779C5AA51BCAFD4600F4F31D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 779C5AA41BCAFD4600F4F31D /* main.m */; };
@@ -19,6 +20,10 @@
 		779C5ABE1BCAFD4600F4F31D /* LeadoonTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 779C5ABD1BCAFD4600F4F31D /* LeadoonTests.m */; };
 		779C5AC91BCAFD4600F4F31D /* LeadoonUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 779C5AC81BCAFD4600F4F31D /* LeadoonUITests.m */; };
 		779C5AD81BCB061300F4F31D /* MainView.m in Sources */ = {isa = PBXBuildFile; fileRef = 779C5AD71BCB061300F4F31D /* MainView.m */; settings = {ASSET_TAGS = (); }; };
+		77FAA9B41BCF9A3A00349A05 /* LabelsTableViewCall.m in Sources */ = {isa = PBXBuildFile; fileRef = 77FAA9B31BCF9A3A00349A05 /* LabelsTableViewCall.m */; settings = {ASSET_TAGS = (); }; };
+		77FAA9B81BCFA9C600349A05 /* UIColor+HexColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 77FAA9B71BCFA9C600349A05 /* UIColor+HexColor.m */; settings = {ASSET_TAGS = (); }; };
+		77FAA9BB1BCFB42900349A05 /* imageMetro1.png in Resources */ = {isa = PBXBuildFile; fileRef = 77FAA9B91BCFB42900349A05 /* imageMetro1.png */; settings = {ASSET_TAGS = (); }; };
+		77FAA9BC1BCFB42900349A05 /* imageMetro2.png in Resources */ = {isa = PBXBuildFile; fileRef = 77FAA9BA1BCFB42900349A05 /* imageMetro2.png */; settings = {ASSET_TAGS = (); }; };
 		77FDDCDB1BCC207400B2C13B /* buttonSettingsImage.png in Resources */ = {isa = PBXBuildFile; fileRef = 77FDDCDA1BCC207400B2C13B /* buttonSettingsImage.png */; settings = {ASSET_TAGS = (); }; };
 		77FDDCDF1BCC261E00B2C13B /* SettingsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 77FDDCDE1BCC261E00B2C13B /* SettingsView.m */; settings = {ASSET_TAGS = (); }; };
 		77FDDCE11BCC36B800B2C13B /* buttonBack.png in Resources */ = {isa = PBXBuildFile; fileRef = 77FDDCE01BCC36B800B2C13B /* buttonBack.png */; settings = {ASSET_TAGS = (); }; };
@@ -51,6 +56,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		7713A3201BD0054F00F14506 /* basket.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = basket.png; sourceTree = "<group>"; };
 		775A84F81BCBD2A2003BDC3D /* Animation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Animation.h; sourceTree = "<group>"; };
 		775A84F91BCBD2A2003BDC3D /* Animation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Animation.m; sourceTree = "<group>"; };
 		778D88AB1BCEEC84007E1F51 /* ScoreboardOrdersView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScoreboardOrdersView.h; sourceTree = "<group>"; };
@@ -73,6 +79,12 @@
 		779C5ACA1BCAFD4600F4F31D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		779C5AD61BCB061300F4F31D /* MainView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainView.h; sourceTree = "<group>"; };
 		779C5AD71BCB061300F4F31D /* MainView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainView.m; sourceTree = "<group>"; };
+		77FAA9B21BCF9A3A00349A05 /* LabelsTableViewCall.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LabelsTableViewCall.h; sourceTree = "<group>"; };
+		77FAA9B31BCF9A3A00349A05 /* LabelsTableViewCall.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LabelsTableViewCall.m; sourceTree = "<group>"; };
+		77FAA9B61BCFA9C600349A05 /* UIColor+HexColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+HexColor.h"; sourceTree = "<group>"; };
+		77FAA9B71BCFA9C600349A05 /* UIColor+HexColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+HexColor.m"; sourceTree = "<group>"; };
+		77FAA9B91BCFB42900349A05 /* imageMetro1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = imageMetro1.png; sourceTree = "<group>"; };
+		77FAA9BA1BCFB42900349A05 /* imageMetro2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = imageMetro2.png; sourceTree = "<group>"; };
 		77FDDCDA1BCC207400B2C13B /* buttonSettingsImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = buttonSettingsImage.png; sourceTree = "<group>"; };
 		77FDDCDD1BCC261E00B2C13B /* SettingsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsView.h; sourceTree = "<group>"; };
 		77FDDCDE1BCC261E00B2C13B /* SettingsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsView.m; sourceTree = "<group>"; };
@@ -154,8 +166,13 @@
 		778D88AA1BCEEC68007E1F51 /* ScoreboardOrders */ = {
 			isa = PBXGroup;
 			children = (
+				77FAA9B91BCFB42900349A05 /* imageMetro1.png */,
+				77FAA9BA1BCFB42900349A05 /* imageMetro2.png */,
+				7713A3201BD0054F00F14506 /* basket.png */,
 				778D88AB1BCEEC84007E1F51 /* ScoreboardOrdersView.h */,
 				778D88AC1BCEEC84007E1F51 /* ScoreboardOrdersView.m */,
+				77FAA9B21BCF9A3A00349A05 /* LabelsTableViewCall.h */,
+				77FAA9B31BCF9A3A00349A05 /* LabelsTableViewCall.m */,
 			);
 			name = ScoreboardOrders;
 			sourceTree = "<group>";
@@ -185,6 +202,7 @@
 		779C5AA21BCAFD4600F4F31D /* Leadoon */ = {
 			isa = PBXGroup;
 			children = (
+				77FAA9B51BCFA99A00349A05 /* Category */,
 				AD87E9B01BCCF7E200AF5C11 /* API */,
 				AD87E9AC1BCCF56500AF5C11 /* CoreData */,
 				77FDDCDC1BCC25E400B2C13B /* Settings */,
@@ -241,6 +259,15 @@
 				779C5AD71BCB061300F4F31D /* MainView.m */,
 			);
 			name = MainView;
+			sourceTree = "<group>";
+		};
+		77FAA9B51BCFA99A00349A05 /* Category */ = {
+			isa = PBXGroup;
+			children = (
+				77FAA9B61BCFA9C600349A05 /* UIColor+HexColor.h */,
+				77FAA9B71BCFA9C600349A05 /* UIColor+HexColor.m */,
+			);
+			name = Category;
 			sourceTree = "<group>";
 		};
 		77FDDCDC1BCC25E400B2C13B /* Settings */ = {
@@ -399,10 +426,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				779C5AB31BCAFD4600F4F31D /* LaunchScreen.storyboard in Resources */,
+				77FAA9BC1BCFB42900349A05 /* imageMetro2.png in Resources */,
+				77FAA9BB1BCFB42900349A05 /* imageMetro1.png in Resources */,
 				779C5AB01BCAFD4600F4F31D /* Assets.xcassets in Resources */,
 				77FDDCDB1BCC207400B2C13B /* buttonSettingsImage.png in Resources */,
 				77FDDCE11BCC36B800B2C13B /* buttonBack.png in Resources */,
 				779C5AAE1BCAFD4600F4F31D /* Main.storyboard in Resources */,
+				7713A3211BD0054F00F14506 /* basket.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -480,11 +510,13 @@
 				775A84FA1BCBD2A2003BDC3D /* Animation.m in Sources */,
 				AD87E9B31BCCF7F300AF5C11 /* APIClass.m in Sources */,
 				779C5AAB1BCAFD4600F4F31D /* LoginView.m in Sources */,
+				77FAA9B81BCFA9C600349A05 /* UIColor+HexColor.m in Sources */,
 				779C5AD81BCB061300F4F31D /* MainView.m in Sources */,
 				AD87E9BD1BCD035800AF5C11 /* ParserResponseCourier.m in Sources */,
 				779C5AA81BCAFD4600F4F31D /* AppDelegate.m in Sources */,
 				AD87E9AF1BCCF59800AF5C11 /* CouriersDbClass.m in Sources */,
 				779C5AA51BCAFD4600F4F31D /* main.m in Sources */,
+				77FAA9B41BCF9A3A00349A05 /* LabelsTableViewCall.m in Sources */,
 				AD87E9C01BCD924600AF5C11 /* SingleTone.m in Sources */,
 				77FDDCDF1BCC261E00B2C13B /* SettingsView.m in Sources */,
 				AD87E9A51BCCF4AB00AF5C11 /* UsersModel.xcdatamodeld in Sources */,
