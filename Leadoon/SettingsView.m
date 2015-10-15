@@ -8,6 +8,10 @@
 
 #import "SettingsView.h"
 #import "Animation.h"
+#import "SingleTone.h"
+#import "ParserCourier.h"
+#import "APIPostClass.h"
+#import "ParserResponseCourier.h"
 
 @interface SettingsView ()
 @property (weak, nonatomic) IBOutlet UIView* topBarSettingsView; //Верхний бар
@@ -25,6 +29,9 @@
 @property (weak, nonatomic) IBOutlet UISwitch* switchTransport; //Выбор транспорта
 @property (weak, nonatomic) IBOutlet UIImageView* imageButtonBackSettingsView; //Изображение кнопки "Back"
 
+@property (strong,nonatomic) NSMutableArray * statusArray; //Статус занят или свободен
+@property (strong, nonatomic) NSMutableArray * arrayResponce; //Массив с данными API
+
 @end
 
 @implementation SettingsView
@@ -33,6 +40,16 @@
 {
     [super viewDidLoad];
 
+    //Заполнение данных пользователя
+    self.arrayResponce = [[SingleTone sharedManager] parsingArray];
+    ParserCourier * parse = [self.arrayResponce objectAtIndex:0];
+    self.labelIDSettingsView.text =parse.courierId;
+    self.labelPhoneSettingsView.text = parse.phone;
+    self.labelE_MailSettingsView.text = parse.email;
+    self.labelGroupSettingsView.text = parse.tariffs_name;
+    //
+    
+    
     //Параметры settingsView------------------------------------------------------
     self.view.backgroundColor = [UIColor groupTableViewBackgroundColor];
 
@@ -57,13 +74,23 @@
     [self drawButtonsView:self.buttonChangePhoneSettingsView];
 
     //Параметры переключателя switchEmployment-------------------------------------
-    [self.switchEmployment setOn:NO animated:YES];
+    if([parse.status isEqual:@"1"]){
+     [self.switchEmployment setOn:NO animated:YES];
+    }else{
+     [self.switchEmployment setOn:YES animated:YES];
+    }
+    
+    
     [self.switchEmployment addTarget:self
                               action:@selector(actionSwitchEmployment)
                     forControlEvents:UIControlEventTouchUpInside];
     
     //Параметры переключателя switchTransport--------------------------------------
-    [self.switchTransport setOn:NO animated:YES];
+    if([parse.has_transport isEqual:@"1"]){
+        [self.switchTransport setOn:NO animated:YES];
+    }else{
+      [self.switchTransport setOn:YES animated:YES];
+    }
     [self.switchTransport addTarget:self
                               action:@selector(actionSwitchTransport)
                     forControlEvents:UIControlEventTouchUpInside];
@@ -105,22 +132,65 @@
 - (void)actionSwitchEmployment
 {
     if (self.switchEmployment.on) {
+        [self postStatusToTheServer:@"2"];
         NSLog(@"Занят");
     }
     else {
+        [self postStatusToTheServer:@"1"];
         NSLog(@"Свободен");
     }
 }
+
+//Отправка данных о занятости на сервер
+-(void) postStatusToTheServer: (NSString *) status{
+    ParserCourier * parse = [self.arrayResponce objectAtIndex:0];
+    
+           NSDictionary * params = [[NSDictionary alloc] initWithObjectsAndKeys:
+                                 parse.email,@"email",
+                                 parse.password,@"password",
+                                 status,@"status",
+                                 nil];
+        
+        APIPostClass * api =[APIPostClass new]; //создаем API
+    
+    [api postDataToServerWithParams:params method:@"action=update_status" complitionBlock:^(id response) {
+       
+    }];
+    
+    
+}
+
+
 
 //Действие переключателя switchTransport---------------------------------------------
 - (void)actionSwitchTransport
 {
     if (self.switchTransport.on) {
+        [self postTransportToTheServer:@"0"];
         NSLog(@"Я пешком");
     }
     else {
         NSLog(@"Я на машине");
+        [self postTransportToTheServer:@"1"];
     }
+}
+//Отправка данных о транспорте на сервер
+-(void) postTransportToTheServer: (NSString *) transport{
+    ParserCourier * parse = [self.arrayResponce objectAtIndex:0];
+    
+    NSDictionary * params = [[NSDictionary alloc] initWithObjectsAndKeys:
+                             parse.email,@"email",
+                             parse.password,@"password",
+                             transport,@"transport",
+                             nil];
+    
+    APIPostClass * api =[APIPostClass new]; //создаем API
+    
+    [api postDataToServerWithParams:params method:@"action=update_transport" complitionBlock:^(id response) {
+        
+    }];
+    
+    
 }
 
 @end
