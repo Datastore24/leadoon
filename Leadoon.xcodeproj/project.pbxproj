@@ -30,6 +30,7 @@
 		AD87E9B91BCCF9DD00AF5C11 /* ParserCourier.m in Sources */ = {isa = PBXBuildFile; fileRef = AD87E9B81BCCF9DD00AF5C11 /* ParserCourier.m */; settings = {ASSET_TAGS = (); }; };
 		AD87E9BD1BCD035800AF5C11 /* ParserResponseCourier.m in Sources */ = {isa = PBXBuildFile; fileRef = AD87E9BC1BCD035800AF5C11 /* ParserResponseCourier.m */; settings = {ASSET_TAGS = (); }; };
 		AD87E9C01BCD924600AF5C11 /* SingleTone.m in Sources */ = {isa = PBXBuildFile; fileRef = AD87E9BF1BCD924600AF5C11 /* SingleTone.m */; settings = {ASSET_TAGS = (); }; };
+		AD87E9C31BCF8C9F00AF5C11 /* APIPostClass.m in Sources */ = {isa = PBXBuildFile; fileRef = AD87E9C21BCF8C9E00AF5C11 /* APIPostClass.m */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -92,6 +93,8 @@
 		AD87E9BC1BCD035800AF5C11 /* ParserResponseCourier.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ParserResponseCourier.m; sourceTree = "<group>"; };
 		AD87E9BE1BCD924600AF5C11 /* SingleTone.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SingleTone.h; sourceTree = "<group>"; };
 		AD87E9BF1BCD924600AF5C11 /* SingleTone.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SingleTone.m; sourceTree = "<group>"; };
+		AD87E9C11BCF8C9E00AF5C11 /* APIPostClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APIPostClass.h; sourceTree = "<group>"; };
+		AD87E9C21BCF8C9E00AF5C11 /* APIPostClass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = APIPostClass.m; sourceTree = "<group>"; };
 		AEF5C251689197AD98D73673 /* Pods-Leadoon.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Leadoon.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Leadoon/Pods-Leadoon.debug.xcconfig"; sourceTree = "<group>"; };
 		C59AE2F176CF95A5A7C5D435 /* libPods-Leadoon.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Leadoon.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -267,6 +270,8 @@
 			children = (
 				AD87E9B11BCCF7F300AF5C11 /* APIClass.h */,
 				AD87E9B21BCCF7F300AF5C11 /* APIClass.m */,
+				AD87E9C11BCF8C9E00AF5C11 /* APIPostClass.h */,
+				AD87E9C21BCF8C9E00AF5C11 /* APIPostClass.m */,
 				AD87E9B71BCCF9DD00AF5C11 /* ParserCourier.h */,
 				AD87E9B81BCCF9DD00AF5C11 /* ParserCourier.m */,
 				AD87E9BB1BCD035800AF5C11 /* ParserResponseCourier.h */,
@@ -485,6 +490,7 @@
 				AD87E9A51BCCF4AB00AF5C11 /* UsersModel.xcdatamodeld in Sources */,
 				AD87E9AA1BCCF56000AF5C11 /* Couriers+CoreDataProperties.m in Sources */,
 				AD87E9AB1BCCF56000AF5C11 /* Couriers.m in Sources */,
+				AD87E9C31BCF8C9F00AF5C11 /* APIPostClass.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

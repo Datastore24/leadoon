@@ -15,6 +15,8 @@
 @interface ParserCourier : NSObject
 
 @property (strong,nonatomic) NSString * email;
+@property (strong,nonatomic) NSString * courierId;
+@property (strong,nonatomic) NSString * tariffs_name;
 @property (strong,nonatomic) NSString * password;
 @property (strong,nonatomic) NSString * phone;
 @property (strong,nonatomic) NSString * status;
@@ -25,6 +27,7 @@
 @property (strong,nonatomic) NSString * delivered_amount;
 @property (strong,nonatomic) NSString * mulct;
 @property (strong,nonatomic) NSString * enter;
+@property (strong,nonatomic) NSString * error;
 
 
 
