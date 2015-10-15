@@ -14,6 +14,8 @@
 + (NSDictionary *)mts_mapping {
     
           return @{
+                   @"id" : mts_key(courierId),
+                   @"tariffs_name" : mts_key(tariffs_name),
                  @"email" : mts_key(email),
                  @"password" : mts_key(password),
                  @"phone" : mts_key(phone),
@@ -25,6 +27,8 @@
                  @"delivered_amount" : mts_key(delivered_amount),
                  @"mulct" : mts_key(mulct),
                  @"enter" : mts_key(enter),
+                   @"error" : mts_key(error),
+                   
                  
                  
                  
