@@ -27,6 +27,9 @@
 		77FDDCDB1BCC207400B2C13B /* buttonSettingsImage.png in Resources */ = {isa = PBXBuildFile; fileRef = 77FDDCDA1BCC207400B2C13B /* buttonSettingsImage.png */; settings = {ASSET_TAGS = (); }; };
 		77FDDCDF1BCC261E00B2C13B /* SettingsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 77FDDCDE1BCC261E00B2C13B /* SettingsView.m */; settings = {ASSET_TAGS = (); }; };
 		77FDDCE11BCC36B800B2C13B /* buttonBack.png in Resources */ = {isa = PBXBuildFile; fileRef = 77FDDCE01BCC36B800B2C13B /* buttonBack.png */; settings = {ASSET_TAGS = (); }; };
+		AD2A24951BD0CEF000E0BC31 /* ParserOrders.m in Sources */ = {isa = PBXBuildFile; fileRef = AD2A24941BD0CEF000E0BC31 /* ParserOrders.m */; settings = {ASSET_TAGS = (); }; };
+		AD2A24981BD0CFBD00E0BC31 /* ParserResponseOrders.m in Sources */ = {isa = PBXBuildFile; fileRef = AD2A24971BD0CFBD00E0BC31 /* ParserResponseOrders.m */; settings = {ASSET_TAGS = (); }; };
+		AD2A249B1BD0D4F100E0BC31 /* ParseDate.m in Sources */ = {isa = PBXBuildFile; fileRef = AD2A249A1BD0D4F100E0BC31 /* ParseDate.m */; settings = {ASSET_TAGS = (); }; };
 		AD87E9A51BCCF4AB00AF5C11 /* UsersModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = AD87E9A31BCCF4AB00AF5C11 /* UsersModel.xcdatamodeld */; settings = {ASSET_TAGS = (); }; };
 		AD87E9AA1BCCF56000AF5C11 /* Couriers+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = AD87E9A71BCCF56000AF5C11 /* Couriers+CoreDataProperties.m */; settings = {ASSET_TAGS = (); }; };
 		AD87E9AB1BCCF56000AF5C11 /* Couriers.m in Sources */ = {isa = PBXBuildFile; fileRef = AD87E9A91BCCF56000AF5C11 /* Couriers.m */; settings = {ASSET_TAGS = (); }; };
@@ -90,6 +93,12 @@
 		77FDDCDE1BCC261E00B2C13B /* SettingsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsView.m; sourceTree = "<group>"; };
 		77FDDCE01BCC36B800B2C13B /* buttonBack.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = buttonBack.png; sourceTree = "<group>"; };
 		8086FCD04285A708D5862A6C /* Pods-Leadoon.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Leadoon.release.xcconfig"; path = "Pods/Target Support Files/Pods-Leadoon/Pods-Leadoon.release.xcconfig"; sourceTree = "<group>"; };
+		AD2A24931BD0CEF000E0BC31 /* ParserOrders.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParserOrders.h; sourceTree = "<group>"; };
+		AD2A24941BD0CEF000E0BC31 /* ParserOrders.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ParserOrders.m; sourceTree = "<group>"; };
+		AD2A24961BD0CFBD00E0BC31 /* ParserResponseOrders.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParserResponseOrders.h; sourceTree = "<group>"; };
+		AD2A24971BD0CFBD00E0BC31 /* ParserResponseOrders.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ParserResponseOrders.m; sourceTree = "<group>"; };
+		AD2A24991BD0D4F100E0BC31 /* ParseDate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParseDate.h; sourceTree = "<group>"; };
+		AD2A249A1BD0D4F100E0BC31 /* ParseDate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ParseDate.m; sourceTree = "<group>"; };
 		AD87E9A41BCCF4AB00AF5C11 /* UsersModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = UsersModel.xcdatamodel; sourceTree = "<group>"; };
 		AD87E9A61BCCF56000AF5C11 /* Couriers+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "Couriers+CoreDataProperties.h"; path = "../Couriers+CoreDataProperties.h"; sourceTree = "<group>"; };
 		AD87E9A71BCCF56000AF5C11 /* Couriers+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "Couriers+CoreDataProperties.m"; path = "../Couriers+CoreDataProperties.m"; sourceTree = "<group>"; };
@@ -303,6 +312,12 @@
 				AD87E9B81BCCF9DD00AF5C11 /* ParserCourier.m */,
 				AD87E9BB1BCD035800AF5C11 /* ParserResponseCourier.h */,
 				AD87E9BC1BCD035800AF5C11 /* ParserResponseCourier.m */,
+				AD2A24931BD0CEF000E0BC31 /* ParserOrders.h */,
+				AD2A24941BD0CEF000E0BC31 /* ParserOrders.m */,
+				AD2A24961BD0CFBD00E0BC31 /* ParserResponseOrders.h */,
+				AD2A24971BD0CFBD00E0BC31 /* ParserResponseOrders.m */,
+				AD2A24991BD0D4F100E0BC31 /* ParseDate.h */,
+				AD2A249A1BD0D4F100E0BC31 /* ParseDate.m */,
 			);
 			name = API;
 			sourceTree = "<group>";
@@ -513,9 +528,12 @@
 				77FAA9B81BCFA9C600349A05 /* UIColor+HexColor.m in Sources */,
 				779C5AD81BCB061300F4F31D /* MainView.m in Sources */,
 				AD87E9BD1BCD035800AF5C11 /* ParserResponseCourier.m in Sources */,
+				AD2A24951BD0CEF000E0BC31 /* ParserOrders.m in Sources */,
 				779C5AA81BCAFD4600F4F31D /* AppDelegate.m in Sources */,
 				AD87E9AF1BCCF59800AF5C11 /* CouriersDbClass.m in Sources */,
 				779C5AA51BCAFD4600F4F31D /* main.m in Sources */,
+				AD2A24981BD0CFBD00E0BC31 /* ParserResponseOrders.m in Sources */,
+				AD2A249B1BD0D4F100E0BC31 /* ParseDate.m in Sources */,
 				77FAA9B41BCF9A3A00349A05 /* LabelsTableViewCall.m in Sources */,
 				AD87E9C01BCD924600AF5C11 /* SingleTone.m in Sources */,
 				77FDDCDF1BCC261E00B2C13B /* SettingsView.m in Sources */,

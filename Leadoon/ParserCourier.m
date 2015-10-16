@@ -15,6 +15,7 @@
     
           return @{
                    @"id" : mts_key(courierId),
+                   @"service_id" : mts_key(service_id),
                    @"tariffs_name" : mts_key(tariffs_name),
                  @"email" : mts_key(email),
                  @"password" : mts_key(password),

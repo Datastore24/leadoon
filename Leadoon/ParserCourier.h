@@ -16,6 +16,7 @@
 
 @property (strong,nonatomic) NSString * email;
 @property (strong,nonatomic) NSString * courierId;
+@property (strong,nonatomic) NSString * service_id;
 @property (strong,nonatomic) NSString * tariffs_name;
 @property (strong,nonatomic) NSString * password;
 @property (strong,nonatomic) NSString * phone;
