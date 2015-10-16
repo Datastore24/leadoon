@@ -216,7 +216,13 @@
     //
     
     //Вывод диапазона времени доставки
-    NSString * resultDeliveryTime = [NSString stringWithFormat:@"%@ - %@",parser.delivery_time_from,parser.delivery_time_to];
+    NSString * resultDeliveryTime;
+    if(!parser.delivery_time_to){
+         resultDeliveryTime = [NSString stringWithFormat:@"%@",parser.delivery_time_from];
+    }else{
+         resultDeliveryTime = [NSString stringWithFormat:@"%@ - %@",parser.delivery_time_from,parser.delivery_time_to];
+    }
+    
     [cell addSubview:[typeLabel labelTimeInterval:resultDeliveryTime]];
     
     
@@ -235,7 +241,13 @@
     //
     
     //Строка веса
-    NSString * resultWeight = [NSString stringWithFormat:@"Вес %@-%@ кг",parser.wfrom,parser.wto];
+    NSString * resultWeight;
+    if(!parser.order_count){
+        resultWeight = [NSString stringWithFormat:@"Вес %@-%@ кг",parser.wfrom,parser.wto];
+    }else{
+        resultWeight = [NSString stringWithFormat:@"%@ заказа(ов)",parser.order_count];
+    }
+    
     [cell addSubview:[typeLabel weightAndNumberOfOrders:resultWeight]];
     //
     
@@ -243,8 +255,9 @@
     [cell addSubview:[typeLabel labelTimeRemaining:parser.delivery_string]];
     //
     
-    //Не использовано еще
-    [cell addSubview:[typeLabel labelMetroStationName:@"Университет"]];
+    //метро
+    [cell addSubview:[typeLabel roundMetroView:parser.metro_line_id]];
+    [cell addSubview:[typeLabel labelMetroStationName:parser.metro_id]];
     
     
     
