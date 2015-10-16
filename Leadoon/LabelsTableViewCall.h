@@ -15,7 +15,7 @@
 - (UILabel*) labelTypeTableViewCell: (NSString*) latebType;
 
 //Картинка типа заказа------------------------------------------
-- (UIImageView*) imageViewTypeTableView;
+- (UIImageView*)imageViewTypeTableView: (NSString *) order_type;
 
 //Станция метро-------------------------------------------------
 - (UILabel *) labelMetroStationName: (NSString*) stationName;
