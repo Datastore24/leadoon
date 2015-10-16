@@ -53,14 +53,13 @@
 
 //Картинка типа lableTableViewCell-------------------------------------------
 
-- (UIImageView*)imageViewTypeTableView
+- (UIImageView*)imageViewTypeTableView: (NSString *) order_type
 {
-    NSString* image1String = @"Заказ";
-    NSString* image2String = @"Закупка";
+   
 
     NSString* nameImage;
 
-    if (self.typeLabel.text == image1String || self.typeLabel.text == image2String) {
+    if ([order_type isEqual:@"2"]) {
 
         nameImage = @"imageMetro1.png";
     }
@@ -105,7 +104,7 @@
 //Вес, кол-во заказов---------------------------------------------
 - (UILabel*)weightAndNumberOfOrders:(NSString*)stringOrders
 {
-    UILabel* labelWeightAndNumbers = [[UILabel alloc] initWithFrame:CGRectMake(150, 55, 60, 20)];
+    UILabel* labelWeightAndNumbers = [[UILabel alloc] initWithFrame:CGRectMake(150, 55, 80, 20)];
     labelWeightAndNumbers.text = stringOrders;
     labelWeightAndNumbers.font = [UIFont fontWithName:@"HelveticaNeue" size:12];
 
@@ -137,7 +136,7 @@
 //Осталось не изменяемый label-------------------------------------
 - (UILabel*)labelLineLeft
 {
-    UILabel* labelLine = [[UILabel alloc] initWithFrame:CGRectMake(150, 30, 60, 12)];
+    UILabel* labelLine = [[UILabel alloc] initWithFrame:CGRectMake(130, 30, 60, 12)];
     labelLine.text = @"Осталось:";
     labelLine.font = [UIFont fontWithName:@"HelveticaNeue" size:12];
     labelLine.alpha = 0.5f;
@@ -148,7 +147,7 @@
 //Оставшееся время выполнения заказа--------------------------------
 - (UILabel*)labelTimeRemaining:(NSString*)remainingString
 {
-    UILabel* labelTime = [[UILabel alloc] initWithFrame:CGRectMake(215, 30, 80, 12)];
+    UILabel* labelTime = [[UILabel alloc] initWithFrame:CGRectMake(190, 30, 100, 12)];
     labelTime.text = remainingString;
     labelTime.font = [UIFont fontWithName:@"HelveticaNeue" size:12];
     labelTime.alpha = 0.5f;

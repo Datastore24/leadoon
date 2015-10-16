@@ -11,6 +11,15 @@
 #import "SettingsView.h"
 #import "LabelsTableViewCall.h"
 
+#import "SingleTone.h"
+
+#import "APIClass.h"
+#import "ParserOrders.h"
+#import "ParserResponseOrders.h"
+#import "ParseDate.h"
+
+
+
 
 @interface ScoreboardOrdersView () <UITableViewDataSource, UITableViewDelegate>
 @property (weak, nonatomic) IBOutlet UIView *topBarScoreboardsView; //Верхний бар Табло заказов
@@ -24,6 +33,8 @@
 @property (weak, nonatomic) IBOutlet UIButton *buttonFilterScoreboardOrders; //Фильтр заказов
 
 @property (strong,nonatomic) NSMutableArray * testArray;
+@property (strong, nonatomic) NSMutableArray * arrayResponce; //Массив с данными API
+@property (strong, nonatomic) NSMutableArray * arrayOrders; //Массив с заказами
 
 @property (weak, nonatomic) IBOutlet UIView *ViewLineScoreboardOrders; //View для создании линии
 
@@ -35,8 +46,10 @@
 {
     [super viewDidLoad];
     
-    //Тестовый массив-----
-    self.testArray = [NSMutableArray arrayWithObjects:@"Заказ", @"Забор", @"Закупка", @"Test", nil];
+    
+    //Массив данных авторизованного пользователя
+    self.arrayResponce = [[SingleTone sharedManager] parsingArray];
+    self.arrayOrders = [NSMutableArray array];
     
     //Параметры основного view------------------------------------------------------
     self.view.backgroundColor = [UIColor groupTableViewBackgroundColor];
@@ -70,12 +83,55 @@
     
     //Параметры tableViewScoreboardOrders---------------------------------------------
     self.tableViewScoreboardOrders.backgroundColor = [UIColor clearColor];
+    
+    //API методы
+    [self getApiOrders];
 
 }
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
+}
+
+
+#pragma mark - API
+
+//Тащим заказы с сервера
+-(void) getApiOrders{
+    //Передаваемые параметры
+    ParserOrders * parse = [self.arrayResponce objectAtIndex:0];
+    NSDictionary * params = [[NSDictionary alloc] initWithObjectsAndKeys:
+                             parse.service_id,@"service_id",
+                             nil];
+    
+    APIClass * api =[APIClass new]; //создаем API
+    [api getDataFromServerWithParams:params method:@"action=load_orders" complitionBlock:^(id response) {
+        
+        ParserResponseOrders * parsingResponce =[[ParserResponseOrders alloc] init];
+        NSLog(@"%@",response);
+        [parsingResponce parsing:response andArray:self.arrayOrders andBlock:^{
+            [self reloadTableViewWhenNewEvent];
+        }];
+        
+        
+    }];
+    
+}
+
+//Обновление таблицы
+- (void)reloadTableViewWhenNewEvent {
+    
+    
+    [self.tableViewScoreboardOrders
+     reloadSections:[NSIndexSet indexSetWithIndex:0]
+     withRowAnimation:UITableViewRowAnimationFade];
+    
+    self.tableViewScoreboardOrders.scrollEnabled = YES;
+    
+    //    Перезагрузка таблицы с
+    //    анимацией
+    
 }
 
 #pragma mark - buttonsAction
@@ -119,7 +175,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return self.testArray.count;
+    return self.arrayOrders.count;
 }
 
 
@@ -131,18 +187,72 @@
     
     LabelsTableViewCall * typeLabel = [[LabelsTableViewCall alloc] init];
     NSString * string = @"Заказ";
+    ParserOrders * parser =[self.arrayOrders objectAtIndex:indexPath.row];
+    ParseDate * parseDate =[[ParseDate alloc] init];
     
-    [cell addSubview:[typeLabel labelTypeTableViewCell:[self.testArray objectAtIndex:indexPath.row]]];
-    [cell addSubview:[typeLabel imageViewTypeTableView]];
-    [cell addSubview:[typeLabel labelMetroStationName:@"Университет"]];
-    [cell addSubview:[typeLabel imageViewBasketTableView]];
-    [cell addSubview:[typeLabel weightAndNumberOfOrders:@"Вес 3-5 кг"]];
-    [cell addSubview:[typeLabel labelDaysLeft:@"Сегодня:"]];
-    [cell addSubview:[typeLabel labelTimeInterval:@"10:00 - 13:00"]];
-    [cell addSubview:[typeLabel labelLineLeft]];
-    [cell addSubview:[typeLabel labelTimeRemaining:@"2 ч.21 мин"]];
-    if ([self.testArray objectAtIndex:indexPath.row] == string) {
+    if([parser.getting_type integerValue] ==0 ){
+        [cell addSubview:[typeLabel labelTypeTableViewCell:@"Заказ"]];
+    }else if([parser.getting_type integerValue] ==1 ){
+        [cell addSubview:[typeLabel labelTypeTableViewCell:@"Закупка"]];
+    }else{
+        [cell addSubview:[typeLabel labelTypeTableViewCell:@"Забор"]];
+    }
+    
+    //Изменения даты
+    if([parser.delivery_date isEqual:[parseDate dateFormatToDay]]){
+         [cell addSubview:[typeLabel labelDaysLeft:@"Сегодня:"]];
+    }else if([parser.delivery_date isEqual:[parseDate dateFormatTomorow]]){
+        
+         [cell addSubview:[typeLabel labelDaysLeft:@"Завтра:"]];
+
+    }else{
+        [cell addSubview:[typeLabel labelDaysLeft:parser.delivery_date]];
+    }
+    //
+    
+    //Обрезаем последние :00
+    parser.delivery_time_from = [parser.delivery_time_from substringToIndex:[parser.delivery_time_from length] - 3];
+    parser.delivery_time_to = [parser.delivery_time_to substringToIndex:[parser.delivery_time_to length] - 3];
+    //
+    
+    //Вывод диапазона времени доставки
+    NSString * resultDeliveryTime = [NSString stringWithFormat:@"%@ - %@",parser.delivery_time_from,parser.delivery_time_to];
+    [cell addSubview:[typeLabel labelTimeInterval:resultDeliveryTime]];
+    
+    
+    [cell addSubview:[typeLabel imageViewTypeTableView:parser.order_type]];
+    
+    //Статус заказа
+    if([parser.status integerValue] == 40){
+        [cell addSubview:[typeLabel labelFormation:@"Формируется"]];
+    }else{
         [cell addSubview:[typeLabel labelFormation:@"Сформирован"]];
+    }
+    //
+    
+    //Отображение корзины
+    [cell addSubview:[typeLabel imageViewBasketTableView]];
+    //
+    
+    //Строка веса
+    NSString * resultWeight = [NSString stringWithFormat:@"Вес %@-%@ кг",parser.wfrom,parser.wto];
+    [cell addSubview:[typeLabel weightAndNumberOfOrders:resultWeight]];
+    //
+    
+    //Оставшееся время
+    [cell addSubview:[typeLabel labelTimeRemaining:parser.delivery_string]];
+    //
+    
+    //Не использовано еще
+    [cell addSubview:[typeLabel labelMetroStationName:@"Университет"]];
+    
+    
+    
+    
+    [cell addSubview:[typeLabel labelLineLeft]];
+    
+    if ([self.testArray objectAtIndex:indexPath.row] == string) {
+     //
     }
     
     
