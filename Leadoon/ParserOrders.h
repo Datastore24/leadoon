@@ -26,6 +26,7 @@
 @property (strong,nonatomic) NSString * metro_id;
 @property (strong,nonatomic) NSString * wfrom;
 @property (strong,nonatomic) NSString * wto;
+@property (strong,nonatomic) NSString * order_count;
 
 
 

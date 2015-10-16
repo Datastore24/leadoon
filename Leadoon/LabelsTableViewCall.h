@@ -18,7 +18,8 @@
 - (UIImageView*)imageViewTypeTableView: (NSString *) order_type;
 
 //Станция метро-------------------------------------------------
-- (UILabel *) labelMetroStationName: (NSString*) stationName;
+- (UIView*) roundMetroView:(NSString *) lineID;
+- (UILabel*)labelMetroStationName:(NSString*)stationID;
 
 //Изображение тележки---------------------------------------------
 - (UIImageView *) imageViewBasketTableView;
