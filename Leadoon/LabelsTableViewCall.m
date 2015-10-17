@@ -76,7 +76,7 @@
     return imageView;
 }
 
-//Станция метро-------------------------------------------------
+//Цвет ветки метро-------------------------------------------------
 - (UIView*) roundMetroView:(NSString *) lineID{
     NSString * stationColor;
     switch ([lineID integerValue]) {
@@ -128,6 +128,8 @@
     
     return roundMetro;
 }
+
+//Имя станции метро--------------------------------------
 - (UILabel*)labelMetroStationName:(NSString*)stationID
 {
     NSString * stationName;

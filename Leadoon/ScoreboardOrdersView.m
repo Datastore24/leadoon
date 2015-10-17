@@ -10,6 +10,7 @@
 #import "Animation.h"
 #import "SettingsView.h"
 #import "LabelsTableViewCall.h"
+#import "DetailsScoreboardOrderView.h"
 
 #import "SingleTone.h"
 
@@ -17,6 +18,7 @@
 #import "ParserOrders.h"
 #import "ParserResponseOrders.h"
 #import "ParseDate.h"
+
 
 
 
@@ -272,6 +274,18 @@
     cell.backgroundColor = [UIColor clearColor];
     
     return cell;
+}
+
+#pragma mark - UITableViewDelegate
+//Анимация нажатия ячейки--------------------------------------------------------------
+- (void)tableView:(UITableView*)tableView didSelectRowAtIndexPath:(NSIndexPath*)indexPath
+{
+    
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+
+    DetailsScoreboardOrderView* detail = [self.storyboard instantiateViewControllerWithIdentifier:@"DetailsScoreboardOrder"];
+    
+    [self.navigationController pushViewController:detail animated:YES];
 }
 
 @end
