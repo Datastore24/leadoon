@@ -90,7 +90,7 @@
 - (void)centerOnUserLocathion:(CLLocationCoordinate2D)coord
 {
     
-    MKCoordinateRegion region = MKCoordinateRegionMakeWithDistance(coord, self.sliderMapView.value, self.sliderMapView.value);
+    MKCoordinateRegion region = MKCoordinateRegionMakeWithDistance(coord, self.sliderMapView.maximumValue - self.sliderMapView.value, self.sliderMapView.maximumValue - self.sliderMapView.value);
     [self.mapView setRegion:region animated:YES];
 }
 
