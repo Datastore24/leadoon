@@ -43,6 +43,7 @@
 
     //Параметры buttonMyOrdersMainView-------------------------------------
     [self drawButtonsView:self.buttonMyOrdersMainView];
+    [self.buttonMyOrdersMainView addTarget:self action:@selector(actionButtonScoreboardMyOrdersMainView) forControlEvents:UIControlEventTouchUpInside];
 
     //Параметры buttonCompletedOrdersMainView------------------------------
     [self drawButtonsView:self.buttonCompletedOrdersMainView];
@@ -58,6 +59,7 @@
     [self.buttonSettingsMainView addTarget:self
                                     action:@selector(actionButtonSettingsMainView)
                           forControlEvents:UIControlEventTouchUpInside];
+
 }
 
 - (void)didReceiveMemoryWarning
@@ -97,6 +99,13 @@
 - (void) actionButtonScoreboardOrdersMainView
 {
     ScoreboardOrdersView * detail = [self.storyboard instantiateViewControllerWithIdentifier:@"scoreboardOrders"];
+    [self.navigationController pushViewController:detail animated:YES];
+}
+
+//Действие кнопки ButtonScoreboardOrdersMainView---------------------------
+- (void) actionButtonScoreboardMyOrdersMainView
+{
+    ScoreboardOrdersView * detail = [self.storyboard instantiateViewControllerWithIdentifier:@"scoreboardMyOrders"];
     [self.navigationController pushViewController:detail animated:YES];
 }
 
