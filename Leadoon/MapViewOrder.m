@@ -14,7 +14,8 @@
 @property (weak, nonatomic) IBOutlet UIView* topBarMapViewOrder; //Верхний бар основного меню
 @property (weak, nonatomic) IBOutlet UIButton* buttonBackMapViewOrder; //Кнопка возврата
 @property (weak, nonatomic) IBOutlet UIButton* buttonSettingMapViewOrder; //Кнопка Настроек
-@property (weak, nonatomic) IBOutlet UISlider* sliderMapView;
+@property (weak, nonatomic) IBOutlet UIButton* buttomZoomIn; //Кнопка увеличения
+@property (weak, nonatomic) IBOutlet UIButton* ButtonZoomOut; //Кнопка уменьшения
 
 @end
 
@@ -24,10 +25,23 @@
 {
     [super viewDidLoad];
 
-    self.sliderMapView.transform = CGAffineTransformMakeRotation(M_PI_2);
-    self.sliderMapView.value = 500;
-    self.sliderMapView.minimumValue = 500;
-    self.sliderMapView.maximumValue = 1000000;
+    //Параметры кнопки buttomZoomIn-------------------------------------------------
+    self.buttomZoomIn.backgroundColor = [UIColor clearColor];
+    self.buttomZoomIn.layer.borderColor = [UIColor blackColor].CGColor;
+    self.buttomZoomIn.layer.borderWidth = 2.f;
+    self.buttomZoomIn.layer.cornerRadius = 15.f;
+    self.buttomZoomIn.alpha = 7.f;
+    [self.buttomZoomIn addTarget:self action:@selector(actionButtomZoomIn)
+                            forControlEvents:UIControlEventTouchUpInside];
+
+    //Параметры кнопки buttomZoomOut-------------------------------------------------
+    self.ButtonZoomOut.backgroundColor = [UIColor clearColor];
+    self.ButtonZoomOut.layer.borderColor = [UIColor blackColor].CGColor;
+    self.ButtonZoomOut.layer.borderWidth = 2.f;
+    self.ButtonZoomOut.layer.cornerRadius = 15.f;
+    self.ButtonZoomOut.alpha = 7.f;
+    [self.ButtonZoomOut addTarget:self action:@selector(actionButtomZoomOut)
+                             forControlEvents:UIControlEventTouchUpInside];
 
     //Параметры основного view------------------------------------------------------
     self.view.backgroundColor = [UIColor groupTableViewBackgroundColor];
@@ -75,22 +89,22 @@
     [self.navigationController pushViewController:detail animated:YES];
 }
 
-#pragma mark - CLLocationManagerDelegate
-
-#pragma mark - CLLocationManagerDelegate
-
-- (void)locationManager:(CLLocationManager*)manager
-    didUpdateToLocation:(CLLocation*)newLocation
-           fromLocation:(CLLocation*)oldLocation
+//Действие кнопки buttomZoomIn------------------------------------------------------
+- (void)actionButtomZoomIn
 {
 
-    [self centerOnUserLocathion:newLocation.coordinate];
+    MKCoordinateRegion region = self.mapView.region;
+    region.span.latitudeDelta /= 5.0;
+    region.span.longitudeDelta /= 5.0;
+    [self.mapView setRegion:region animated:YES];
 }
 
-- (void)centerOnUserLocathion:(CLLocationCoordinate2D)coord
+//Действие кнопки buttomZoomOut----------------------------------------------------
+- (void)actionButtomZoomOut
 {
-    
-    MKCoordinateRegion region = MKCoordinateRegionMakeWithDistance(coord, self.sliderMapView.maximumValue - self.sliderMapView.value, self.sliderMapView.maximumValue - self.sliderMapView.value);
+    MKCoordinateRegion region = self.mapView.region;
+    region.span.latitudeDelta  = MIN(region.span.latitudeDelta  * 5.0, 180.0);
+    region.span.longitudeDelta = MIN(region.span.longitudeDelta * 5.0, 180.0);
     [self.mapView setRegion:region animated:YES];
 }
 
