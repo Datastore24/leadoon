@@ -30,6 +30,7 @@
 		AD2A24951BD0CEF000E0BC31 /* ParserOrders.m in Sources */ = {isa = PBXBuildFile; fileRef = AD2A24941BD0CEF000E0BC31 /* ParserOrders.m */; settings = {ASSET_TAGS = (); }; };
 		AD2A24981BD0CFBD00E0BC31 /* ParserResponseOrders.m in Sources */ = {isa = PBXBuildFile; fileRef = AD2A24971BD0CFBD00E0BC31 /* ParserResponseOrders.m */; settings = {ASSET_TAGS = (); }; };
 		AD2A249B1BD0D4F100E0BC31 /* ParseDate.m in Sources */ = {isa = PBXBuildFile; fileRef = AD2A249A1BD0D4F100E0BC31 /* ParseDate.m */; settings = {ASSET_TAGS = (); }; };
+		AD2A24A41BD1327A00E0BC31 /* MyOrdersView.m in Sources */ = {isa = PBXBuildFile; fileRef = AD2A24A31BD1327A00E0BC31 /* MyOrdersView.m */; settings = {ASSET_TAGS = (); }; };
 		AD87E9A51BCCF4AB00AF5C11 /* UsersModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = AD87E9A31BCCF4AB00AF5C11 /* UsersModel.xcdatamodeld */; settings = {ASSET_TAGS = (); }; };
 		AD87E9AA1BCCF56000AF5C11 /* Couriers+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = AD87E9A71BCCF56000AF5C11 /* Couriers+CoreDataProperties.m */; settings = {ASSET_TAGS = (); }; };
 		AD87E9AB1BCCF56000AF5C11 /* Couriers.m in Sources */ = {isa = PBXBuildFile; fileRef = AD87E9A91BCCF56000AF5C11 /* Couriers.m */; settings = {ASSET_TAGS = (); }; };
@@ -99,6 +100,8 @@
 		AD2A24971BD0CFBD00E0BC31 /* ParserResponseOrders.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ParserResponseOrders.m; sourceTree = "<group>"; };
 		AD2A24991BD0D4F100E0BC31 /* ParseDate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParseDate.h; sourceTree = "<group>"; };
 		AD2A249A1BD0D4F100E0BC31 /* ParseDate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ParseDate.m; sourceTree = "<group>"; };
+		AD2A24A21BD1327A00E0BC31 /* MyOrdersView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyOrdersView.h; sourceTree = "<group>"; };
+		AD2A24A31BD1327A00E0BC31 /* MyOrdersView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyOrdersView.m; sourceTree = "<group>"; };
 		AD87E9A41BCCF4AB00AF5C11 /* UsersModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = UsersModel.xcdatamodel; sourceTree = "<group>"; };
 		AD87E9A61BCCF56000AF5C11 /* Couriers+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "Couriers+CoreDataProperties.h"; path = "../Couriers+CoreDataProperties.h"; sourceTree = "<group>"; };
 		AD87E9A71BCCF56000AF5C11 /* Couriers+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "Couriers+CoreDataProperties.m"; path = "../Couriers+CoreDataProperties.m"; sourceTree = "<group>"; };
@@ -180,6 +183,8 @@
 				7713A3201BD0054F00F14506 /* basket.png */,
 				778D88AB1BCEEC84007E1F51 /* ScoreboardOrdersView.h */,
 				778D88AC1BCEEC84007E1F51 /* ScoreboardOrdersView.m */,
+				AD2A24A21BD1327A00E0BC31 /* MyOrdersView.h */,
+				AD2A24A31BD1327A00E0BC31 /* MyOrdersView.m */,
 				77FAA9B21BCF9A3A00349A05 /* LabelsTableViewCall.h */,
 				77FAA9B31BCF9A3A00349A05 /* LabelsTableViewCall.m */,
 			);
@@ -533,6 +538,7 @@
 				AD87E9AF1BCCF59800AF5C11 /* CouriersDbClass.m in Sources */,
 				779C5AA51BCAFD4600F4F31D /* main.m in Sources */,
 				AD2A24981BD0CFBD00E0BC31 /* ParserResponseOrders.m in Sources */,
+				AD2A24A41BD1327A00E0BC31 /* MyOrdersView.m in Sources */,
 				AD2A249B1BD0D4F100E0BC31 /* ParseDate.m in Sources */,
 				77FAA9B41BCF9A3A00349A05 /* LabelsTableViewCall.m in Sources */,
 				AD87E9C01BCD924600AF5C11 /* SingleTone.m in Sources */,
