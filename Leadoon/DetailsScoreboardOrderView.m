@@ -12,6 +12,11 @@
 #import "MapViewOrder.h"
 #import "SettingsView.h"
 
+#import "APIClass.h"
+#import "ParserOrder.h"
+#import "ParserResponseOrder.h"
+#import "ParseDate.h"
+
 @interface DetailsScoreboardOrderView ()
 
 @property (strong, nonatomic) UIButton * buttonAssigned;
@@ -24,8 +29,10 @@
 @property (weak, nonatomic) IBOutlet UIButton *buttonSettingDetailOrderView; //Кнопка настроек
 
 
+@property (strong, nonatomic) NSArray* arrayResponse; //Тестовый массив списка товаров
 
 @property (assign, nonatomic) CGFloat heightAllItems; //Высота всех товаров
+
 @property (strong, nonatomic) NSArray* testArrayName; //Тестовый массив списка товаров
 @property (strong, nonatomic) NSArray* testArrayNumber; //Тестовый массив колличестви товаров
 @property (strong, nonatomic) NSArray* testArrayCost; //Тестовый массив списка стоимости товаров
@@ -37,7 +44,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
+    self.arrayResponse = [NSArray array];
+   
     self.testArrayName = [NSArray arrayWithObjects:@"Мышь оптическая USB", @"Коврик с подогревом", @"Тестовое оборудование", @"Мышь оптическая USB", @"Коврик с подогревом", @"Тестовое оборудование", @"Мышь оптическая USB", @"Коврик с подогревом", @"Тестовое оборудование", @"Мышь оптическая USB", @"Коврик с подогревом", @"Тестовое оборудование", nil];
     self.testArrayNumber = [NSArray arrayWithObjects:@"1 шт", @"2 шт", @"3 шт", @"1 шт", @"2 шт", @"3 шт", @"1 шт", @"2 шт", @"3 шт", @"1 шт", @"2 шт", @"3 шт", nil];
     self.testArrayCost = [NSArray arrayWithObjects:@"650 руб", @"400 руб", @"500 руб", @"650 руб", @"400 руб", @"500 руб", @"650 руб", @"400 руб", @"500 руб", @"650 руб", @"400 руб", @"500 руб", nil];
@@ -63,24 +71,62 @@
 //    self.mainScrollViewOrder.bounces = NO; //Отключения оттягивани
 
 #pragma marc - constructorScrollView
-
+    //Зарос к API
+    [self getApiOrder:^{
+        ParserOrder * parser = [self.arrayResponse objectAtIndex:0];
+        NSLog(@"%@",parser.delivery_date);
+    
     //Формирование заказа----------------------------------------------
     UILabel* labelWithFormation = [[UILabel alloc] initWithFrame:CGRectMake(210, 10, 120, 12)];
-    labelWithFormation.text = @"Формируется...";
+        //Статус заказа
+        if([parser.status integerValue] == 40){
+            labelWithFormation.text = @"Формируется...";
+            
+        }else{
+            labelWithFormation.text = @"Сформирован";
+        }
+        //
+    
     labelWithFormation.font = [UIFont fontWithName:@"Helvetica-Bold" size:12];
     labelWithFormation.textColor = [UIColor colorWithHexString:@"2c6530"];
     [self.mainScrollViewOrder addSubview:labelWithFormation];
-
-    //Дней осталось---------------------------------------------------
-    UILabel* labelDays = [[UILabel alloc] initWithFrame:CGRectMake(40, 20, 78, 13)];
-    labelDays.text = @"Завтра";
+        
+        //Дней осталось---------------------------------------------------
+        UILabel* labelDays = [[UILabel alloc] initWithFrame:CGRectMake(40, 20, 78, 13)];
+        ParseDate * parseDate = [[ParseDate alloc] init];
+        //Изменения даты
+        if([parser.delivery_date isEqual:[parseDate dateFormatToDay]]){
+            labelDays.text = @"Cегодня";
+        }else if([parser.delivery_date isEqual:[parseDate dateFormatTomorow]]){
+            
+            labelDays.text = @"Завтра";
+            
+        }else{
+            labelDays.text = parser.delivery_date;
+        }
+        //
+        
+//    labelDays.text = @"Завтра";
     labelDays.font = [UIFont fontWithName:@"Helvetica-Bold" size:12];
     labelDays.textColor = [UIColor blackColor];
     [self.mainScrollViewOrder addSubview:labelDays];
 
     //Временной интервал-----------------------------------------------
-    UILabel* labelTimeInterval = [[UILabel alloc] initWithFrame:CGRectMake(85, 20, 100, 12)];
-    labelTimeInterval.text = @"17:00 - 19:00";
+    UILabel* labelTimeInterval = [[UILabel alloc] initWithFrame:CGRectMake(95, 20, 100, 12)];
+        //Обрезаем последние :00
+        parser.delivery_time_from = [parser.delivery_time_from substringToIndex:[parser.delivery_time_from length] - 3];
+        parser.delivery_time_to = [parser.delivery_time_to substringToIndex:[parser.delivery_time_to length] - 3];
+        //
+        
+        //Вывод диапазона времени доставки
+        NSString * resultDeliveryTime;
+        if(!parser.delivery_time_to){
+            resultDeliveryTime = [NSString stringWithFormat:@"%@",parser.delivery_time_from];
+        }else{
+            resultDeliveryTime = [NSString stringWithFormat:@"%@ - %@",parser.delivery_time_from,parser.delivery_time_to];
+        }
+
+    labelTimeInterval.text = resultDeliveryTime;
     labelTimeInterval.font = [UIFont fontWithName:@"Helvetica-Bold" size:12];
     labelTimeInterval.textColor = [UIColor blackColor];
     [self.mainScrollViewOrder addSubview:labelTimeInterval];
@@ -94,47 +140,48 @@
 
     //Оставшееся время выполнения заказа--------------------------------
     UILabel* labelTime = [[UILabel alloc] initWithFrame:CGRectMake(100, 40, 100, 12)];
-    labelTime.text = @"34 чю 23 мин.";
+    labelTime.text = parser.delivery_string;
     labelTime.font = [UIFont fontWithName:@"HelveticaNeue" size:12];
     labelTime.alpha = 0.5f;
     [self.mainScrollViewOrder addSubview:labelTime];
 
     //Название метро----------------------------------------------------
     UILabel* labelMetro = [[UILabel alloc] initWithFrame:CGRectMake(40, 75, 100, 20)];
-    labelMetro.text = @"Таганская";
+    labelMetro.text = [self metroStationNameByID:parser.metro_id];
     labelMetro.font = [UIFont fontWithName:@"Helvetica-Bold" size:12];
     [self.mainScrollViewOrder addSubview:labelMetro];
 
     //Цвет ветки--------------------------------------------------------
-    UIView* colorLine = [[UIView alloc] initWithFrame:CGRectMake(115, 78, 14, 14)];
-    colorLine.backgroundColor = [UIColor colorWithHexString:@"980ea1"];
+    UIView* colorLine = [[UIView alloc] initWithFrame:CGRectMake(140, 78, 14, 14)];
+    colorLine.backgroundColor = [UIColor colorWithHexString:[self roundMetroColor:parser.metro_line_id]];
     colorLine.layer.borderColor = [UIColor blackColor].CGColor;
     colorLine.layer.borderWidth = 1.5f;
     colorLine.layer.cornerRadius = 7;
     [self.mainScrollViewOrder addSubview:colorLine];
 
     //Улица заказщика---------------------------------------------------
-    UILabel* labelStreetСustomer = [[UILabel alloc] initWithFrame:CGRectMake(40, 110, 200, 20)];
-    labelStreetСustomer.text = @"г. Химки, ул. Попова 19";
+    UILabel* labelStreetСustomer = [[UILabel alloc] initWithFrame:CGRectMake(40, 110, 240, 20)];
+    labelStreetСustomer.text = parser.address;
     labelStreetСustomer.font = [UIFont fontWithName:@"Helvetica-Bold" size:12];
     [self.mainScrollViewOrder addSubview:labelStreetСustomer];
 
     //Квартира, подъезд, домовон----------------------------------------
     UILabel* labelApartmentAndIntercom = [[UILabel alloc] initWithFrame:CGRectMake(40, 130, 250, 20)];
-    labelApartmentAndIntercom.text = @"кв. 36, подъезд 2, домофон 28K49039";
+        NSString * resultAdress = [NSString stringWithFormat:@"кв. %@, подъезд %@, домофон %@",parser.flat,parser.porch,parser.intercom];
+    labelApartmentAndIntercom.text = resultAdress;
     labelApartmentAndIntercom.font = [UIFont fontWithName:@"HelveticaNeue" size:12];
     labelApartmentAndIntercom.alpha = 0.5f;
     [self.mainScrollViewOrder addSubview:labelApartmentAndIntercom];
 
     //Имя заказщика---------------------------------------------------
     UILabel* labelNameСustomer = [[UILabel alloc] initWithFrame:CGRectMake(40, 165, 200, 20)];
-    labelNameСustomer.text = @"Константин Воронцов";
+    labelNameСustomer.text = parser.customer_name;
     labelNameСustomer.font = [UIFont fontWithName:@"Helvetica-Bold" size:12];
     [self.mainScrollViewOrder addSubview:labelNameСustomer];
 
     //Комментарии заказчика-------------------------------------------
     UITextView* textFieldComments = [[UITextView alloc] initWithFrame:CGRectMake(35, 183, 180, 90)];
-    textFieldComments.text = @"Прошу курьеру позвонить за час так как меня может не быть на месте.....";
+    textFieldComments.text = parser.comment;
     textFieldComments.editable = NO;
     textFieldComments.scrollEnabled = NO;
     textFieldComments.font = [UIFont fontWithName:@"HelveticaNeue-Italic" size:12];
@@ -149,20 +196,28 @@
     [self.mainScrollViewOrder addSubview:labelHeaderItems];
 
     //Список товаров---------------------------------------------------
-    for (int i = 0; i < self.testArrayName.count; i++) {
+        NSArray * parseItems = parser.items;
 
-        UILabel* labelNameItems = [[UILabel alloc] initWithFrame:CGRectMake(15, 300 + 20 * i, 150, 15)];
-        labelNameItems.text = [self.testArrayName objectAtIndex:i];
+    for (int i = 0; i < parseItems.count; i++) {
+        NSDictionary * dict = [parseItems objectAtIndex:i];
+        
+        
+        UILabel* labelNameItems = [[UILabel alloc] initWithFrame:CGRectMake(15, 300 + 20 * i, 160, 50)];
+        labelNameItems.numberOfLines = 0;
+        labelNameItems.lineBreakMode= NSLineBreakByWordWrapping;
+        labelNameItems.text = [dict objectForKey:@"name"];
         labelNameItems.font = [UIFont fontWithName:@"HelveticaNeue" size:12];
         [self.mainScrollViewOrder addSubview:labelNameItems];
 
         UILabel* labelNumberItems = [[UILabel alloc] initWithFrame:CGRectMake(200, 300 + 20 * i, 150, 15)];
-        labelNumberItems.text = [self.testArrayNumber objectAtIndex:i];
+        NSString * resultCount = [NSString stringWithFormat:@"%@ шт.",[dict objectForKey:@"count"]];
+        labelNumberItems.text = resultCount;
         labelNumberItems.font = [UIFont fontWithName:@"HelveticaNeue" size:12];
         [self.mainScrollViewOrder addSubview:labelNumberItems];
 
         UILabel* labelCostItems = [[UILabel alloc] initWithFrame:CGRectMake(240, 300 + 20 * i, 150, 15)];
-        labelCostItems.text = [self.testArrayCost objectAtIndex:i];
+        NSString * resultPrice = [NSString stringWithFormat:@"%@ руб.",[dict objectForKey:@"price"]];
+        labelCostItems.text = resultPrice;
         labelCostItems.font = [UIFont fontWithName:@"HelveticaNeue" size:12];
         [self.mainScrollViewOrder addSubview:labelCostItems];
     }
@@ -171,13 +226,13 @@
     UILabel* labelItensCostNotActive = [[UILabel alloc] initWithFrame:CGRectMake(80, 40 + self.heightAllItems, 150, 15)];
     labelItensCostNotActive.text = @"Товаров на сумму:";
     labelItensCostNotActive.font = [UIFont fontWithName:@"HelveticaNeue" size:12];
-    labelItensCostNotActive.textAlignment = UITextAlignmentRight;
+    labelItensCostNotActive.textAlignment = NSTextAlignmentRight;
     labelItensCostNotActive.alpha = 0.5f;
     [self.mainScrollViewOrder addSubview:labelItensCostNotActive];
 
     //Изменяемый label Товаров на сумму---------------------------------
     UILabel* labelItensCost = [[UILabel alloc] initWithFrame:CGRectMake(240, 40 + self.heightAllItems, 60, 15)];
-    labelItensCost.text = @"1050";
+    labelItensCost.text = parser.order_summ;
     labelItensCost.font = [UIFont fontWithName:@"Helvetica-Bold" size:12];
     [self.mainScrollViewOrder addSubview:labelItensCost];
 
@@ -185,13 +240,13 @@
     UILabel* labelDiscountNotActive = [[UILabel alloc] initWithFrame:CGRectMake(80, 60 + self.heightAllItems, 150, 15)];
     labelDiscountNotActive.text = @"Скидка:";
     labelDiscountNotActive.font = [UIFont fontWithName:@"HelveticaNeue" size:12];
-    labelDiscountNotActive.textAlignment = UITextAlignmentRight;
+    labelDiscountNotActive.textAlignment = NSTextAlignmentRight;
     labelDiscountNotActive.alpha = 0.5f;
     [self.mainScrollViewOrder addSubview:labelDiscountNotActive];
 
     //Скидка изменяемый--------------------------------------------------
     UILabel* labelDiscount = [[UILabel alloc] initWithFrame:CGRectMake(240, 60 + self.heightAllItems, 60, 15)];
-    labelDiscount.text = @"100";
+    labelDiscount.text = parser.discount;
     labelDiscount.font = [UIFont fontWithName:@"Helvetica-Bold" size:12];
     [self.mainScrollViewOrder addSubview:labelDiscount];
 
@@ -199,13 +254,13 @@
     UILabel* labelDeliveryNotActive = [[UILabel alloc] initWithFrame:CGRectMake(80, 80 + self.heightAllItems, 150, 15)];
     labelDeliveryNotActive.text = @"Доставка:";
     labelDeliveryNotActive.font = [UIFont fontWithName:@"HelveticaNeue" size:12];
-    labelDeliveryNotActive.textAlignment = UITextAlignmentRight;
+    labelDeliveryNotActive.textAlignment = NSTextAlignmentRight ;
     labelDeliveryNotActive.alpha = 0.5f;
     [self.mainScrollViewOrder addSubview:labelDeliveryNotActive];
 
     //Доставка изменяемый--------------------------------------------------
     UILabel* labelDelivery = [[UILabel alloc] initWithFrame:CGRectMake(240, 80 + self.heightAllItems, 60, 15)];
-    labelDelivery.text = @"250";
+    labelDelivery.text = parser.shipping;
     labelDelivery.font = [UIFont fontWithName:@"Helvetica-Bold" size:12];
     [self.mainScrollViewOrder addSubview:labelDelivery];
 
@@ -213,13 +268,13 @@
     UILabel* labelInTotalNotActive = [[UILabel alloc] initWithFrame:CGRectMake(80, 100 + self.heightAllItems, 150, 20)];
     labelInTotalNotActive.text = @"Итого:";
     labelInTotalNotActive.font = [UIFont fontWithName:@"Helvetica-Bold" size:14];
-    labelInTotalNotActive.textAlignment = UITextAlignmentRight;
+    labelInTotalNotActive.textAlignment = NSTextAlignmentRight;
     labelInTotalNotActive.textColor = [UIColor colorWithHexString:@"980ea1"];
     [self.mainScrollViewOrder addSubview:labelInTotalNotActive];
 
     //Итого изменяемый-----------------------------------------------------
     UILabel* labelInTotal = [[UILabel alloc] initWithFrame:CGRectMake(240, 100 + self.heightAllItems, 80, 20)];
-    labelInTotal.text = @"1200";
+    labelInTotal.text = parser.amount;
     labelInTotal.font = [UIFont fontWithName:@"Helvetica-Bold" size:14];
     labelInTotal.textColor = [UIColor colorWithHexString:@"980ea1"];
     [self.mainScrollViewOrder addSubview:labelInTotal];
@@ -293,7 +348,629 @@
     [self.buttonSettingDetailOrderView addTarget:self
                                           action:@selector(actionButtonSettingDetailOrderView)
                                 forControlEvents:UIControlEventTouchUpInside];
+        
+        }];
 }
+
+//Тащим заказы с сервера
+-(void) getApiOrder: (void (^)(void))block{
+    //Передаваемые параметры
+    NSLog(@"%@",self.orderID);
+    NSDictionary * params = [[NSDictionary alloc] initWithObjectsAndKeys:
+                             self.orderID,@"id",
+                             nil];
+    
+    APIClass * api =[APIClass new]; //создаем API
+    [api getDataFromServerWithParams:params method:@"action=load_order" complitionBlock:^(id response) {
+        
+        ParserResponseOrder * parsingResponce =[[ParserResponseOrder alloc] init];
+        NSLog(@"%@",response);
+        self.arrayResponse = [parsingResponce parsing:response];
+        
+        block();
+    }];
+    
+}
+
+//Цвет ветки метро-------------------------------------------------
+- (NSString*) roundMetroColor:(NSString *) lineID{
+    NSString * stationColor;
+    switch ([lineID integerValue]) {
+        case 1:
+            stationColor = @"ff0000";
+            break;
+        case 2:
+            stationColor = @"007d35";
+            break;
+        case 3:
+            stationColor = @"00278d";
+            break;
+        case 4:
+            stationColor = @"008ec2";
+            break;
+        case 5:
+            stationColor = @"643500";
+            break;
+        case 6:
+            stationColor = @"ff9a00";
+            break;
+        case 7:
+            stationColor = @"cb0181";
+            break;
+        case 8:
+            stationColor = @"ffda00";
+            break;
+        case 9:
+            stationColor = @"9f9f9f";
+            break;
+        case 10:
+            stationColor = @"8fd600";
+            break;
+        case 11:
+            stationColor = @"007f9a";
+            break;
+        case 12:
+            stationColor = @"76daea";
+            break;
+            
+        default:
+            break;
+    }
+
+    
+    return stationColor;
+}
+
+//Имя станции метро--------------------------------------
+- (NSString*)metroStationNameByID:(NSString*)stationID
+{
+    NSString * stationName;
+    
+    switch ([stationID integerValue])
+    {
+        case 1:
+            stationName = @"Авиамоторная";
+            break;
+        case 2:
+            stationName = @"Автозаводская";
+            break;
+        case 3:
+            stationName = @"Академическая";
+            break;
+        case 4:
+            stationName = @"Александровский Сад";
+            break;
+        case 5:
+            stationName = @"Алексеевская";
+            break;
+        case 6:
+            stationName = @"Алтуфьево";
+            break;
+        case 7:
+            stationName = @"Аннино";
+            break;
+        case 8:
+            stationName = @"Арбатская (ар.)";
+            break;
+        case 9:
+            stationName = @"Арбатская (фил.)";
+            break;
+        case 10:
+            stationName = @"Аэропорт";
+            break;
+        case 11:
+            stationName = @"Бабушкинская";
+            break;
+        case 12:
+            stationName = @"Багратионовская";
+            break;
+        case 13:
+            stationName = @"Баррикадная";
+            break;
+        case 14:
+            stationName = @"Бауманская";
+            break;
+        case 15:
+            stationName = @"Беговая";
+            break;
+        case 16:
+            stationName = @"Белорусская";
+            break;
+        case 17:
+            stationName = @"Беляево";
+            break;
+        case 18:
+            stationName = @"Бибирево";
+            break;
+        case 19:
+            stationName = @"Библиотека имени Ленина";
+            break;
+        case 21:
+            stationName = @"Боровицкая";
+            break;
+        case 22:
+            stationName = @"Ботанический Сад";
+            break;
+        case 23:
+            stationName = @"Братиславская";
+            break;
+        case 24:
+            stationName = @"Бульвар Дмитрия Донского";
+            break;
+        case 25:
+            stationName = @"Бунинская аллея";
+            break;
+        case 26:
+            stationName = @"Варшавская";
+            break;
+        case 27:
+            stationName = @"ВДНХ";
+            break;
+        case 28:
+            stationName = @"Владыкино";
+            break;
+        case 29:
+            stationName = @"Водный Стадион";
+            break;
+        case 30:
+            stationName = @"Войковская";
+            break;
+        case 31:
+            stationName = @"Волгоградский Проспект";
+            break;
+        case 32:
+            stationName = @"Волжская";
+            break;
+        case 33:
+            stationName = @"Волоколамская (стр.)";
+            break;
+        case 34:
+            stationName = @"Воробьевы горы";
+            break;
+        case 35:
+            stationName = @"Выхино";
+            break;
+        case 36:
+            stationName = @"Горчакова ул.";
+            break;
+        case 38:
+            stationName = @"Динамо";
+            break;
+        case 39:
+            stationName = @"Дмитровская";
+            break;
+        case 40:
+            stationName = @"Добрынинская";
+            break;
+        case 41:
+            stationName = @"Домодедовская";
+            break;
+        case 42:
+            stationName = @"Дубровка";
+            break;
+        case 43:
+            stationName = @"Измайловская";
+            break;
+        case 44:
+            stationName = @"Калужская";
+            break;
+        case 45:
+            stationName = @"Кантемировская";
+            break;
+        case 46:
+            stationName = @"Каховская";
+            break;
+        case 47:
+            stationName = @"Каширская";
+            break;
+        case 48:
+            stationName = @"Киевская";
+            break;
+        case 49:
+            stationName = @"Китай-Город";
+            break;
+        case 50:
+            stationName = @"Кожуховская";
+            break;
+        case 51:
+            stationName = @"Коломенская";
+            break;
+        case 52:
+            stationName = @"Комсомольская";
+            break;
+        case 53:
+            stationName = @"Коньково";
+            break;
+        case 54:
+            stationName = @"Красногвардейская";
+            break;
+        case 55:
+            stationName = @"Краснопресненская";
+            break;
+        case 56:
+            stationName = @"Красносельская";
+            break;
+        case 57:
+            stationName = @"Красные Ворота";
+            break;
+        case 58:
+            stationName = @"Крестьянская застава";
+            break;
+        case 59:
+            stationName = @"Кропоткинская";
+            break;
+        case 60:
+            stationName = @"Крылатское";
+            break;
+        case 61:
+            stationName = @"Кузнецкий Мост";
+            break;
+        case 62:
+            stationName = @"Кузьминки";
+            break;
+        case 63:
+            stationName = @"Кунцевская";
+            break;
+        case 64:
+            stationName = @"Курская";
+            break;
+        case 65:
+            stationName = @"Кутузовская";
+            break;
+        case 66:
+            stationName = @"Ленинский Проспект";
+            break;
+        case 67:
+            stationName = @"Лубянка";
+            break;
+        case 68:
+            stationName = @"Люблино";
+            break;
+        case 69:
+            stationName = @"Марксистская";
+            break;
+        case 70:
+            stationName = @"Марьино";
+            break;
+        case 71:
+            stationName = @"Маяковская";
+            break;
+        case 72:
+            stationName = @"Медведково";
+            break;
+        case 73:
+            stationName = @"Международная";
+            break;
+        case 74:
+            stationName = @"Менделеевская";
+            break;
+        case 75:
+            stationName = @"Митино (стр.)";
+            break;
+        case 76:
+            stationName = @"Молодежная";
+            break;
+        case 77:
+            stationName = @"Нагатинская";
+            break;
+        case 78:
+            stationName = @"Нагорная";
+            break;
+        case 79:
+            stationName = @"Нахимовский Проспект";
+            break;
+        case 80:
+            stationName = @"Новогиреево";
+            break;
+        case 81:
+            stationName = @"Новокузнецкая";
+            break;
+        case 82:
+            stationName = @"Новослободская";
+            break;
+        case 83:
+            stationName = @"Новые Черёмушки";
+            break;
+        case 84:
+            stationName = @"Октябрьская";
+            break;
+        case 85:
+            stationName = @"Октябрьское Поле";
+            break;
+        case 86:
+            stationName = @"Орехово";
+            break;
+        case 87:
+            stationName = @"Отрадное";
+            break;
+        case 88:
+            stationName = @"Охотный Ряд";
+            break;
+        case 89:
+            stationName = @"Павелецкая";
+            break;
+        case 90:
+            stationName = @"Парк Культуры";
+            break;
+        case 91:
+            stationName = @"Парк Победы";
+            break;
+        case 92:
+            stationName = @"Партизанская";
+            break;
+        case 93:
+            stationName = @"Первомайская";
+            break;
+        case 94:
+            stationName = @"Перово";
+            break;
+        case 95:
+            stationName = @"Петровско-Разумовская";
+            break;
+        case 96:
+            stationName = @"Печатники";
+            break;
+        case 97:
+            stationName = @"Пионерская";
+            break;
+        case 98:
+            stationName = @"Планерная";
+            break;
+        case 99:
+            stationName = @"Площадь Ильича";
+            break;
+        case 100:
+            stationName = @"Площадь Революции";
+            break;
+        case 101:
+            stationName = @"Полежаевская";
+            break;
+        case 102:
+            stationName = @"Полянка";
+            break;
+        case 103:
+            stationName = @"Пражская";
+            break;
+        case 104:
+            stationName = @"Преображенская Площадь";
+            break;
+        case 105:
+            stationName = @"Пролетарская";
+            break;
+        case 106:
+            stationName = @"Проспект Вернадского";
+            break;
+        case 107:
+            stationName = @"Проспект Мира";
+            break;
+        case 108:
+            stationName = @"Профсоюзная";
+            break;
+        case 109:
+            stationName = @"Пушкинская";
+            break;
+        case 110:
+            stationName = @"Речной Вокзал";
+            break;
+        case 111:
+            stationName = @"Рижская";
+            break;
+        case 112:
+            stationName = @"Римская";
+            break;
+        case 113:
+            stationName = @"Рязанский Проспект";
+            break;
+        case 114:
+            stationName = @"Савеловская";
+            break;
+        case 115:
+            stationName = @"Свиблово";
+            break;
+        case 116:
+            stationName = @"Севастопольская";
+            break;
+        case 117:
+            stationName = @"Семеновская";
+            break;
+        case 118:
+            stationName = @"Серпуховская";
+            break;
+        case 119:
+            stationName = @"Скобелевская";
+            break;
+        case 120:
+            stationName = @"Смоленская (ар.)";
+            break;
+        case 121:
+            stationName = @"Смоленская (фил.)";
+            break;
+        case 122:
+            stationName = @"Сокол";
+            break;
+        case 123:
+            stationName = @"Сокольники";
+            break;
+        case 124:
+            stationName = @"Спортивная";
+            break;
+        case 125:
+            stationName = @"Старокачаловская";
+            break;
+        case 126:
+            stationName = @"Строгино (стр.)";
+            break;
+        case 127:
+            stationName = @"Студенческая";
+            break;
+        case 128:
+            stationName = @"Сухаревская";
+            break;
+        case 129:
+            stationName = @"Сходненская";
+            break;
+        case 130:
+            stationName = @"Таганская";
+            break;
+        case 131:
+            stationName = @"Тверская";
+            break;
+        case 132:
+            stationName = @"Театральная";
+            break;
+        case 133:
+            stationName = @"Текстильщики";
+            break;
+        case 134:
+            stationName = @"Теплый Стан";
+            break;
+        case 135:
+            stationName = @"Тимирязевская";
+            break;
+        case 136:
+            stationName = @"Третьяковская";
+            break;
+        case 137:
+            stationName = @"Тульская";
+            break;
+        case 138:
+            stationName = @"Тургеневская";
+            break;
+        case 139:
+            stationName = @"Тушинская";
+            break;
+        case 140:
+            stationName = @"Улица 1905 года";
+            break;
+        case 141:
+            stationName = @"Улица Академика Янгеля";
+            break;
+        case 142:
+            stationName = @"Улица Подбельского";
+            break;
+        case 143:
+            stationName = @"Университет";
+            break;
+        case 144:
+            stationName = @"Ушакова Адмирала";
+            break;
+        case 145:
+            stationName = @"Филевский Парк";
+            break;
+        case 146:
+            stationName = @"Фили";
+            break;
+        case 147:
+            stationName = @"Фрунзенская";
+            break;
+        case 148:
+            stationName = @"Царицыно";
+            break;
+        case 149:
+            stationName = @"Цветной Бульвар";
+            break;
+        case 150:
+            stationName = @"Черкизовская";
+            break;
+        case 151:
+            stationName = @"Чертановская";
+            break;
+        case 152:
+            stationName = @"Чеховская";
+            break;
+        case 153:
+            stationName = @"Чистые Пруды";
+            break;
+        case 154:
+            stationName = @"Чкаловская";
+            break;
+        case 155:
+            stationName = @"Шаболовская";
+            break;
+        case 156:
+            stationName = @"Шоссе Энтузиастов";
+            break;
+        case 157:
+            stationName = @"Щелковская";
+            break;
+        case 158:
+            stationName = @"Щукинская";
+            break;
+        case 159:
+            stationName = @"Электрозаводская";
+            break;
+        case 160:
+            stationName = @"Юго-Западная";
+            break;
+        case 161:
+            stationName = @"Южная";
+            break;
+        case 162:
+            stationName = @"Ясенево";
+            break;
+        case 225:
+            stationName = @"Трубная";
+            break;
+        case 226:
+            stationName = @"Ховрино";
+            break;
+        case 227:
+            stationName = @"Беломорская ";
+            break;
+        case 228:
+            stationName = @"Алма-Атинская";
+            break;
+        case 229:
+            stationName = @"Славянский бульвар";
+            break;
+        case 230:
+            stationName = @"Мякинино";
+            break;
+        case 231:
+            stationName = @"Пятницкое шоссе";
+            break;
+        case 232:
+            stationName = @"Выставочная";
+            break;
+        case 233:
+            stationName = @"Новоясеневская ";
+            break;
+        case 234:
+            stationName = @"Лермонтовский проспект";
+            break;
+        case 235:
+            stationName = @"Жулебино ";
+            break;
+        case 236:
+            stationName = @"Новокосино";
+            break;
+        case 237:
+            stationName = @"Марьина роща";
+            break;
+        case 238:
+            stationName = @"Достоевская";
+            break;
+        case 239:
+            stationName = @"Сретенский бульвар";
+            break;
+        case 240:
+            stationName = @"Борисово";
+            break;
+        case 241:
+            stationName = @"Шипиловская";
+            break;
+        case 242:
+            stationName = @"Зябликово";
+            break;
+        default:
+            NSLog (@"Integer out of range");
+            break;
+    }
+    
+    
+    return stationName;
+}
+
 
 - (void)didReceiveMemoryWarning
 {

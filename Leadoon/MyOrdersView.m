@@ -1,16 +1,15 @@
 //
-//  ScoreboardOrdersView.m
+//  MyOrdersView.m
 //  Leadoon
 //
-//  Created by Viktor on 14.10.15.
+//  Created by Кирилл Ковыршин on 16.10.15.
 //  Copyright © 2015 Viktor. All rights reserved.
 //
 
-#import "ScoreboardOrdersView.h"
+#import "MyOrdersView.h"
 #import "Animation.h"
 #import "SettingsView.h"
 #import "LabelsTableViewCall.h"
-#import "DetailsScoreboardOrderView.h"
 
 #import "SingleTone.h"
 
@@ -20,11 +19,8 @@
 #import "ParserResponseOrders.h"
 #import "ParseDate.h"
 
+@interface MyOrdersView () <UITableViewDataSource, UITableViewDelegate>
 
-
-
-
-@interface ScoreboardOrdersView () <UITableViewDataSource, UITableViewDelegate>
 @property (weak, nonatomic) IBOutlet UIView *topBarScoreboardsView; //Верхний бар Табло заказов
 @property (weak, nonatomic) IBOutlet UILabel *labelTopBarScoreboardOrdersView; //Главный заголовок табло заказов
 @property (weak, nonatomic) IBOutlet UIButton *buttonSettingsScoreboardOrdersView; //Кнопка перехода в "Настройки"
@@ -43,7 +39,7 @@
 
 @end
 
-@implementation ScoreboardOrdersView
+@implementation MyOrdersView
 
 - (void)viewDidLoad
 {
@@ -70,16 +66,16 @@
     //Параметры buttonSettingsScoreboardOrdersView----------------------------------
     self.buttonSettingsScoreboardOrdersView.backgroundColor = [UIColor clearColor];
     [self.buttonSettingsScoreboardOrdersView addTarget:self action:@selector(tapButtonSettingsScoreboardOrdersView)
-                                  forControlEvents:UIControlEventTouchDown];
+                                      forControlEvents:UIControlEventTouchDown];
     [self.buttonSettingsScoreboardOrdersView addTarget:self action:@selector(actionButtonSettingsScoreboardOrdersView)
-                                  forControlEvents:UIControlEventTouchUpInside];
+                                      forControlEvents:UIControlEventTouchUpInside];
     
     //Параметры buttonBackScoreboardOrdersView---------------------------------------
     self.buttonBackScoreboardOrdersView.backgroundColor = [UIColor clearColor];
     [self.buttonBackScoreboardOrdersView addTarget:self action:@selector(tapButtonBackScoreboardOrdersView)
-                                              forControlEvents:UIControlEventTouchDown];
+                                  forControlEvents:UIControlEventTouchDown];
     [self.buttonBackScoreboardOrdersView addTarget:self action:@selector(actionButtonBackScoreboardOrdersView)
-                                              forControlEvents:UIControlEventTouchUpInside];
+                                  forControlEvents:UIControlEventTouchUpInside];
     
     //Параметры кнопки buttonOnMap----------------------------------------------------
     self.buttonOnMap.layer.cornerRadius = 10.f;
@@ -89,7 +85,7 @@
     
     //API методы
     [self getApiOrders];
-
+    
 }
 
 - (void)didReceiveMemoryWarning
@@ -106,13 +102,14 @@
     ParserCourier * parse = [self.arrayResponce objectAtIndex:0];
     NSDictionary * params = [[NSDictionary alloc] initWithObjectsAndKeys:
                              parse.service_id,@"service_id",
+                             parse.courierId,@"courier_id",
                              nil];
     
     APIClass * api =[APIClass new]; //создаем API
-    [api getDataFromServerWithParams:params method:@"action=load_orders" complitionBlock:^(id response) {
+    [api getDataFromServerWithParams:params method:@"action=load_my_orders" complitionBlock:^(id response) {
         
         ParserResponseOrders * parsingResponce =[[ParserResponseOrders alloc] init];
-        
+        NSLog(@"%@",response);
         [parsingResponce parsing:response andArray:self.arrayOrders andBlock:^{
             [self reloadTableViewWhenNewEvent];
         }];
@@ -203,11 +200,11 @@
     
     //Изменения даты
     if([parser.delivery_date isEqual:[parseDate dateFormatToDay]]){
-         [cell addSubview:[typeLabel labelDaysLeft:@"Сегодня:"]];
+        [cell addSubview:[typeLabel labelDaysLeft:@"Сегодня:"]];
     }else if([parser.delivery_date isEqual:[parseDate dateFormatTomorow]]){
         
-         [cell addSubview:[typeLabel labelDaysLeft:@"Завтра:"]];
-
+        [cell addSubview:[typeLabel labelDaysLeft:@"Завтра:"]];
+        
     }else{
         [cell addSubview:[typeLabel labelDaysLeft:parser.delivery_date]];
     }
@@ -221,9 +218,9 @@
     //Вывод диапазона времени доставки
     NSString * resultDeliveryTime;
     if(!parser.delivery_time_to){
-         resultDeliveryTime = [NSString stringWithFormat:@"%@",parser.delivery_time_from];
+        resultDeliveryTime = [NSString stringWithFormat:@"%@",parser.delivery_time_from];
     }else{
-         resultDeliveryTime = [NSString stringWithFormat:@"%@ - %@",parser.delivery_time_from,parser.delivery_time_to];
+        resultDeliveryTime = [NSString stringWithFormat:@"%@ - %@",parser.delivery_time_from,parser.delivery_time_to];
     }
     
     [cell addSubview:[typeLabel labelTimeInterval:resultDeliveryTime]];
@@ -268,26 +265,13 @@
     [cell addSubview:[typeLabel labelLineLeft]];
     
     if ([self.testArray objectAtIndex:indexPath.row] == string) {
-     //
+        //
     }
     
     
     cell.backgroundColor = [UIColor clearColor];
     
     return cell;
-}
-
-#pragma mark - UITableViewDelegate
-//Анимация нажатия ячейки--------------------------------------------------------------
-- (void)tableView:(UITableView*)tableView didSelectRowAtIndexPath:(NSIndexPath*)indexPath
-{
-    
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
-
-    DetailsScoreboardOrderView* detail = [self.storyboard instantiateViewControllerWithIdentifier:@"DetailsScoreboardOrder"];
-    ParserOrders * parser =[self.arrayOrders objectAtIndex:indexPath.row];
-    detail.orderID =parser.order_id;
-    [self.navigationController pushViewController:detail animated:YES];
 }
 
 @end
