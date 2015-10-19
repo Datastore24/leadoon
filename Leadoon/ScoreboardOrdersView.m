@@ -112,7 +112,7 @@
     [api getDataFromServerWithParams:params method:@"action=load_orders" complitionBlock:^(id response) {
         
         ParserResponseOrders * parsingResponce =[[ParserResponseOrders alloc] init];
-        NSLog(@"%@",response);
+        
         [parsingResponce parsing:response andArray:self.arrayOrders andBlock:^{
             [self reloadTableViewWhenNewEvent];
         }];
@@ -285,7 +285,8 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 
     DetailsScoreboardOrderView* detail = [self.storyboard instantiateViewControllerWithIdentifier:@"DetailsScoreboardOrder"];
-    
+    ParserOrders * parser =[self.arrayOrders objectAtIndex:indexPath.row];
+    detail.orderID =parser.order_id;
     [self.navigationController pushViewController:detail animated:YES];
 }
 

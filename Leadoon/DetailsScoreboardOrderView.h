@@ -9,5 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface DetailsScoreboardOrderView : UIViewController
-
+@property (strong,nonatomic) NSString * orderID;
 @end
