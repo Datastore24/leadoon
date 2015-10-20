@@ -13,6 +13,7 @@
 #import "DetailsScoreboardOrderView.h"
 
 #import "SingleTone.h"
+#import <SVPullToRefresh/SVPullToRefresh.h>
 
 #import "APIClass.h"
 #import "ParserOrders.h"
@@ -35,7 +36,6 @@
 @property (weak, nonatomic) IBOutlet UIButton *buttonOnMap; //Кнопка отображения заказов на карте
 @property (weak, nonatomic) IBOutlet UIButton *buttonFilterScoreboardOrders; //Фильтр заказов
 
-@property (strong,nonatomic) NSMutableArray * testArray;
 @property (strong, nonatomic) NSMutableArray * arrayResponce; //Массив с данными API
 @property (strong, nonatomic) NSMutableArray * arrayOrders; //Массив с заказами
 
@@ -89,6 +89,17 @@
     
     //API методы
     [self getApiOrders];
+    
+    //Обновление
+    
+    [self.tableViewScoreboardOrders addPullToRefreshWithActionHandler:^{
+
+        [self.arrayOrders removeAllObjects];
+        [self getApiOrders];
+        [self.tableViewScoreboardOrders.pullToRefreshView stopAnimating];
+        
+    }];
+    
 
 }
 
@@ -96,6 +107,8 @@
 {
     [super didReceiveMemoryWarning];
 }
+
+
 
 
 #pragma mark - API
@@ -115,6 +128,7 @@
         
         [parsingResponce parsing:response andArray:self.arrayOrders andBlock:^{
             [self reloadTableViewWhenNewEvent];
+            
         }];
         
         
@@ -132,6 +146,10 @@
     
     self.tableViewScoreboardOrders.scrollEnabled = YES;
     
+    [self.tableViewScoreboardOrders.pullToRefreshView stopAnimating];
+    //После обновления
+ 
+    //
     //    Перезагрузка таблицы с
     //    анимацией
     
@@ -187,6 +205,11 @@
 {
     static NSString * identifier = @"Cell";
     UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:identifier forIndexPath:indexPath];
+    
+    for (UIView * view in cell.subviews) {
+        
+        [view removeFromSuperview];
+    }
     
     LabelsTableViewCall * typeLabel = [[LabelsTableViewCall alloc] init];
     NSString * string = @"Заказ";
@@ -266,10 +289,6 @@
     
     
     [cell addSubview:[typeLabel labelLineLeft]];
-    
-    if ([self.testArray objectAtIndex:indexPath.row] == string) {
-     //
-    }
     
     
     cell.backgroundColor = [UIColor clearColor];

@@ -175,8 +175,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				77E8F4271BD2D0B500D2509E /* MapKit.framework in Frameworks */,
 				776F17231BD184B20085891A /* QuartzCore.framework in Frameworks */,
+				77E8F4271BD2D0B500D2509E /* MapKit.framework in Frameworks */,
 				43CE65F39BA469C87A37D02C /* libPods-Leadoon.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

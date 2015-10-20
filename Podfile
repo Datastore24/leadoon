@@ -10,6 +10,7 @@ pod "MagicalRecord"
 pod "AFNetworking", "~> 2.0"
 pod 'Motis', '~>1.3.0'
 pod 'SDWebImage', '~>3.7'
+pod 'SVPullToRefresh'
 
 end
 
