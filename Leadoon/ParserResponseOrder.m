@@ -18,7 +18,7 @@
     
     //
     ParserOrder *parserOrder = [[ParserOrder alloc] init];
-    NSLog(@"%@",response);
+   
     if ([response isKindOfClass:[NSDictionary class]]) {
         
         [parserOrder mts_setValuesForKeysWithDictionary:response];

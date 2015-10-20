@@ -12,10 +12,17 @@
 #import "MapViewOrder.h"
 #import "SettingsView.h"
 
+#import "SingleTone.h"
+#import <SCLAlertView-Objective-C/SCLAlertView.h>
+
 #import "APIClass.h"
+#import "APIPostClass.h"
 #import "ParserOrder.h"
+#import "ParserCourier.h"
 #import "ParserResponseOrder.h"
 #import "ParseDate.h"
+
+#import "MyOrdersView.h"
 
 @interface DetailsScoreboardOrderView ()
 
@@ -30,6 +37,8 @@
 
 
 @property (strong, nonatomic) NSArray* arrayResponse; //Тестовый массив списка товаров
+
+
 
 @property (assign, nonatomic) CGFloat heightAllItems; //Высота всех товаров
 
@@ -46,16 +55,15 @@
     [super viewDidLoad];
     self.arrayResponse = [NSArray array];
    
-    self.testArrayName = [NSArray arrayWithObjects:@"Мышь оптическая USB", @"Коврик с подогревом", @"Тестовое оборудование", @"Мышь оптическая USB", @"Коврик с подогревом", @"Тестовое оборудование", @"Мышь оптическая USB", @"Коврик с подогревом", @"Тестовое оборудование", @"Мышь оптическая USB", @"Коврик с подогревом", @"Тестовое оборудование", nil];
-    self.testArrayNumber = [NSArray arrayWithObjects:@"1 шт", @"2 шт", @"3 шт", @"1 шт", @"2 шт", @"3 шт", @"1 шт", @"2 шт", @"3 шт", @"1 шт", @"2 шт", @"3 шт", nil];
-    self.testArrayCost = [NSArray arrayWithObjects:@"650 руб", @"400 руб", @"500 руб", @"650 руб", @"400 руб", @"500 руб", @"650 руб", @"400 руб", @"500 руб", @"650 руб", @"400 руб", @"500 руб", nil];
-
-    //Число для передачи высоты scrollView---------------------------------------------------
-    NSInteger integer = self.testArrayName.count - 1;
 
     //Высота всех товаров--------------------------------------------------------------------
-    self.heightAllItems = 300 + 20 * integer;
-
+    self.heightAllItems = 300 + 100;
+    
+    //Параметры mainScrollViewOrder----------------------------------------------------------
+    NSInteger number = 250 + self.heightAllItems;
+    self.mainScrollViewOrder.contentSize = CGSizeMake(320, number);
+    self.mainScrollViewOrder.backgroundColor = [UIColor groupTableViewBackgroundColor];
+   
     //Параметры основного view---------------------------------------------------------------
     self.view.backgroundColor = [UIColor whiteColor];
 
@@ -64,18 +72,18 @@
     self.topBarDetailScoreboardOrderView.layer.borderColor = [UIColor lightGrayColor].CGColor;
     self.topBarDetailScoreboardOrderView.layer.borderWidth = 1.f;
 
-    //Параметры mainScrollViewOrder----------------------------------------------------------
-    NSInteger number = 200 + self.heightAllItems;
-    self.mainScrollViewOrder.contentSize = CGSizeMake(320, number);
-    self.mainScrollViewOrder.backgroundColor = [UIColor groupTableViewBackgroundColor];
+   
 //    self.mainScrollViewOrder.bounces = NO; //Отключения оттягивани
 
 #pragma marc - constructorScrollView
     //Зарос к API
     [self getApiOrder:^{
         ParserOrder * parser = [self.arrayResponse objectAtIndex:0];
-        NSLog(@"%@",parser.delivery_date);
-    
+        NSArray * parseItems = parser.items;
+     
+
+        
+        self.labelTopBarView.text = [NSString stringWithFormat:@"№ 000%@",parser.order_id];
     //Формирование заказа----------------------------------------------
     UILabel* labelWithFormation = [[UILabel alloc] initWithFrame:CGRectMake(210, 10, 120, 12)];
         //Статус заказа
@@ -196,7 +204,7 @@
     [self.mainScrollViewOrder addSubview:labelHeaderItems];
 
     //Список товаров---------------------------------------------------
-        NSArray * parseItems = parser.items;
+        
 
     for (int i = 0; i < parseItems.count; i++) {
         NSDictionary * dict = [parseItems objectAtIndex:i];
@@ -350,12 +358,14 @@
                                 forControlEvents:UIControlEventTouchUpInside];
         
         }];
+    
+   
 }
 
 //Тащим заказы с сервера
 -(void) getApiOrder: (void (^)(void))block{
     //Передаваемые параметры
-    NSLog(@"%@",self.orderID);
+   
     NSDictionary * params = [[NSDictionary alloc] initWithObjectsAndKeys:
                              self.orderID,@"id",
                              nil];
@@ -364,11 +374,35 @@
     [api getDataFromServerWithParams:params method:@"action=load_order" complitionBlock:^(id response) {
         
         ParserResponseOrder * parsingResponce =[[ParserResponseOrder alloc] init];
-        NSLog(@"%@",response);
+     
         self.arrayResponse = [parsingResponce parsing:response];
         
         block();
     }];
+    
+}
+
+//Тащим заказы с сервера
+-(void) postApiOrder{
+    //Передаваемые параметры
+    NSMutableArray * arrayCourier =[[SingleTone sharedManager] parsingArray];
+    ParserCourier * parse = [arrayCourier objectAtIndex:0];
+  
+     NSDictionary * params = [[NSDictionary alloc] initWithObjectsAndKeys:
+                             parse.courierId,@"courier_id",
+                             self.orderID,@"order_id",
+                             nil];
+    
+    APIPostClass * api =[APIPostClass new]; //создаем API
+  [api postDataToServerWithParams:params method:@"action=take_order" complitionBlock:^(id response) {
+      NSDictionary * dict= (NSDictionary *) response;
+      if ([[dict objectForKey:@"error"] integerValue] == 0){
+          MyOrdersView * myOrderView = [self.storyboard instantiateViewControllerWithIdentifier:@"scoreboardMyOrders"];
+          [self.navigationController pushViewController:myOrderView animated:YES];
+      }else{
+          [self showAlertViewWithMessage:@"Ошибка присвоения заказа, обратитесь к оператору"];
+      }
+  }];
     
 }
 
@@ -999,6 +1033,7 @@
 //Действие по кнопке buttonAssigned-----------------------------------------------------------
 - (void)actionButtonAssigned
 {
+    [self postApiOrder];
     [Animation move_Label_Text_View_Right:self.buttonAssigned Points:0.f alpha:1.f];
 }
 
@@ -1016,6 +1051,14 @@
     [self.navigationController pushViewController:detail animated:YES];
 }
 
+//Создание AlertView---------------------------------------------------------
+
+- (void)showAlertViewWithMessage:(NSString*)message
+{
+    SCLAlertView* alert = [[SCLAlertView alloc] init];
+    
+    [alert showNotice:self title:@"Внимание!!!" subTitle:message closeButtonTitle:@"Ок" duration:0.f];
+}
 
 
 @end
