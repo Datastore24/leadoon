@@ -9,6 +9,8 @@
 #import <UIKit/UIKit.h>
 #import <MapKit/MapKit.h>
 #import "MKMapView+ZoomLevel.h"
+#import "ZSAnnotation.h"
+#import "ZSPinAnnotation.h"
 
 @interface MapViewOrder : UIViewController
 @property (weak, nonatomic) IBOutlet MKMapView *mapView;
