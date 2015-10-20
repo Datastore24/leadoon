@@ -18,7 +18,8 @@
 @property (weak, nonatomic) IBOutlet UIButton* buttonSettingMapViewOrder; //Кнопка Настроек
 @property (weak, nonatomic) IBOutlet UIButton* buttomZoomIn; //Кнопка увеличения
 @property (weak, nonatomic) IBOutlet UIButton* ButtonZoomOut; //Кнопка уменьшения
-@property (strong, nonatomic) NSArray* testArray; //Тестовый массив пинов
+
+@property (strong, nonatomic) NSMutableArray *annotationArray;
 
 @end
 
@@ -27,34 +28,41 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
-    //Тестовый массив пинов---------------------------------------------------------
-
-    NSNumber* oneLat = [NSNumber numberWithDouble:55.703907753303355];
-    NSNumber* oneLon = [NSNumber numberWithDouble:37.52705699325445];
-    NSString* blueString = @"blueString";
-
-    NSNumber* twoLat = [NSNumber numberWithDouble:55.71515035189387];
-    NSNumber* twoLon = [NSNumber numberWithDouble:37.68635875106694];
-    NSString* brownString = @"brownString";
-
-    NSNumber* threeLat = [NSNumber numberWithDouble:55.811516623930615];
-    NSNumber* threeLon = [NSNumber numberWithDouble:37.58815451923337];
-    NSString* greenString = @"greenString";
-
-    NSDictionary* one = [NSDictionary dictionaryWithObjectsAndKeys:oneLat, @"Lat",
-                                      oneLon, @"Lon",
-                                      blueString, @"color", nil];
-
-    NSDictionary* two = [NSDictionary dictionaryWithObjectsAndKeys:twoLat, @"Lat",
-                                      twoLon, @"Lon",
-                                      brownString, @"color", nil];
-
-    NSDictionary* three = [NSDictionary dictionaryWithObjectsAndKeys:threeLat, @"Lat",
-                                        threeLon, @"Lon",
-                                        greenString, @"color", nil];
-
-    self.testArray = [NSArray arrayWithObjects:one, two, three, nil];
+    
+//    NSMutableArray *annotationArray = [[NSMutableArray alloc] init];
+    
+    self.annotationArray = [[NSMutableArray alloc] init];
+    
+    ZSAnnotation *annotation = nil;
+    
+    annotation = [[ZSAnnotation alloc] init];
+    annotation.coordinate = CLLocationCoordinate2DMake(45.570, -122.695);
+    annotation.color = [UIColor blueColor];
+    annotation.title = @"blueColor";
+    annotation.subtitle = @"Ул воровского 25";
+    annotation.type = ZSPinAnnotationTypeDisc;
+    [self.annotationArray addObject:annotation];
+    
+    
+    annotation = [[ZSAnnotation alloc] init];
+    annotation.coordinate = CLLocationCoordinate2DMake(45.492, -122.798);
+    annotation.color = [UIColor brownColor];
+    annotation.type = ZSPinAnnotationTypeDisc;
+    annotation.title = @"brownColor";
+    annotation.subtitle = @"Ул Геворкян 25";
+    [self.annotationArray addObject:annotation];
+    
+    
+    annotation = [[ZSAnnotation alloc] init];
+    annotation.coordinate = CLLocationCoordinate2DMake(45.524, -122.704);
+    annotation.color = [UIColor greenColor];
+    annotation.type = ZSPinAnnotationTypeDisc;
+    annotation.title = @"greenColor";
+    annotation.subtitle = @"Ул Субровский 25";
+    [self.annotationArray addObject:annotation];
+    
+    [self.mapView addAnnotations:self.annotationArray];
+    
 
     //Параметры кнопки buttomZoomIn-------------------------------------------------
     self.buttomZoomIn.backgroundColor = [UIColor clearColor];
@@ -103,28 +111,16 @@
     [self.locationManager startUpdatingLocation];
     self.locationManager.delegate = self;
 
-    [self setPinsWithArray:self.testArray];
 }
+
+//- (void) addPinsonArray: (NSMutableArray *) array
+//{
+//    
+//}
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
-}
-
-//Нанесение пинов на карту----------------------------------------------------------
-
-- (void)setPinsWithArray:(NSArray*)arrayPins;
-{
-    for (int i = 0; i < self.testArray.count; i++) {
-
-        NSDictionary* dict = [arrayPins objectAtIndex:i];
-        double lat = [[dict objectForKey:@"Lat"] doubleValue];
-        double lon = [[dict objectForKey:@"Lon"] doubleValue];
-
-        CustomAnnotation* annotation = [[CustomAnnotation alloc] initWithLatitude:lat Longitude:lon];
-
-        [self.mapView addAnnotation:annotation];
-    }
 }
 
 //Дествие кнопки buttonBackMapViewOrder---------------------------------------------
@@ -159,38 +155,48 @@
     [self.mapView setRegion:region animated:YES];
 }
 
-#pragma mark - MKMapViewDelegate
+#pragma mark - MapKit
 
-- (nullable MKAnnotationView*)mapView:(MKMapView*)mapView viewForAnnotation:(id<MKAnnotation>)annotation
-{
-
-    if (![annotation isKindOfClass:[MKUserLocation class]]) {
-
-        for (int i = 0; i < self.testArray.count; i++) {
-
-            NSDictionary* dict = [self.testArray objectAtIndex:i];
-
-            NSString* stringColor = [dict objectForKey:@"color"];
-
-            if ([stringColor isEqual:@"blueString"]) {
-
-                CustomMapPinView* customPin = [[CustomMapPinView alloc] initWithImageBlue];
-                return customPin;
-            }
-
-            if ([stringColor isEqual:@"brownString"]) {
-                CustomMapPinView* customPin = [[CustomMapPinView alloc] initWithImageBrown];
-                return customPin;
-            }
-
-            if ([stringColor isEqual:@"greenString"]) {
-                CustomMapPinView* customPin = [[CustomMapPinView alloc] initWithImageGreen];
-                return customPin;
-            }
+- (MKMapRect)makeMapRectWithAnnotations:(NSArray *)annotations {
+    
+    MKMapRect flyTo = MKMapRectNull;
+    for (id <MKAnnotation> annotation in annotations) {
+        MKMapPoint annotationPoint = MKMapPointForCoordinate(annotation.coordinate);
+        MKMapRect pointRect = MKMapRectMake(annotationPoint.x, annotationPoint.y, 0, 0);
+        if (MKMapRectIsNull(flyTo)) {
+            flyTo = pointRect;
+        } else {
+            flyTo = MKMapRectUnion(flyTo, pointRect);
         }
     }
+    
+    return flyTo;
+    
+}
 
-    return nil;
+
+- (MKAnnotationView *)mapView:(MKMapView *)mV viewForAnnotation:(id <MKAnnotation>)annotation {
+    
+    // Don't mess with user location
+    if(![annotation isKindOfClass:[ZSAnnotation class]])
+        return nil;
+    
+    ZSAnnotation *a = (ZSAnnotation *)annotation;
+    static NSString *defaultPinID = @"StandardIdentifier";
+    
+    // Create the ZSPinAnnotation object and reuse it
+    ZSPinAnnotation *pinView = (ZSPinAnnotation *)[self.mapView dequeueReusableAnnotationViewWithIdentifier:defaultPinID];
+    if (pinView == nil){
+        pinView = [[ZSPinAnnotation alloc] initWithAnnotation:annotation reuseIdentifier:defaultPinID];
+    }
+    
+    // Set the type of pin to draw and the color
+    pinView.annotationType = ZSPinAnnotationTypeTagStroke;
+    pinView.annotationColor = a.color;
+    pinView.canShowCallout = YES;
+    
+    return pinView;
+    
 }
 
 @end
