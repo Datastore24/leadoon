@@ -19,6 +19,7 @@
 #import "ParserCourier.h"
 #import "ParserResponseOrders.h"
 #import "ParseDate.h"
+#import "MyOrdersViewDetail.h"
 
 @interface MyOrdersView () <UITableViewDataSource, UITableViewDelegate>
 
@@ -156,13 +157,13 @@
 //Действи кнопки ButtonBackScoreboardOrdersView---------------------------------------
 - (void) actionButtonBackScoreboardOrdersView
 {
-    [self.navigationController popViewControllerAnimated:YES];
+    [self.navigationController popToViewController:[self.navigationController.viewControllers objectAtIndex:1] animated:YES];
     [Animation move_Label_Text_View_Right:self.imageViewButtonBack
                                    Points:0.f
                                     alpha:1.f];
 }
 
-//Тап кнопки ButtonBackScoreboardOrdersView-------------------------------------------
+//Тап кнопки ButtonSettingsScoreboardOrdersView-------------------------------------------
 - (void)tapButtonSettingsScoreboardOrdersView
 {
     [Animation move_Label_Text_View_Right:self.imageViewButtonSettings
@@ -170,7 +171,7 @@
                                     alpha:0.5f];
 }
 
-//Действи кнопки ButtonBackScoreboardOrdersView---------------------------------------
+//Действи кнопки ButtonSettingsScoreboardOrdersView---------------------------------------
 - (void) actionButtonSettingsScoreboardOrdersView
 {
     SettingsView * detail = [self.storyboard instantiateViewControllerWithIdentifier:@"settingsView"];
@@ -286,6 +287,19 @@
     cell.backgroundColor = [UIColor clearColor];
     
     return cell;
+}
+
+#pragma mark - UITableViewDelegate
+//Анимация нажатия ячейки--------------------------------------------------------------
+- (void)tableView:(UITableView*)tableView didSelectRowAtIndexPath:(NSIndexPath*)indexPath
+{
+    
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
+    MyOrdersViewDetail* detail = [self.storyboard instantiateViewControllerWithIdentifier:@"myOrdersViewDetail"];
+    ParserOrders * parser =[self.arrayOrders objectAtIndex:indexPath.row];
+    detail.orderID =parser.order_id;
+    [self.navigationController pushViewController:detail animated:YES];
 }
 
 @end

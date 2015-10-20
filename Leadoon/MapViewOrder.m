@@ -8,8 +8,6 @@
 
 #import "MapViewOrder.h"
 #import "SettingsView.h"
-#import "CustomAnnotation.h"
-#import "CustomMapPinView.h"
 
 @interface MapViewOrder () <CLLocationManagerDelegate, MKMapViewDelegate>
 

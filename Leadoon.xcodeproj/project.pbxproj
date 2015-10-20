@@ -9,11 +9,6 @@
 /* Begin PBXBuildFile section */
 		43CE65F39BA469C87A37D02C /* libPods-Leadoon.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C59AE2F176CF95A5A7C5D435 /* libPods-Leadoon.a */; };
 		7713A3211BD0054F00F14506 /* basket.png in Resources */ = {isa = PBXBuildFile; fileRef = 7713A3201BD0054F00F14506 /* basket.png */; settings = {ASSET_TAGS = (); }; };
-		7747AC931BD4FEBA006F3A7A /* brownPin.png in Resources */ = {isa = PBXBuildFile; fileRef = 7747AC901BD4FEBA006F3A7A /* brownPin.png */; settings = {ASSET_TAGS = (); }; };
-		7747AC941BD4FEBA006F3A7A /* bluePin.png in Resources */ = {isa = PBXBuildFile; fileRef = 7747AC911BD4FEBA006F3A7A /* bluePin.png */; settings = {ASSET_TAGS = (); }; };
-		7747AC951BD4FEBA006F3A7A /* greenPin.png in Resources */ = {isa = PBXBuildFile; fileRef = 7747AC921BD4FEBA006F3A7A /* greenPin.png */; settings = {ASSET_TAGS = (); }; };
-		7747AC981BD50BF1006F3A7A /* CustomAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 7747AC971BD50BF1006F3A7A /* CustomAnnotation.m */; settings = {ASSET_TAGS = (); }; };
-		7747AC9C1BD51083006F3A7A /* CustomMapPinView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7747AC9B1BD51083006F3A7A /* CustomMapPinView.m */; settings = {ASSET_TAGS = (); }; };
 		77501CE21BD5973300596DA8 /* ZSAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 77501CE11BD5973300596DA8 /* ZSAnnotation.m */; settings = {ASSET_TAGS = (); }; };
 		77501CE51BD5997B00596DA8 /* ZSPinAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 77501CE41BD5997B00596DA8 /* ZSPinAnnotation.m */; settings = {ASSET_TAGS = (); }; };
 		775A84FA1BCBD2A2003BDC3D /* Animation.m in Sources */ = {isa = PBXBuildFile; fileRef = 775A84F91BCBD2A2003BDC3D /* Animation.m */; settings = {ASSET_TAGS = (); }; };
@@ -31,6 +26,9 @@
 		779C5ABE1BCAFD4600F4F31D /* LeadoonTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 779C5ABD1BCAFD4600F4F31D /* LeadoonTests.m */; };
 		779C5AC91BCAFD4600F4F31D /* LeadoonUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 779C5AC81BCAFD4600F4F31D /* LeadoonUITests.m */; };
 		779C5AD81BCB061300F4F31D /* MainView.m in Sources */ = {isa = PBXBuildFile; fileRef = 779C5AD71BCB061300F4F31D /* MainView.m */; settings = {ASSET_TAGS = (); }; };
+		77C903741BD6AC4300B54E6A /* MyOrdersViewDetail.m in Sources */ = {isa = PBXBuildFile; fileRef = 77C903731BD6AC4200B54E6A /* MyOrdersViewDetail.m */; settings = {ASSET_TAGS = (); }; };
+		77C903761BD6C18900B54E6A /* phone.png in Resources */ = {isa = PBXBuildFile; fileRef = 77C903751BD6C18900B54E6A /* phone.png */; settings = {ASSET_TAGS = (); }; };
+		77C903791BD6CB5F00B54E6A /* HeightForText.m in Sources */ = {isa = PBXBuildFile; fileRef = 77C903781BD6CB5F00B54E6A /* HeightForText.m */; settings = {ASSET_TAGS = (); }; };
 		77E8F41E1BD2B97F00D2509E /* customerImage.png in Resources */ = {isa = PBXBuildFile; fileRef = 77E8F41A1BD2B97F00D2509E /* customerImage.png */; settings = {ASSET_TAGS = (); }; };
 		77E8F41F1BD2B97F00D2509E /* homeImage.png in Resources */ = {isa = PBXBuildFile; fileRef = 77E8F41B1BD2B97F00D2509E /* homeImage.png */; settings = {ASSET_TAGS = (); }; };
 		77E8F4201BD2B97F00D2509E /* timeImage.png in Resources */ = {isa = PBXBuildFile; fileRef = 77E8F41C1BD2B97F00D2509E /* timeImage.png */; settings = {ASSET_TAGS = (); }; };
@@ -80,13 +78,6 @@
 
 /* Begin PBXFileReference section */
 		7713A3201BD0054F00F14506 /* basket.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = basket.png; sourceTree = "<group>"; };
-		7747AC901BD4FEBA006F3A7A /* brownPin.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = brownPin.png; sourceTree = "<group>"; };
-		7747AC911BD4FEBA006F3A7A /* bluePin.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bluePin.png; sourceTree = "<group>"; };
-		7747AC921BD4FEBA006F3A7A /* greenPin.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = greenPin.png; sourceTree = "<group>"; };
-		7747AC961BD50BF1006F3A7A /* CustomAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomAnnotation.h; sourceTree = "<group>"; };
-		7747AC971BD50BF1006F3A7A /* CustomAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomAnnotation.m; sourceTree = "<group>"; };
-		7747AC9A1BD51083006F3A7A /* CustomMapPinView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomMapPinView.h; sourceTree = "<group>"; };
-		7747AC9B1BD51083006F3A7A /* CustomMapPinView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomMapPinView.m; sourceTree = "<group>"; };
 		77501CE01BD5973300596DA8 /* ZSAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZSAnnotation.h; sourceTree = "<group>"; };
 		77501CE11BD5973300596DA8 /* ZSAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZSAnnotation.m; sourceTree = "<group>"; };
 		77501CE31BD5997B00596DA8 /* ZSPinAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZSPinAnnotation.h; sourceTree = "<group>"; };
@@ -119,6 +110,11 @@
 		779C5ACA1BCAFD4600F4F31D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		779C5AD61BCB061300F4F31D /* MainView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainView.h; sourceTree = "<group>"; };
 		779C5AD71BCB061300F4F31D /* MainView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainView.m; sourceTree = "<group>"; };
+		77C903721BD6AC4200B54E6A /* MyOrdersViewDetail.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyOrdersViewDetail.h; sourceTree = "<group>"; };
+		77C903731BD6AC4200B54E6A /* MyOrdersViewDetail.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyOrdersViewDetail.m; sourceTree = "<group>"; };
+		77C903751BD6C18900B54E6A /* phone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = phone.png; path = ../../phone.png; sourceTree = "<group>"; };
+		77C903771BD6CB5F00B54E6A /* HeightForText.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HeightForText.h; sourceTree = "<group>"; };
+		77C903781BD6CB5F00B54E6A /* HeightForText.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HeightForText.m; sourceTree = "<group>"; };
 		77E8F41A1BD2B97F00D2509E /* customerImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = customerImage.png; sourceTree = "<group>"; };
 		77E8F41B1BD2B97F00D2509E /* homeImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = homeImage.png; sourceTree = "<group>"; };
 		77E8F41C1BD2B97F00D2509E /* timeImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = timeImage.png; sourceTree = "<group>"; };
@@ -217,18 +213,6 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		7747AC8F1BD4FE9E006F3A7A /* imagesPins */ = {
-			isa = PBXGroup;
-			children = (
-				7747AC9A1BD51083006F3A7A /* CustomMapPinView.h */,
-				7747AC9B1BD51083006F3A7A /* CustomMapPinView.m */,
-				7747AC901BD4FEBA006F3A7A /* brownPin.png */,
-				7747AC911BD4FEBA006F3A7A /* bluePin.png */,
-				7747AC921BD4FEBA006F3A7A /* greenPin.png */,
-			);
-			name = imagesPins;
-			sourceTree = "<group>";
-		};
 		7747AC991BD50C6F006F3A7A /* ScoreboardOrdersDetail */ = {
 			isa = PBXGroup;
 			children = (
@@ -267,16 +251,11 @@
 			isa = PBXGroup;
 			children = (
 				7747AC991BD50C6F006F3A7A /* ScoreboardOrdersDetail */,
-				7747AC8F1BD4FE9E006F3A7A /* imagesPins */,
 				77E8F4251BD2C3F500D2509E /* images */,
 				778D88AB1BCEEC84007E1F51 /* ScoreboardOrdersView.h */,
 				778D88AC1BCEEC84007E1F51 /* ScoreboardOrdersView.m */,
-				AD2A24A21BD1327A00E0BC31 /* MyOrdersView.h */,
-				AD2A24A31BD1327A00E0BC31 /* MyOrdersView.m */,
 				77FAA9B21BCF9A3A00349A05 /* LabelsTableViewCall.h */,
 				77FAA9B31BCF9A3A00349A05 /* LabelsTableViewCall.m */,
-				7747AC961BD50BF1006F3A7A /* CustomAnnotation.h */,
-				7747AC971BD50BF1006F3A7A /* CustomAnnotation.m */,
 			);
 			name = ScoreboardOrders;
 			sourceTree = "<group>";
@@ -359,11 +338,33 @@
 		779C5AD91BCB061A00F4F31D /* MainView */ = {
 			isa = PBXGroup;
 			children = (
+				77C903781BD6CB5F00B54E6A /* HeightForText.m */,
+				77C903771BD6CB5F00B54E6A /* HeightForText.h */,
+				77C3C1C21BD653BD00BD8299 /* MyOrdersView */,
 				778D88AA1BCEEC68007E1F51 /* ScoreboardOrders */,
 				779C5AD61BCB061300F4F31D /* MainView.h */,
 				779C5AD71BCB061300F4F31D /* MainView.m */,
 			);
 			name = MainView;
+			sourceTree = "<group>";
+		};
+		77C3C1C21BD653BD00BD8299 /* MyOrdersView */ = {
+			isa = PBXGroup;
+			children = (
+				77C903711BD6ABF800B54E6A /* MyOrdersViewDetail */,
+				AD2A24A21BD1327A00E0BC31 /* MyOrdersView.h */,
+				AD2A24A31BD1327A00E0BC31 /* MyOrdersView.m */,
+			);
+			name = MyOrdersView;
+			sourceTree = "<group>";
+		};
+		77C903711BD6ABF800B54E6A /* MyOrdersViewDetail */ = {
+			isa = PBXGroup;
+			children = (
+				77C903721BD6AC4200B54E6A /* MyOrdersViewDetail.h */,
+				77C903731BD6AC4200B54E6A /* MyOrdersViewDetail.m */,
+			);
+			name = MyOrdersViewDetail;
 			sourceTree = "<group>";
 		};
 		77E8F4251BD2C3F500D2509E /* images */ = {
@@ -376,6 +377,7 @@
 				77E8F41B1BD2B97F00D2509E /* homeImage.png */,
 				77E8F41C1BD2B97F00D2509E /* timeImage.png */,
 				77E8F41D1BD2B97F00D2509E /* locationImage.png */,
+				77C903751BD6C18900B54E6A /* phone.png */,
 			);
 			name = images;
 			sourceTree = "<group>";
@@ -558,15 +560,13 @@
 				77FAA9BC1BCFB42900349A05 /* imageMetro2.png in Resources */,
 				778671AA1BD4126600E9E7E5 /* MKMapViewZoom-master in Resources */,
 				77FAA9BB1BCFB42900349A05 /* imageMetro1.png in Resources */,
-				7747AC931BD4FEBA006F3A7A /* brownPin.png in Resources */,
 				779C5AB01BCAFD4600F4F31D /* Assets.xcassets in Resources */,
 				77E8F4201BD2B97F00D2509E /* timeImage.png in Resources */,
-				7747AC951BD4FEBA006F3A7A /* greenPin.png in Resources */,
 				77FDDCDB1BCC207400B2C13B /* buttonSettingsImage.png in Resources */,
 				77FDDCE11BCC36B800B2C13B /* buttonBack.png in Resources */,
-				7747AC941BD4FEBA006F3A7A /* bluePin.png in Resources */,
 				77E8F41F1BD2B97F00D2509E /* homeImage.png in Resources */,
 				77E8F4211BD2B97F00D2509E /* locationImage.png in Resources */,
+				77C903761BD6C18900B54E6A /* phone.png in Resources */,
 				77E8F41E1BD2B97F00D2509E /* customerImage.png in Resources */,
 				779C5AAE1BCAFD4600F4F31D /* Main.storyboard in Resources */,
 				7713A3211BD0054F00F14506 /* basket.png in Resources */,
@@ -647,7 +647,6 @@
 				778D88AD1BCEEC84007E1F51 /* ScoreboardOrdersView.m in Sources */,
 				775A84FA1BCBD2A2003BDC3D /* Animation.m in Sources */,
 				AD87E9B31BCCF7F300AF5C11 /* APIClass.m in Sources */,
-				7747AC981BD50BF1006F3A7A /* CustomAnnotation.m in Sources */,
 				77E8F4241BD2C3EB00D2509E /* MapViewOrder.m in Sources */,
 				779C5AAB1BCAFD4600F4F31D /* LoginView.m in Sources */,
 				77501CE51BD5997B00596DA8 /* ZSPinAnnotation.m in Sources */,
@@ -655,7 +654,6 @@
 				779C5AD81BCB061300F4F31D /* MainView.m in Sources */,
 				AD87E9BD1BCD035800AF5C11 /* ParserResponseCourier.m in Sources */,
 				AD2A24951BD0CEF000E0BC31 /* ParserOrders.m in Sources */,
-				7747AC9C1BD51083006F3A7A /* CustomMapPinView.m in Sources */,
 				779C5AA81BCAFD4600F4F31D /* AppDelegate.m in Sources */,
 				AD87E9AF1BCCF59800AF5C11 /* CouriersDbClass.m in Sources */,
 				779C5AA51BCAFD4600F4F31D /* main.m in Sources */,
@@ -664,12 +662,14 @@
 				AD2A24A41BD1327A00E0BC31 /* MyOrdersView.m in Sources */,
 				77501CE21BD5973300596DA8 /* ZSAnnotation.m in Sources */,
 				AD2A249B1BD0D4F100E0BC31 /* ParseDate.m in Sources */,
+				77C903791BD6CB5F00B54E6A /* HeightForText.m in Sources */,
 				77FAA9B41BCF9A3A00349A05 /* LabelsTableViewCall.m in Sources */,
 				AD87E9C01BCD924600AF5C11 /* SingleTone.m in Sources */,
 				77FDDCDF1BCC261E00B2C13B /* SettingsView.m in Sources */,
 				AD87E9A51BCCF4AB00AF5C11 /* UsersModel.xcdatamodeld in Sources */,
 				AD2A24AA1BD52B3000E0BC31 /* ParserResponseOrder.m in Sources */,
 				AD87E9AA1BCCF56000AF5C11 /* Couriers+CoreDataProperties.m in Sources */,
+				77C903741BD6AC4300B54E6A /* MyOrdersViewDetail.m in Sources */,
 				AD2A24A71BD4CFB800E0BC31 /* ParserOrder.m in Sources */,
 				AD87E9AB1BCCF56000AF5C11 /* Couriers.m in Sources */,
 				AD87E9C31BCF8C9F00AF5C11 /* APIPostClass.m in Sources */,
