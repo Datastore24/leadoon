@@ -12,6 +12,7 @@
 #import "LabelsTableViewCall.h"
 
 #import "SingleTone.h"
+#import <SVPullToRefresh/SVPullToRefresh.h>
 
 #import "APIClass.h"
 #import "ParserOrders.h"
@@ -86,6 +87,14 @@
     //API методы
     [self getApiOrders];
     
+    [self.tableViewScoreboardOrders addPullToRefreshWithActionHandler:^{
+        
+        [self.arrayOrders removeAllObjects];
+        [self getApiOrders];
+        [self.tableViewScoreboardOrders.pullToRefreshView stopAnimating];
+        
+    }];
+    
 }
 
 - (void)didReceiveMemoryWarning
@@ -109,7 +118,7 @@
     [api getDataFromServerWithParams:params method:@"action=load_my_orders" complitionBlock:^(id response) {
         
         ParserResponseOrders * parsingResponce =[[ParserResponseOrders alloc] init];
-        NSLog(@"%@",response);
+        
         [parsingResponce parsing:response andArray:self.arrayOrders andBlock:^{
             [self reloadTableViewWhenNewEvent];
         }];
@@ -184,6 +193,11 @@
 {
     static NSString * identifier = @"Cell";
     UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:identifier forIndexPath:indexPath];
+    
+    for (UIView * view in cell.subviews) {
+        
+        [view removeFromSuperview];
+    }
     
     LabelsTableViewCall * typeLabel = [[LabelsTableViewCall alloc] init];
     NSString * string = @"Заказ";
