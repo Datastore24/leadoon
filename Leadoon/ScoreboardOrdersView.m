@@ -11,6 +11,7 @@
 #import "SettingsView.h"
 #import "LabelsTableViewCall.h"
 #import "DetailsScoreboardOrderView.h"
+#import "MainView.h"
 
 #import "SingleTone.h"
 #import <SVPullToRefresh/SVPullToRefresh.h>
@@ -168,13 +169,15 @@
 //Действи кнопки ButtonBackScoreboardOrdersView---------------------------------------
 - (void) actionButtonBackScoreboardOrdersView
 {
-    [self.navigationController popViewControllerAnimated:YES];
+    
+    [self.navigationController popToViewController:[self.navigationController.viewControllers objectAtIndex:1] animated:YES];
+    
     [Animation move_Label_Text_View_Right:self.imageViewButtonBack
                                    Points:0.f
                                     alpha:1.f];
 }
 
-//Тап кнопки ButtonBackScoreboardOrdersView-------------------------------------------
+//Тап кнопки ButtonSettingsScoreboardOrdersView-------------------------------------------
 - (void)tapButtonSettingsScoreboardOrdersView
 {
     [Animation move_Label_Text_View_Right:self.imageViewButtonSettings
@@ -182,7 +185,7 @@
                                     alpha:0.5f];
 }
 
-//Действи кнопки ButtonBackScoreboardOrdersView---------------------------------------
+//Действи кнопки ButtonSettingsScoreboardOrdersView---------------------------------------
 - (void) actionButtonSettingsScoreboardOrdersView
 {
     SettingsView * detail = [self.storyboard instantiateViewControllerWithIdentifier:@"settingsView"];
@@ -212,7 +215,7 @@
     }
     
     LabelsTableViewCall * typeLabel = [[LabelsTableViewCall alloc] init];
-    NSString * string = @"Заказ";
+//    NSString * string = @"Заказ";
     ParserOrders * parser =[self.arrayOrders objectAtIndex:indexPath.row];
     ParseDate * parseDate =[[ParseDate alloc] init];
     
