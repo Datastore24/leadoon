@@ -287,6 +287,7 @@
 		683EA4D70FFF76B827D1C16B07CD1E3B /* MagicalRecord+ShorthandMethods.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "MagicalRecord+ShorthandMethods.m"; path = "MagicalRecord/Core/MagicalRecord+ShorthandMethods.m"; sourceTree = "<group>"; };
 		72F834352AC91D64C2E80B1ED6CDE071 /* libSCLAlertView-Objective-C.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libSCLAlertView-Objective-C.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		73222E5C8159C8E04C8F1AA59B367B36 /* NSManagedObject+MagicalAggregation.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "NSManagedObject+MagicalAggregation.m"; path = "MagicalRecord/Categories/NSManagedObject/NSManagedObject+MagicalAggregation.m"; sourceTree = "<group>"; };
+		77501CDF1BD5969D00596DA8 /* ZSPinAnnotation-master */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "ZSPinAnnotation-master"; sourceTree = "<group>"; };
 		776F171B1BD1835D0085891A /* AH3DPullToRefresh-master */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "AH3DPullToRefresh-master"; sourceTree = "<group>"; };
 		77A789EFE62492DFBDF44A3FE8C60003 /* UIButton+AFNetworking.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "UIButton+AFNetworking.m"; path = "UIKit+AFNetworking/UIButton+AFNetworking.m"; sourceTree = "<group>"; };
 		780F02BEFB482DD6935A3FC3FEFD0AA0 /* UIActivityIndicatorView+AFNetworking.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UIActivityIndicatorView+AFNetworking.h"; path = "UIKit+AFNetworking/UIActivityIndicatorView+AFNetworking.h"; sourceTree = "<group>"; };
@@ -585,6 +586,7 @@
 		7DB346D0F39D3F0E887471402A8071AB = {
 			isa = PBXGroup;
 			children = (
+				77501CDF1BD5969D00596DA8 /* ZSPinAnnotation-master */,
 				776F171B1BD1835D0085891A /* AH3DPullToRefresh-master */,
 				BA6428E9F66FD5A23C0A2E06ED26CD2F /* Podfile */,
 				F4CDA5FA9197A41E0081E84F932906EB /* Frameworks */,
