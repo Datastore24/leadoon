@@ -44,6 +44,8 @@
 @property (strong,nonatomic) NSArray * items;
 @property (strong,nonatomic) NSString * order_summ;
 @property (strong,nonatomic) NSString * amount;
+@property (strong,nonatomic) NSString * telephony;
+
 
 
 @end
