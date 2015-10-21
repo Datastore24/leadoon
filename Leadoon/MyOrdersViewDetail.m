@@ -282,6 +282,9 @@
         //Создание кнопки выполненно--------------------------------------------
         self.buttonMade = [UIButton buttonWithType:UIButtonTypeCustom];
         [self.buttonMade setTitle:@"Выполнен" forState:UIControlStateNormal];
+        [self.buttonMade addTarget:self
+                                action:@selector(postApiOrderDone) forControlEvents:UIControlEventTouchUpInside];
+        
         self.buttonMade.titleLabel.font = [UIFont fontWithName:@"Helvetica-Bold" size:14];
         self.buttonMade.frame = CGRectMake(105, 150 + self.heightAllItems, 110, 30);
         self.buttonMade.backgroundColor = [UIColor colorWithHexString:@"0db821"];
@@ -340,6 +343,9 @@
         //Создание кнопки отказ--------------------------------------
         self.buttonFailure = [UIButton buttonWithType:UIButtonTypeCustom];
         [self.buttonFailure setTitle:@"Отказ" forState:UIControlStateNormal];
+        [self.buttonFailure addTarget:self
+                                action:@selector(postApiOrderCancel) forControlEvents:UIControlEventTouchUpInside];
+        
         self.buttonFailure.titleLabel.font = [UIFont fontWithName:@"Helvetica-Bold" size:14];
         self.buttonFailure.frame = CGRectMake(95, 190 + self.heightAllItems, 130, 30);
         self.buttonFailure.backgroundColor = [UIColor colorWithHexString:@"e14141"];
@@ -471,6 +477,53 @@
     }];
     
 }
+
+//Заказ выполнен
+-(void) postApiOrderDone{
+    //Передаваемые параметры
+    NSDictionary * params = [[NSDictionary alloc] initWithObjectsAndKeys:
+                             self.orderID,@"order_id",
+                             nil];
+    
+    APIPostClass * api =[APIPostClass new]; //создаем API
+    [api postDataToServerWithParams:params method:@"action=order_done" complitionBlock:^(id response) {
+        NSDictionary * dict= (NSDictionary *) response;
+        
+        if ([[dict objectForKey:@"error"] integerValue] == 0){
+            
+            MyOrdersView* myOrdersView = [self.storyboard instantiateViewControllerWithIdentifier:@"scoreboardMyOrders"];
+            [self.navigationController pushViewController:myOrdersView animated:YES];
+            
+        }else{
+            [self showAlertViewWithMessage:@"Ошибка"];
+        }
+    }];
+    
+}
+
+//Заказ отказ
+-(void) postApiOrderCancel{
+    //Передаваемые параметры
+    NSDictionary * params = [[NSDictionary alloc] initWithObjectsAndKeys:
+                             self.orderID,@"order_id",
+                             nil];
+    
+    APIPostClass * api =[APIPostClass new]; //создаем API
+    [api postDataToServerWithParams:params method:@"action=order_cancel" complitionBlock:^(id response) {
+        NSDictionary * dict= (NSDictionary *) response;
+        
+        if ([[dict objectForKey:@"error"] integerValue] == 0){
+            
+            MyOrdersView* myOrdersView = [self.storyboard instantiateViewControllerWithIdentifier:@"scoreboardMyOrders"];
+            [self.navigationController pushViewController:myOrdersView animated:YES];
+            
+        }else{
+            [self showAlertViewWithMessage:@"Ошибка"];
+        }
+    }];
+    
+}
+
 
 //Цвет ветки метро-------------------------------------------------
 - (NSString*) roundMetroColor:(NSString *) lineID{
