@@ -57,6 +57,7 @@
 		AD87E9BD1BCD035800AF5C11 /* ParserResponseCourier.m in Sources */ = {isa = PBXBuildFile; fileRef = AD87E9BC1BCD035800AF5C11 /* ParserResponseCourier.m */; settings = {ASSET_TAGS = (); }; };
 		AD87E9C01BCD924600AF5C11 /* SingleTone.m in Sources */ = {isa = PBXBuildFile; fileRef = AD87E9BF1BCD924600AF5C11 /* SingleTone.m */; settings = {ASSET_TAGS = (); }; };
 		AD87E9C31BCF8C9F00AF5C11 /* APIPostClass.m in Sources */ = {isa = PBXBuildFile; fileRef = AD87E9C21BCF8C9E00AF5C11 /* APIPostClass.m */; settings = {ASSET_TAGS = (); }; };
+		ADD823021BD7C34E00DD4C7B /* ECPhoneNumberFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = ADD823011BD7C34E00DD4C7B /* ECPhoneNumberFormatter.m */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -162,6 +163,8 @@
 		AD87E9BF1BCD924600AF5C11 /* SingleTone.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SingleTone.m; sourceTree = "<group>"; };
 		AD87E9C11BCF8C9E00AF5C11 /* APIPostClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APIPostClass.h; sourceTree = "<group>"; };
 		AD87E9C21BCF8C9E00AF5C11 /* APIPostClass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = APIPostClass.m; sourceTree = "<group>"; };
+		ADD823001BD7C34E00DD4C7B /* ECPhoneNumberFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECPhoneNumberFormatter.h; sourceTree = "<group>"; };
+		ADD823011BD7C34E00DD4C7B /* ECPhoneNumberFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECPhoneNumberFormatter.m; sourceTree = "<group>"; };
 		AEF5C251689197AD98D73673 /* Pods-Leadoon.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Leadoon.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Leadoon/Pods-Leadoon.debug.xcconfig"; sourceTree = "<group>"; };
 		C59AE2F176CF95A5A7C5D435 /* libPods-Leadoon.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Leadoon.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -394,6 +397,8 @@
 				77FAA9B71BCFA9C600349A05 /* UIColor+HexColor.m */,
 				77C903781BD6CB5F00B54E6A /* HeightForText.m */,
 				77C903771BD6CB5F00B54E6A /* HeightForText.h */,
+				ADD823001BD7C34E00DD4C7B /* ECPhoneNumberFormatter.h */,
+				ADD823011BD7C34E00DD4C7B /* ECPhoneNumberFormatter.m */,
 				775A84F71BCBD284003BDC3D /* Animation */,
 			);
 			name = Category;
@@ -668,6 +673,7 @@
 				776F17291BD19B3D0085891A /* DetailsScoreboardOrderView.m in Sources */,
 				AD2A24981BD0CFBD00E0BC31 /* ParserResponseOrders.m in Sources */,
 				AD2A24A41BD1327A00E0BC31 /* MyOrdersView.m in Sources */,
+				ADD823021BD7C34E00DD4C7B /* ECPhoneNumberFormatter.m in Sources */,
 				77501CE21BD5973300596DA8 /* ZSAnnotation.m in Sources */,
 				AD2A249B1BD0D4F100E0BC31 /* ParseDate.m in Sources */,
 				77C903791BD6CB5F00B54E6A /* HeightForText.m in Sources */,
