@@ -15,6 +15,7 @@
   return @{
     @"order_id" : mts_key(order_id),
     @"service_id" : mts_key(service_id),
+    @"client_id" : mts_key(client_id),
     @"customer_name" : mts_key(customer_name),
     @"address" : mts_key(address),
     @"flat" : mts_key(flat),

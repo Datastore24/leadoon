@@ -17,6 +17,7 @@
 
 @property (strong,nonatomic) NSString * order_id;
 @property (strong,nonatomic) NSString * service_id;
+@property (strong,nonatomic) NSString * client_id;
 @property (strong,nonatomic) NSString * customer_name;
 @property (strong,nonatomic) NSString * address;
 @property (strong,nonatomic) NSString * flat;
