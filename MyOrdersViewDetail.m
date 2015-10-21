@@ -11,6 +11,7 @@
 #import "Animation.h"
 #import "MapViewOrder.h"
 #import "SettingsView.h"
+#import "MapViewDetailMyOrders.h"
 
 #import "SingleTone.h"
 #import <SCLAlertView-Objective-C/SCLAlertView.h>
@@ -29,11 +30,11 @@
 
 @interface MyOrdersViewDetail ()
 
-@property (strong, nonatomic) UIButton * buttonPartialSale; //Частичная продажа
-@property (strong, nonatomic) UIButton * buttonFailure; //Отказ
-@property (strong, nonatomic) UIButton * buttonMade; //Выполнен
-@property (strong, nonatomic) UIButton * buttonOnMap; //На карте
-@property (strong, nonatomic) UIButton * buttonBackCall; //Звонок
+@property (strong, nonatomic) UIButton * buttonPartialSaleMyOrder; //Частичная продажа
+@property (strong, nonatomic) UIButton * buttonFailureMyOrder; //Отказ
+@property (strong, nonatomic) UIButton * buttonMadeMyOrder; //Выполнен
+@property (strong, nonatomic) UIButton * buttonOnMapMyOrder; //На карте
+@property (strong, nonatomic) UIButton * buttonBackCallMyOrder; //Звонок
 
 @property (weak, nonatomic) IBOutlet UIView *topBarMyOrdersViewDetail; //Верхний Бар
 @property (weak, nonatomic) IBOutlet UIButton *butoonBackMyOrdersDetail; //Кнопка назад
@@ -280,6 +281,7 @@
         [self.scrollViewMyOrdersDetail addSubview:labelInTotal];
 
         //Создание кнопки выполненно--------------------------------------------
+<<<<<<< Updated upstream
         self.buttonMade = [UIButton buttonWithType:UIButtonTypeCustom];
         [self.buttonMade setTitle:@"Выполнен" forState:UIControlStateNormal];
         [self.buttonMade addTarget:self
@@ -294,10 +296,23 @@
         [self.scrollViewMyOrdersDetail addSubview:self.buttonMade];
         [self.buttonMade addTarget:self action:@selector(tapButtonAssigned) forControlEvents:UIControlEventTouchDown];
         [self.buttonMade addTarget:self action:@selector(actionButtonAssigned) forControlEvents:UIControlEventTouchUpInside];
+=======
+        self.buttonMadeMyOrder = [UIButton buttonWithType:UIButtonTypeCustom];
+        [self.buttonMadeMyOrder setTitle:@"Выполнен" forState:UIControlStateNormal];
+        self.buttonMadeMyOrder.titleLabel.font = [UIFont fontWithName:@"Helvetica-Bold" size:14];
+        self.buttonMadeMyOrder.frame = CGRectMake(105, 150 + self.heightAllItems, 110, 30);
+        self.buttonMadeMyOrder.backgroundColor = [UIColor colorWithHexString:@"0db821"];
+        self.buttonMadeMyOrder.layer.borderColor = [UIColor darkGrayColor].CGColor;
+        self.buttonMadeMyOrder.layer.borderWidth = 1.f;
+        self.buttonMadeMyOrder.layer.cornerRadius = 9.f;
+        [self.scrollViewMyOrdersDetail addSubview:self.buttonMadeMyOrder];
+        [self.buttonMadeMyOrder addTarget:self action:@selector(tapButtonAssigned) forControlEvents:UIControlEventTouchDown];
+        [self.buttonMadeMyOrder addTarget:self action:@selector(actionButtonAssigned) forControlEvents:UIControlEventTouchUpInside];
+>>>>>>> Stashed changes
         
         //Создание кнопки обратный звонок--------------------------------------
       
-        self.buttonBackCall = [UIButton buttonWithType:UIButtonTypeCustom];
+        self.buttonBackCallMyOrder = [UIButton buttonWithType:UIButtonTypeCustom];
         
         //Условия обратный звонок или номер телефона
         if([parser.telephony integerValue] == 0){
@@ -323,6 +338,7 @@
             [self.scrollViewMyOrdersDetail addSubview:labelPhone];
             
         }else{
+<<<<<<< Updated upstream
             
             [self.buttonBackCall setTitle:@"Обратный звонок" forState:UIControlStateNormal];
             [self.buttonBackCall addTarget:self
@@ -336,11 +352,23 @@
             self.buttonBackCall.layer.borderWidth = 1.f;
             self.buttonBackCall.layer.cornerRadius = 9.f;
             [self.scrollViewMyOrdersDetail addSubview:self.buttonBackCall];
+=======
+                [self.buttonBackCallMyOrder setTitle:@"Обратный звонок" forState:UIControlStateNormal];
+            [self.buttonBackCallMyOrder setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+            self.buttonBackCallMyOrder.titleLabel.font = [UIFont fontWithName:@"Helvetica-Bold" size:14];
+            self.buttonBackCallMyOrder.frame = CGRectMake(170, 70, 135, 30);
+            self.buttonBackCallMyOrder.backgroundColor = [UIColor colorWithHexString:@"f2c332"];
+            self.buttonBackCallMyOrder.layer.borderColor = [UIColor darkGrayColor].CGColor;
+            self.buttonBackCallMyOrder.layer.borderWidth = 1.f;
+            self.buttonBackCallMyOrder.layer.cornerRadius = 9.f;
+            [self.scrollViewMyOrdersDetail addSubview:self.buttonBackCallMyOrder];
+>>>>>>> Stashed changes
         }
         
         
         
         //Создание кнопки отказ--------------------------------------
+<<<<<<< Updated upstream
         self.buttonFailure = [UIButton buttonWithType:UIButtonTypeCustom];
         [self.buttonFailure setTitle:@"Отказ" forState:UIControlStateNormal];
         [self.buttonFailure addTarget:self
@@ -353,30 +381,43 @@
         self.buttonFailure.layer.borderWidth = 1.f;
         self.buttonFailure.layer.cornerRadius = 9.f;
         [self.scrollViewMyOrdersDetail addSubview:self.buttonFailure];
+=======
+        self.buttonFailureMyOrder = [UIButton buttonWithType:UIButtonTypeCustom];
+        [self.buttonFailureMyOrder setTitle:@"Отказ" forState:UIControlStateNormal];
+        self.buttonFailureMyOrder.titleLabel.font = [UIFont fontWithName:@"Helvetica-Bold" size:14];
+        self.buttonFailureMyOrder.frame = CGRectMake(95, 190 + self.heightAllItems, 130, 30);
+        self.buttonFailureMyOrder.backgroundColor = [UIColor colorWithHexString:@"e14141"];
+        self.buttonFailureMyOrder.layer.borderColor = [UIColor darkGrayColor].CGColor;
+        self.buttonFailureMyOrder.layer.borderWidth = 1.f;
+        self.buttonFailureMyOrder.layer.cornerRadius = 9.f;
+        [self.scrollViewMyOrdersDetail addSubview:self.buttonFailureMyOrder];
+>>>>>>> Stashed changes
         
         //Создание кнопки Частичная продажа------------------------------------
-        self.buttonPartialSale = [UIButton buttonWithType:UIButtonTypeCustom];
-        [self.buttonPartialSale setTitle:@"Частичная продажа" forState:UIControlStateNormal];
-        self.buttonPartialSale.titleLabel.font = [UIFont fontWithName:@"Helvetica-Bold" size:14];
-        self.buttonPartialSale.frame = CGRectMake(85, 230 + self.heightAllItems, 150, 30);
-        self.buttonPartialSale.backgroundColor = [UIColor colorWithHexString:@"eca011"];
-        self.buttonPartialSale.layer.borderColor = [UIColor darkGrayColor].CGColor;
-        self.buttonPartialSale.layer.borderWidth = 1.f;
-        self.buttonPartialSale.layer.cornerRadius = 9.f;
-        [self.scrollViewMyOrdersDetail addSubview:self.buttonPartialSale];
+        self.buttonPartialSaleMyOrder = [UIButton buttonWithType:UIButtonTypeCustom];
+        [self.buttonPartialSaleMyOrder setTitle:@"Частичная продажа" forState:UIControlStateNormal];
+        self.buttonPartialSaleMyOrder.titleLabel.font = [UIFont fontWithName:@"Helvetica-Bold" size:14];
+        self.buttonPartialSaleMyOrder.frame = CGRectMake(85, 230 + self.heightAllItems, 150, 30);
+        self.buttonPartialSaleMyOrder.backgroundColor = [UIColor colorWithHexString:@"eca011"];
+        self.buttonPartialSaleMyOrder.layer.borderColor = [UIColor darkGrayColor].CGColor;
+        self.buttonPartialSaleMyOrder.layer.borderWidth = 1.f;
+        self.buttonPartialSaleMyOrder.layer.cornerRadius = 9.f;
+        [self.scrollViewMyOrdersDetail addSubview:self.buttonPartialSaleMyOrder];
         
         //Создание кнопки на карте---------------------------------------------
-        self.buttonOnMap = [UIButton buttonWithType:UIButtonTypeCustom];
-        [self.buttonOnMap setTitle:@"На карте" forState:UIControlStateNormal];
-        self.buttonOnMap.titleLabel.font = [UIFont fontWithName:@"Helvetica-Bold" size:14];
-        self.buttonOnMap.frame = CGRectMake(210, 20, 80, 30);
-        self.buttonOnMap.backgroundColor = [UIColor colorWithHexString:@"0fae19"];
-        self.buttonOnMap.layer.borderColor = [UIColor darkGrayColor].CGColor;
-        self.buttonOnMap.layer.borderWidth = 1.f;
-        self.buttonOnMap.layer.cornerRadius = 9.f;
-        [self.scrollViewMyOrdersDetail addSubview:self.buttonOnMap];
-        [self.buttonOnMap addTarget:self action:@selector(tapButtonOnMap) forControlEvents:UIControlEventTouchDown];
-        [self.buttonOnMap addTarget:self action:@selector(actionButtonOnMap) forControlEvents:UIControlEventTouchUpInside];
+        self.buttonOnMapMyOrder = [UIButton buttonWithType:UIButtonTypeCustom];
+        [self.buttonOnMapMyOrder setTitle:@"На карте" forState:UIControlStateNormal];
+        self.buttonOnMapMyOrder.titleLabel.font = [UIFont fontWithName:@"Helvetica-Bold" size:14];
+        self.buttonOnMapMyOrder.frame = CGRectMake(210, 20, 80, 30);
+        self.buttonOnMapMyOrder.backgroundColor = [UIColor colorWithHexString:@"0fae19"];
+        self.buttonOnMapMyOrder.layer.borderColor = [UIColor darkGrayColor].CGColor;
+        self.buttonOnMapMyOrder.layer.borderWidth = 1.f;
+        self.buttonOnMapMyOrder.layer.cornerRadius = 9.f;
+        [self.buttonOnMapMyOrder addTarget:self action:@selector(actionButtonOnMapMyOrders) forControlEvents:UIControlEventTouchUpInside];
+        [self.scrollViewMyOrdersDetail addSubview:self.buttonOnMapMyOrder];
+        
+
+        [self.buttonOnMapMyOrder addTarget:self action:@selector(actionButtonOnMapMyOrders) forControlEvents:UIControlEventTouchUpInside];
         
         //Изображение времени---------------------------------------------------
         NSString* imageTimeName = @"timeImage.png";
@@ -1124,6 +1165,13 @@
     return stationName;
 }
 
+//Действие по кнопке buttonOnMap-----------------------------------------------------------
+- (void)actionButtonOnMapMyOrders
+{
+    MapViewDetailMyOrders * detail = [self.storyboard instantiateViewControllerWithIdentifier:@"mapMyOrdersDetails"];
+    [self.navigationController pushViewController:detail animated:YES];
+}
+
 
 - (void)didReceiveMemoryWarning
 {
@@ -1146,62 +1194,17 @@
 //Тач по кнопке buttonAssigned---------------------------------------------------------------
 - (void)tapButtonAssigned
 {
-    [Animation move_Label_Text_View_Right:self.buttonMade Points:0.f alpha:0.5];
+    [Animation move_Label_Text_View_Right:self.buttonMadeMyOrder Points:0.f alpha:0.5];
 }
 
 //Действие по кнопке buttonAssigned-----------------------------------------------------------
 - (void)actionButtonAssigned
 {
     
-//    SCLAlertView *alertView = [[SCLAlertView alloc] init];
-//    
-//    //Using Selector
-//    [alertView addButton:@"Подтвердить" target:self selector:@selector(alertButtonYes)];
-//    [alertView addButton:@"Отмена" target:self selector:@selector(alertButtonNo)];
-//    
-//    
-//    
-//    [alertView showNotice:self title:@"Внимание!!" subTitle:@"Вы уверенны что вы хотите взять этот заказ?" closeButtonTitle:nil duration:0.0f];
-    
-    
-    
-    
-    [Animation move_Label_Text_View_Right:self.buttonMade Points:0.f alpha:1.f];
+    [Animation move_Label_Text_View_Right:self.buttonMadeMyOrder Points:0.f alpha:1.f];
 }
 
-////Подтвержение заказа---------------------------------------------------------------------------
-//- (void) alertButtonYes
-//{
-////    [self postApiOrder];
-//}
-////Отмена заказа---------------------------------------------------------------------------------
-//- (void) alertButtonNo
-//{
-//    [self.navigationController popViewControllerAnimated:YES];
-//}
 
-//Тач по кнопке buttonOnMap---------------------------------------------------------------
-- (void)tapButtonOnMap
-{
-    [Animation move_Label_Text_View_Right:self.buttonOnMap Points:0.f alpha:0.5];
-}
-
-//Действие по кнопке buttonOnMap-----------------------------------------------------------
-- (void)actionButtonOnMap
-{
-    [Animation move_Label_Text_View_Right:self.buttonOnMap Points:0.f alpha:1.f];
-//    MapViewOrder * detail = [self.storyboard instantiateViewControllerWithIdentifier:@"MapOrder"];
-//    [self.navigationController pushViewController:detail animated:YES];
-}
-
-//Создание AlertView---------------------------------------------------------
-
-- (void)showAlertViewWithMessage:(NSString*)message
-{
-    SCLAlertView* alert = [[SCLAlertView alloc] init];
-    
-    [alert showNotice:self title:@"Внимание!!!" subTitle:message closeButtonTitle:@"Ок" duration:0.f];
-}
 
 
 
