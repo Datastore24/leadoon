@@ -15,6 +15,7 @@
 		775A84FA1BCBD2A2003BDC3D /* Animation.m in Sources */ = {isa = PBXBuildFile; fileRef = 775A84F91BCBD2A2003BDC3D /* Animation.m */; settings = {ASSET_TAGS = (); }; };
 		776F17231BD184B20085891A /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 776F17221BD184B20085891A /* QuartzCore.framework */; };
 		776F17291BD19B3D0085891A /* DetailsScoreboardOrderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 776F17281BD19B3D0085891A /* DetailsScoreboardOrderView.m */; settings = {ASSET_TAGS = (); }; };
+		7777DCB31BD7C63D0068922D /* MapViewDetailMyOrders.m in Sources */ = {isa = PBXBuildFile; fileRef = 7777DCB21BD7C63D0068922D /* MapViewDetailMyOrders.m */; settings = {ASSET_TAGS = (); }; };
 		778671AA1BD4126600E9E7E5 /* MKMapViewZoom-master in Resources */ = {isa = PBXBuildFile; fileRef = 778671A91BD4126600E9E7E5 /* MKMapViewZoom-master */; settings = {ASSET_TAGS = (); }; };
 		778671AD1BD412E500E9E7E5 /* MKMapView+ZoomLevel.m in Sources */ = {isa = PBXBuildFile; fileRef = 778671AC1BD412E500E9E7E5 /* MKMapView+ZoomLevel.m */; settings = {ASSET_TAGS = (); }; };
 		778D88AD1BCEEC84007E1F51 /* ScoreboardOrdersView.m in Sources */ = {isa = PBXBuildFile; fileRef = 778D88AC1BCEEC84007E1F51 /* ScoreboardOrdersView.m */; settings = {ASSET_TAGS = (); }; };
@@ -89,6 +90,8 @@
 		776F17221BD184B20085891A /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		776F17271BD19B3D0085891A /* DetailsScoreboardOrderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailsScoreboardOrderView.h; sourceTree = "<group>"; };
 		776F17281BD19B3D0085891A /* DetailsScoreboardOrderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailsScoreboardOrderView.m; sourceTree = "<group>"; };
+		7777DCB11BD7C63D0068922D /* MapViewDetailMyOrders.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapViewDetailMyOrders.h; sourceTree = "<group>"; };
+		7777DCB21BD7C63D0068922D /* MapViewDetailMyOrders.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapViewDetailMyOrders.m; sourceTree = "<group>"; };
 		778671A91BD4126600E9E7E5 /* MKMapViewZoom-master */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "MKMapViewZoom-master"; sourceTree = "<group>"; };
 		778671AB1BD412E500E9E7E5 /* MKMapView+ZoomLevel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "MKMapView+ZoomLevel.h"; path = "MKMapViewZoom-master/MKMapView+ZoomLevel.h"; sourceTree = "<group>"; };
 		778671AC1BD412E500E9E7E5 /* MKMapView+ZoomLevel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "MKMapView+ZoomLevel.m"; path = "MKMapViewZoom-master/MKMapView+ZoomLevel.m"; sourceTree = "<group>"; };
@@ -257,6 +260,15 @@
 			name = Animation;
 			sourceTree = "<group>";
 		};
+		7777DCB01BD7C6120068922D /* MapViewDetailMyOrders */ = {
+			isa = PBXGroup;
+			children = (
+				7777DCB11BD7C63D0068922D /* MapViewDetailMyOrders.h */,
+				7777DCB21BD7C63D0068922D /* MapViewDetailMyOrders.m */,
+			);
+			name = MapViewDetailMyOrders;
+			sourceTree = "<group>";
+		};
 		778D88AA1BCEEC68007E1F51 /* ScoreboardOrders */ = {
 			isa = PBXGroup;
 			children = (
@@ -369,6 +381,7 @@
 		77C903711BD6ABF800B54E6A /* MyOrdersViewDetail */ = {
 			isa = PBXGroup;
 			children = (
+				7777DCB01BD7C6120068922D /* MapViewDetailMyOrders */,
 				77C903721BD6AC4200B54E6A /* MyOrdersViewDetail.h */,
 				77C903731BD6AC4200B54E6A /* MyOrdersViewDetail.m */,
 			);
@@ -681,6 +694,7 @@
 				AD87E9C01BCD924600AF5C11 /* SingleTone.m in Sources */,
 				77FDDCDF1BCC261E00B2C13B /* SettingsView.m in Sources */,
 				AD87E9A51BCCF4AB00AF5C11 /* UsersModel.xcdatamodeld in Sources */,
+				7777DCB31BD7C63D0068922D /* MapViewDetailMyOrders.m in Sources */,
 				AD2A24AA1BD52B3000E0BC31 /* ParserResponseOrder.m in Sources */,
 				AD87E9AA1BCCF56000AF5C11 /* Couriers+CoreDataProperties.m in Sources */,
 				77C903741BD6AC4300B54E6A /* MyOrdersViewDetail.m in Sources */,
