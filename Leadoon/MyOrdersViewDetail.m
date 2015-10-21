@@ -25,6 +25,8 @@
 #import "MyOrdersView.h"
 #import "HeightForText.h"
 
+//#import "ECPhoneNumberFormatter.h" //форматирование цифр в формат телефона
+
 @interface MyOrdersViewDetail ()
 
 @property (strong, nonatomic) UIButton * buttonPartialSale; //Частичная продажа
@@ -89,7 +91,7 @@
         }
         //
         
-        //    labelDays.text = @"Завтра";
+        
         labelDays.font = [UIFont fontWithName:@"Helvetica-Bold" size:12];
         labelDays.textColor = [UIColor blackColor];
         [self.scrollViewMyOrdersDetail addSubview:labelDays];
@@ -291,16 +293,45 @@
         [self.buttonMade addTarget:self action:@selector(actionButtonAssigned) forControlEvents:UIControlEventTouchUpInside];
         
         //Создание кнопки обратный звонок--------------------------------------
+      
         self.buttonBackCall = [UIButton buttonWithType:UIButtonTypeCustom];
-        [self.buttonBackCall setTitle:@"Обратный звонок" forState:UIControlStateNormal];
-        [self.buttonBackCall setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-        self.buttonBackCall.titleLabel.font = [UIFont fontWithName:@"Helvetica-Bold" size:14];
-        self.buttonBackCall.frame = CGRectMake(170, 70, 135, 30);
-        self.buttonBackCall.backgroundColor = [UIColor colorWithHexString:@"f2c332"];
-        self.buttonBackCall.layer.borderColor = [UIColor darkGrayColor].CGColor;
-        self.buttonBackCall.layer.borderWidth = 1.f;
-        self.buttonBackCall.layer.cornerRadius = 9.f;
-        [self.scrollViewMyOrdersDetail addSubview:self.buttonBackCall];
+        
+        //Условия обратный звонок или номер телефона
+        if([parser.telephony integerValue] == 0){
+            
+            //Изображение Телефона--------------------------------------------------
+            NSString* imageFoneName = @"phoneImage.png";
+            UIImage* imageFone = [UIImage imageNamed:imageFoneName];
+            UIImageView* imageViewFone = [[UIImageView alloc] initWithFrame:CGRectMake(10, 160, 20, 20)];
+            imageViewFone.image = imageFone;
+            imageViewFone.alpha = 0.7f;
+            [self.scrollViewMyOrdersDetail addSubview:imageViewFone];
+            
+            //Номер телефона---------------------------------------------------------
+            UILabel* labelPhone = [[UILabel alloc] initWithFrame:CGRectMake(40, 160, 240, 20)];
+            
+            //Форматирование телефона
+           // ECPhoneNumberFormatter *formatter = [[ECPhoneNumberFormatter alloc] init];
+           // NSString *formattedNumber = [formatter stringForObjectValue:parser.phone1];
+            //
+            
+            //labelPhone.text = formattedNumber;
+            labelPhone.font = [UIFont fontWithName:@"Helvetica-Bold" size:12];
+            [self.scrollViewMyOrdersDetail addSubview:labelPhone];
+            
+        }else{
+                [self.buttonBackCall setTitle:@"Обратный звонок" forState:UIControlStateNormal];
+            [self.buttonBackCall setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+            self.buttonBackCall.titleLabel.font = [UIFont fontWithName:@"Helvetica-Bold" size:14];
+            self.buttonBackCall.frame = CGRectMake(170, 70, 135, 30);
+            self.buttonBackCall.backgroundColor = [UIColor colorWithHexString:@"f2c332"];
+            self.buttonBackCall.layer.borderColor = [UIColor darkGrayColor].CGColor;
+            self.buttonBackCall.layer.borderWidth = 1.f;
+            self.buttonBackCall.layer.cornerRadius = 9.f;
+            [self.scrollViewMyOrdersDetail addSubview:self.buttonBackCall];
+        }
+        
+        
         
         //Создание кнопки отказ--------------------------------------
         self.buttonFailure = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -369,19 +400,9 @@
         imageViewCustomer.alpha = 0.7f;
         [self.scrollViewMyOrdersDetail addSubview:imageViewCustomer];
         
-        //Изображение Телефона--------------------------------------------------
-        NSString* imageFoneName = @"phoneImage.png";
-        UIImage* imageFone = [UIImage imageNamed:imageFoneName];
-        UIImageView* imageViewFone = [[UIImageView alloc] initWithFrame:CGRectMake(10, 160, 20, 20)];
-        imageViewFone.image = imageFone;
-        imageViewFone.alpha = 0.7f;
-        [self.scrollViewMyOrdersDetail addSubview:imageViewFone];
         
-        //Номер телефона---------------------------------------------------------
-        UILabel* labelPhone = [[UILabel alloc] initWithFrame:CGRectMake(40, 160, 240, 20)];
-        labelPhone.text = @"8 (918) 365 34 93";
-        labelPhone.font = [UIFont fontWithName:@"Helvetica-Bold" size:12];
-        [self.scrollViewMyOrdersDetail addSubview:labelPhone];
+        
+        
         
         //Параметры кнопки buttonBackDetailScoreboardOrderView-----------------------------------
         self.butoonBackMyOrdersDetail.backgroundColor = [UIColor clearColor];
