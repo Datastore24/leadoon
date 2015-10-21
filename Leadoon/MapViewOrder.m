@@ -8,6 +8,7 @@
 
 #import "MapViewOrder.h"
 #import "SettingsView.h"
+#import <SCLAlertView-Objective-C/SCLAlertView.h>
 
 @interface MapViewOrder () <CLLocationManagerDelegate, MKMapViewDelegate>
 
@@ -16,6 +17,7 @@
 @property (weak, nonatomic) IBOutlet UIButton* buttonSettingMapViewOrder; //Кнопка Настроек
 @property (weak, nonatomic) IBOutlet UIButton* buttomZoomIn; //Кнопка увеличения
 @property (weak, nonatomic) IBOutlet UIButton* ButtonZoomOut; //Кнопка уменьшения
+@property (weak, nonatomic) IBOutlet UIButton *buttonAssigned; //Кнопка присвоить
 
 @property (strong, nonatomic) NSMutableArray *annotationArray;
 
@@ -27,39 +29,25 @@
 {
     [super viewDidLoad];
     
-//    NSMutableArray *annotationArray = [[NSMutableArray alloc] init];
-    
     self.annotationArray = [[NSMutableArray alloc] init];
     
     ZSAnnotation *annotation = nil;
     
     annotation = [[ZSAnnotation alloc] init];
-    annotation.coordinate = CLLocationCoordinate2DMake(45.570, -122.695);
+    annotation.coordinate = CLLocationCoordinate2DMake(55.73850322752935, 37.59373962879181);
     annotation.color = [UIColor blueColor];
-    annotation.title = @"blueColor";
-    annotation.subtitle = @"Ул воровского 25";
+    annotation.title = @"13-я парковая 40";
+    annotation.subtitle = @"Щелковская";
     annotation.type = ZSPinAnnotationTypeDisc;
-    [self.annotationArray addObject:annotation];
-    
-    
-    annotation = [[ZSAnnotation alloc] init];
-    annotation.coordinate = CLLocationCoordinate2DMake(45.492, -122.798);
-    annotation.color = [UIColor brownColor];
-    annotation.type = ZSPinAnnotationTypeDisc;
-    annotation.title = @"brownColor";
-    annotation.subtitle = @"Ул Геворкян 25";
-    [self.annotationArray addObject:annotation];
-    
-    
-    annotation = [[ZSAnnotation alloc] init];
-    annotation.coordinate = CLLocationCoordinate2DMake(45.524, -122.704);
-    annotation.color = [UIColor greenColor];
-    annotation.type = ZSPinAnnotationTypeDisc;
-    annotation.title = @"greenColor";
-    annotation.subtitle = @"Ул Субровский 25";
     [self.annotationArray addObject:annotation];
     
     [self.mapView addAnnotations:self.annotationArray];
+    
+    CLLocationCoordinate2D cord;
+    cord.latitude = 55.73850322752935;
+    cord.longitude = 37.59373962879181;
+    
+    self.mapView.region = MKCoordinateRegionMakeWithDistance(cord, 2000, 2000);
     
 
     //Параметры кнопки buttomZoomIn-------------------------------------------------
@@ -81,6 +69,14 @@
     [self.ButtonZoomOut addTarget:self
                            action:@selector(actionButtomZoomOut)
                  forControlEvents:UIControlEventTouchUpInside];
+    
+    //Параметры кнопки buttonAssigned-----------------------------------------------
+    self.buttonAssigned.backgroundColor = [UIColor whiteColor];
+    self.buttonAssigned.layer.borderColor = [UIColor lightGrayColor].CGColor;
+    self.buttonAssigned.layer.borderWidth = 1.f;
+    self.buttonAssigned.layer.cornerRadius = 9.f;
+    [self.buttonAssigned addTarget:self action:@selector(actionButtonAssigned)
+                              forControlEvents:UIControlEventTouchUpInside];
 
     //Параметры основного view------------------------------------------------------
     self.view.backgroundColor = [UIColor groupTableViewBackgroundColor];
@@ -119,6 +115,29 @@
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
+}
+
+- (void) actionButtonAssigned
+{
+    
+    SCLAlertView* alertView = [[SCLAlertView alloc] init];
+    
+    //Using Selector
+    [alertView addButton:@"Подтвердить" target:self selector:@selector(alertButtonYes)];
+    [alertView addButton:@"Отмена" target:self selector:@selector(alertButtonNo)];
+    
+    [alertView showNotice:self title:@"Внимание!!" subTitle:@"Вы уверенны что вы хотите взять этот заказ?" closeButtonTitle:nil duration:0.0f];
+}
+
+//Подтвержение заказа---------------------------------------------------------------------------
+- (void)alertButtonYes
+{
+   //Тут метод Кирилла, по подверждению
+}
+//Отмена заказа---------------------------------------------------------------------------------
+- (void)alertButtonNo
+{
+    [self.navigationController popToViewController:[self.navigationController.viewControllers objectAtIndex:2] animated:YES];
 }
 
 //Дествие кнопки buttonBackMapViewOrder---------------------------------------------
