@@ -370,7 +370,7 @@
         [self.scrollViewMyOrdersDetail addSubview:imageViewCustomer];
         
         //Изображение Телефона--------------------------------------------------
-        NSString* imageFoneName = @"phone.png";
+        NSString* imageFoneName = @"phoneImage.png";
         UIImage* imageFone = [UIImage imageNamed:imageFoneName];
         UIImageView* imageViewFone = [[UIImageView alloc] initWithFrame:CGRectMake(10, 160, 20, 20)];
         imageViewFone.image = imageFone;
