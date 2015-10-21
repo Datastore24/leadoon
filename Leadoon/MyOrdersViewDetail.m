@@ -320,7 +320,11 @@
             [self.scrollViewMyOrdersDetail addSubview:labelPhone];
             
         }else{
-                [self.buttonBackCall setTitle:@"Обратный звонок" forState:UIControlStateNormal];
+            
+            [self.buttonBackCall setTitle:@"Обратный звонок" forState:UIControlStateNormal];
+            [self.buttonBackCall addTarget:self
+                                    action:@selector(postApiCallBack) forControlEvents:UIControlEventTouchUpInside];
+            
             [self.buttonBackCall setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
             self.buttonBackCall.titleLabel.font = [UIFont fontWithName:@"Helvetica-Bold" size:14];
             self.buttonBackCall.frame = CGRectMake(170, 70, 135, 30);
@@ -441,29 +445,32 @@
     
 }
 
-////Тащим заказы с сервера
-//-(void) postApiOrder{
-//    //Передаваемые параметры
-//    NSMutableArray * arrayCourier =[[SingleTone sharedManager] parsingArray];
-//    ParserCourier * parse = [arrayCourier objectAtIndex:0];
-//    
-//    NSDictionary * params = [[NSDictionary alloc] initWithObjectsAndKeys:
-//                             parse.courierId,@"courier_id",
-//                             self.orderID,@"order_id",
-//                             nil];
-//    
-//    APIPostClass * api =[APIPostClass new]; //создаем API
-//    [api postDataToServerWithParams:params method:@"action=take_order" complitionBlock:^(id response) {
-//        NSDictionary * dict= (NSDictionary *) response;
-//        if ([[dict objectForKey:@"error"] integerValue] == 0){
-//            MyOrdersView * myOrderView = [self.storyboard instantiateViewControllerWithIdentifier:@"scoreboardMyOrders"];
-//            [self.navigationController pushViewController:myOrderView animated:YES];
-//        }else{
-//            [self showAlertViewWithMessage:@"Ошибка присвоения заказа, обратитесь к оператору"];
-//        }
-//    }];
-//    
-//}
+//Запрос на callback
+-(void) postApiCallBack{
+    //Передаваемые параметры
+    NSMutableArray * arrayCourier =[[SingleTone sharedManager] parsingArray];
+    ParserCourier * parse = [arrayCourier objectAtIndex:0];
+    ParserOrder * parseOrder = [self.arrayResponse objectAtIndex:0];
+    NSDictionary * params = [[NSDictionary alloc] initWithObjectsAndKeys:
+                             parseOrder.client_id,@"client_id",
+                             parse.courierId,@"courier_id",
+                             self.orderID,@"order_id",
+                             nil];
+    
+    APIPostClass * api =[APIPostClass new]; //создаем API
+    [api postDataToServerWithParams:params method:@"action=get_callback" complitionBlock:^(id response) {
+        NSDictionary * dict= (NSDictionary *) response;
+       
+        if ([[dict objectForKey:@"error"] integerValue] == 0){
+            
+            NSString * resultMessage = [NSString stringWithFormat:@"Сейчас вы получите звонок на номер %@",parse.phone];
+            [self showAlertViewWithMessage:resultMessage];
+        }else{
+            [self showAlertViewWithMessage:@"Ошибка вызова обратного звонка"];
+        }
+    }];
+    
+}
 
 //Цвет ветки метро-------------------------------------------------
 - (NSString*) roundMetroColor:(NSString *) lineID{
