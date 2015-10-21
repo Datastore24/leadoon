@@ -25,7 +25,7 @@
 #import "MyOrdersView.h"
 #import "HeightForText.h"
 
-//#import "ECPhoneNumberFormatter.h" //форматирование цифр в формат телефона
+#import "ECPhoneNumberFormatter.h" //форматирование цифр в формат телефона
 
 @interface MyOrdersViewDetail ()
 
@@ -311,11 +311,11 @@
             UILabel* labelPhone = [[UILabel alloc] initWithFrame:CGRectMake(40, 160, 240, 20)];
             
             //Форматирование телефона
-           // ECPhoneNumberFormatter *formatter = [[ECPhoneNumberFormatter alloc] init];
-           // NSString *formattedNumber = [formatter stringForObjectValue:parser.phone1];
+            ECPhoneNumberFormatter *formatter = [[ECPhoneNumberFormatter alloc] init];
+            NSString *formattedNumber = [formatter stringForObjectValue:parser.phone1];
             //
             
-            //labelPhone.text = formattedNumber;
+            labelPhone.text = formattedNumber;
             labelPhone.font = [UIFont fontWithName:@"Helvetica-Bold" size:12];
             [self.scrollViewMyOrdersDetail addSubview:labelPhone];
             
