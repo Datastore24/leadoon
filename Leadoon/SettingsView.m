@@ -73,6 +73,7 @@
     //Параметры buttonChangePhoneSettingsView--------------------------------------
     [self drawButtonsView:self.buttonChangePhoneSettingsView];
 
+  
     //Параметры переключателя switchEmployment-------------------------------------
     if([parse.status isEqual:@"1"]){
      [self.switchEmployment setOn:NO animated:YES];
@@ -131,20 +132,21 @@
 //Действие переключателя switchEmployment--------------------------------------------
 - (void)actionSwitchEmployment
 {
+    
     if (self.switchEmployment.on) {
         [self postStatusToTheServer:@"2"];
-        NSLog(@"Занят");
+        
     }
     else {
         [self postStatusToTheServer:@"1"];
-        NSLog(@"Свободен");
+        
     }
 }
 
 //Отправка данных о занятости на сервер
 -(void) postStatusToTheServer: (NSString *) status{
     ParserCourier * parse = [self.arrayResponce objectAtIndex:0];
-    
+    parse.status=status;
            NSDictionary * params = [[NSDictionary alloc] initWithObjectsAndKeys:
                                  parse.email,@"email",
                                  parse.password,@"password",
@@ -154,7 +156,7 @@
         APIPostClass * api =[APIPostClass new]; //создаем API
     
     [api postDataToServerWithParams:params method:@"action=update_status" complitionBlock:^(id response) {
-       
+        NSLog(@"%@",response);
     }];
     
     
@@ -167,16 +169,17 @@
 {
     if (self.switchTransport.on) {
         [self postTransportToTheServer:@"0"];
-        NSLog(@"Я пешком");
+        
     }
     else {
-        NSLog(@"Я на машине");
+        
         [self postTransportToTheServer:@"1"];
     }
 }
 //Отправка данных о транспорте на сервер
 -(void) postTransportToTheServer: (NSString *) transport{
     ParserCourier * parse = [self.arrayResponce objectAtIndex:0];
+    parse.has_transport=transport;
     
     NSDictionary * params = [[NSDictionary alloc] initWithObjectsAndKeys:
                              parse.email,@"email",
