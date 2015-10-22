@@ -358,30 +358,79 @@
         [self.scrollViewMyOrdersDetail addSubview:self.buttonFailure];
 
         //Создание кнопки Отмена--------------------------------------
+        
+        //Вычесление разницы в минутах между текущим временем и настоящим
+        
+        //Время из базы
+        NSString* endTime;
+        if (!parser.delivery_time_to) {
+            endTime = parser.delivery_time_from;
+        }
+        else {
+            endTime = parser.delivery_time_to;
+        }
+        
+        NSArray * endTimeArray = [endTime componentsSeparatedByString:@":"];
+         int endTimeInMinutes = [[endTimeArray objectAtIndex:0] intValue]*60+[[endTimeArray objectAtIndex:1] intValue];
+        //
+        
+        //Текущая время
+        NSDate *currentDate = [NSDate date];
+        NSDateFormatter *dateFormatter = [NSDateFormatter new];
+        [dateFormatter setDateFormat:@"HH:mm"];
+        NSString *currentTime = [dateFormatter stringFromDate:currentDate];
+        
+        NSArray * currentTimeArray = [currentTime componentsSeparatedByString:@":"];
+        int currentTimeInMinutes =  [[currentTimeArray objectAtIndex:0] intValue] * 60+[[currentTimeArray objectAtIndex:1] intValue];
+        
+        //
+        
+        
+        int resultTimeInMinutes = endTimeInMinutes - currentTimeInMinutes; //Разница в менутах
+        
         self.buttonCancell = [UIButton buttonWithType:UIButtonTypeCustom];
         [self.buttonCancell setTitle:@"Отмена" forState:UIControlStateNormal];
         [self.buttonCancell addTarget:self
                                action:@selector(createAlertonButtonCancell)
                      forControlEvents:UIControlEventTouchUpInside];
-
+        
         self.buttonCancell.titleLabel.font = [UIFont fontWithName:@"Helvetica-Bold" size:14];
         self.buttonCancell.frame = CGRectMake(90, 230 + self.heightAllItems, 140, 30);
         self.buttonCancell.backgroundColor = [UIColor colorWithHexString:@"9c4002"];
         self.buttonCancell.layer.borderColor = [UIColor darkGrayColor].CGColor;
         self.buttonCancell.layer.borderWidth = 1.f;
         self.buttonCancell.layer.cornerRadius = 9.f;
-        [self.scrollViewMyOrdersDetail addSubview:self.buttonCancell];
-
-        //Создание кнопки Частичная продажа------------------------------------
+        
+        //Подготовка кнопки частичная продажа, в зависимости от того, есть ли кнопка Отмены
+        
         self.buttonPartialSale = [UIButton buttonWithType:UIButtonTypeCustom];
+        
+        if ([parser.delivery_date isEqual:[parseDate dateFormatToDay]]) {
+            if(resultTimeInMinutes >= 180){
+                self.buttonPartialSale.frame = CGRectMake(85, 270 + self.heightAllItems, 150, 30);
+                [self.scrollViewMyOrdersDetail addSubview:self.buttonCancell];
+            }else{
+                self.buttonPartialSale.frame = CGRectMake(85, 230 + self.heightAllItems, 150, 30);
+            }
+        }else{
+          self.buttonPartialSale.frame = CGRectMake(85, 270 + self.heightAllItems, 150, 30);
+          [self.scrollViewMyOrdersDetail addSubview:self.buttonCancell];
+        }
+
+        
+        //Создание кнопки Частичная продажа------------------------------------
+    
         [self.buttonPartialSale setTitle:@"Частичная продажа" forState:UIControlStateNormal];
         self.buttonPartialSale.titleLabel.font = [UIFont fontWithName:@"Helvetica-Bold" size:14];
-        self.buttonPartialSale.frame = CGRectMake(85, 270 + self.heightAllItems, 150, 30);
         self.buttonPartialSale.backgroundColor = [UIColor colorWithHexString:@"eca011"];
         self.buttonPartialSale.layer.borderColor = [UIColor darkGrayColor].CGColor;
         self.buttonPartialSale.layer.borderWidth = 1.f;
         self.buttonPartialSale.layer.cornerRadius = 9.f;
         [self.scrollViewMyOrdersDetail addSubview:self.buttonPartialSale];
+        
+        
+
+        
 
         //Создание кнопки на карте---------------------------------------------
         self.buttonOnMap = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -459,7 +508,26 @@
 //Подтвержение заказа---------------------------------------------------------------------------
 - (void)alertButtonYes
 {
-   ///Тут метод Кирилла
+    //Передаваемые параметры
+    NSDictionary* params = [[NSDictionary alloc] initWithObjectsAndKeys:
+                            self.orderID, @"order_id",
+                            nil];
+    
+    APIPostClass* api = [APIPostClass new]; //создаем API
+    [api postDataToServerWithParams:params
+                             method:@"action=courier_order_cancel"
+                    complitionBlock:^(id response) {
+                        NSDictionary* dict = (NSDictionary*)response;
+                        
+                        if ([[dict objectForKey:@"error"] integerValue] == 0) {
+                            
+                            MyOrdersView* myOrdersView = [self.storyboard instantiateViewControllerWithIdentifier:@"scoreboardMyOrders"];
+                            [self.navigationController pushViewController:myOrdersView animated:YES];
+                        }
+                        else {
+                            [self showAlertViewWithMessage:@"Ошибка"];
+                        }
+                    }];
 }
 //Отмена заказа---------------------------------------------------------------------------------
 - (void)alertButtonNo
