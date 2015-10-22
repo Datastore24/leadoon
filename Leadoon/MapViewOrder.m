@@ -104,6 +104,7 @@
 
     [self.locationManager startUpdatingLocation];
     self.locationManager.delegate = self;
+    
 
 }
 
