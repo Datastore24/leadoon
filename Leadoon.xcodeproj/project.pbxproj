@@ -10,6 +10,7 @@
 		43CE65F39BA469C87A37D02C /* libPods-Leadoon.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C59AE2F176CF95A5A7C5D435 /* libPods-Leadoon.a */; };
 		770C1E781BD78664005E4A50 /* phoneImage.png in Resources */ = {isa = PBXBuildFile; fileRef = 770C1E771BD78664005E4A50 /* phoneImage.png */; settings = {ASSET_TAGS = (); }; };
 		7713A3211BD0054F00F14506 /* basket.png in Resources */ = {isa = PBXBuildFile; fileRef = 7713A3201BD0054F00F14506 /* basket.png */; settings = {ASSET_TAGS = (); }; };
+		772E41D71BD965CC00FA23D4 /* MapViewScoreboardOrders.m in Sources */ = {isa = PBXBuildFile; fileRef = 772E41D61BD965CC00FA23D4 /* MapViewScoreboardOrders.m */; settings = {ASSET_TAGS = (); }; };
 		77501CE21BD5973300596DA8 /* ZSAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 77501CE11BD5973300596DA8 /* ZSAnnotation.m */; settings = {ASSET_TAGS = (); }; };
 		77501CE51BD5997B00596DA8 /* ZSPinAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 77501CE41BD5997B00596DA8 /* ZSPinAnnotation.m */; settings = {ASSET_TAGS = (); }; };
 		775A84FA1BCBD2A2003BDC3D /* Animation.m in Sources */ = {isa = PBXBuildFile; fileRef = 775A84F91BCBD2A2003BDC3D /* Animation.m */; settings = {ASSET_TAGS = (); }; };
@@ -81,6 +82,8 @@
 /* Begin PBXFileReference section */
 		770C1E771BD78664005E4A50 /* phoneImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = phoneImage.png; sourceTree = "<group>"; };
 		7713A3201BD0054F00F14506 /* basket.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = basket.png; sourceTree = "<group>"; };
+		772E41D51BD965CC00FA23D4 /* MapViewScoreboardOrders.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapViewScoreboardOrders.h; sourceTree = "<group>"; };
+		772E41D61BD965CC00FA23D4 /* MapViewScoreboardOrders.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapViewScoreboardOrders.m; sourceTree = "<group>"; };
 		77501CE01BD5973300596DA8 /* ZSAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZSAnnotation.h; sourceTree = "<group>"; };
 		77501CE11BD5973300596DA8 /* ZSAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZSAnnotation.m; sourceTree = "<group>"; };
 		77501CE31BD5997B00596DA8 /* ZSPinAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZSPinAnnotation.h; sourceTree = "<group>"; };
@@ -272,6 +275,8 @@
 		778D88AA1BCEEC68007E1F51 /* ScoreboardOrders */ = {
 			isa = PBXGroup;
 			children = (
+				772E41D51BD965CC00FA23D4 /* MapViewScoreboardOrders.h */,
+				772E41D61BD965CC00FA23D4 /* MapViewScoreboardOrders.m */,
 				7747AC991BD50C6F006F3A7A /* ScoreboardOrdersDetail */,
 				77E8F4251BD2C3F500D2509E /* images */,
 				778D88AB1BCEEC84007E1F51 /* ScoreboardOrdersView.h */,
@@ -668,6 +673,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				772E41D71BD965CC00FA23D4 /* MapViewScoreboardOrders.m in Sources */,
 				AD87E9B91BCCF9DD00AF5C11 /* ParserCourier.m in Sources */,
 				778671AD1BD412E500E9E7E5 /* MKMapView+ZoomLevel.m in Sources */,
 				778D88AD1BCEEC84007E1F51 /* ScoreboardOrdersView.m in Sources */,
