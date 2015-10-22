@@ -11,6 +11,7 @@
 #import "Animation.h"
 #import "MapViewOrder.h"
 #import "SettingsView.h"
+#import "MapViewDetailMyOrders.h"
 
 #import "SingleTone.h"
 #import <SCLAlertView-Objective-C/SCLAlertView.h>
@@ -32,7 +33,7 @@
 @property (strong, nonatomic) UIButton* buttonPartialSale; //Частичная продажа
 @property (strong, nonatomic) UIButton* buttonFailure; //Отказ
 @property (strong, nonatomic) UIButton* buttonMade; //Выполнен
-@property (strong, nonatomic) UIButton* buttonOnMap; //На карте
+@property (strong, nonatomic) UIButton* buttonOnMapMyOrder; //На карте
 @property (strong, nonatomic) UIButton* buttonBackCall; //Звонок
 @property (strong, nonatomic) UIButton* buttonCancell; //Кнопка отмена
 
@@ -384,17 +385,17 @@
         [self.scrollViewMyOrdersDetail addSubview:self.buttonPartialSale];
 
         //Создание кнопки на карте---------------------------------------------
-        self.buttonOnMap = [UIButton buttonWithType:UIButtonTypeCustom];
-        [self.buttonOnMap setTitle:@"На карте" forState:UIControlStateNormal];
-        self.buttonOnMap.titleLabel.font = [UIFont fontWithName:@"Helvetica-Bold" size:14];
-        self.buttonOnMap.frame = CGRectMake(210, 20, 80, 30);
-        self.buttonOnMap.backgroundColor = [UIColor colorWithHexString:@"0fae19"];
-        self.buttonOnMap.layer.borderColor = [UIColor darkGrayColor].CGColor;
-        self.buttonOnMap.layer.borderWidth = 1.f;
-        self.buttonOnMap.layer.cornerRadius = 9.f;
-        [self.scrollViewMyOrdersDetail addSubview:self.buttonOnMap];
-        [self.buttonOnMap addTarget:self action:@selector(tapButtonOnMap) forControlEvents:UIControlEventTouchDown];
-        [self.buttonOnMap addTarget:self action:@selector(actionButtonOnMap) forControlEvents:UIControlEventTouchUpInside];
+        self.buttonOnMapMyOrder = [UIButton buttonWithType:UIButtonTypeCustom];
+        [self.buttonOnMapMyOrder setTitle:@"На карте" forState:UIControlStateNormal];
+        self.buttonOnMapMyOrder.titleLabel.font = [UIFont fontWithName:@"Helvetica-Bold" size:14];
+        self.buttonOnMapMyOrder.frame = CGRectMake(210, 20, 80, 30);
+        self.buttonOnMapMyOrder.backgroundColor = [UIColor colorWithHexString:@"0fae19"];
+        self.buttonOnMapMyOrder.layer.borderColor = [UIColor darkGrayColor].CGColor;
+        self.buttonOnMapMyOrder.layer.borderWidth = 1.f;
+        self.buttonOnMapMyOrder.layer.cornerRadius = 9.f;
+        [self.scrollViewMyOrdersDetail addSubview:self.buttonOnMapMyOrder];
+        [self.buttonOnMapMyOrder addTarget:self action:@selector(actionButtonMapViewMyOrderDetail) forControlEvents:UIControlEventTouchUpInside];
+
 
         //Изображение времени---------------------------------------------------
         NSString* imageTimeName = @"timeImage.png";
@@ -1194,42 +1195,16 @@
 - (void)actionButtonAssigned
 {
 
-    //    SCLAlertView *alertView = [[SCLAlertView alloc] init];
-    //
-    //    //Using Selector
-    //    [alertView addButton:@"Подтвердить" target:self selector:@selector(alertButtonYes)];
-    //    [alertView addButton:@"Отмена" target:self selector:@selector(alertButtonNo)];
-    //
-    //
-    //
-    //    [alertView showNotice:self title:@"Внимание!!" subTitle:@"Вы уверенны что вы хотите взять этот заказ?" closeButtonTitle:nil duration:0.0f];
+
 
     [Animation move_Label_Text_View_Right:self.buttonMade Points:0.f alpha:1.f];
 }
 
-////Подтвержение заказа---------------------------------------------------------------------------
-//- (void) alertButtonYes
-//{
-////    [self postApiOrder];
-//}
-////Отмена заказа---------------------------------------------------------------------------------
-//- (void) alertButtonNo
-//{
-//    [self.navigationController popViewControllerAnimated:YES];
-//}
-
-//Тач по кнопке buttonOnMap---------------------------------------------------------------
-- (void)tapButtonOnMap
-{
-    [Animation move_Label_Text_View_Right:self.buttonOnMap Points:0.f alpha:0.5];
-}
-
 //Действие по кнопке buttonOnMap-----------------------------------------------------------
-- (void)actionButtonOnMap
+- (void) actionButtonMapViewMyOrderDetail
 {
-    [Animation move_Label_Text_View_Right:self.buttonOnMap Points:0.f alpha:1.f];
-    //    MapViewOrder * detail = [self.storyboard instantiateViewControllerWithIdentifier:@"MapOrder"];
-    //    [self.navigationController pushViewController:detail animated:YES];
+    MapViewDetailMyOrders * detail = [self.storyboard instantiateViewControllerWithIdentifier:@"mapViewMyOrderDetail"];
+    [self.navigationController pushViewController:detail animated:YES];
 }
 
 //Создание AlertView---------------------------------------------------------
