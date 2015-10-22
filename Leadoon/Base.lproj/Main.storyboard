@@ -223,6 +223,16 @@
                                     <outlet property="delegate" destination="4wj-DH-y6J" id="UIu-YH-bjK"/>
                                 </connections>
                             </mapView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="zwq-R0-DQH">
+                                <rect key="frame" x="279" y="233" width="30" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <animations/>
+                                <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                <state key="normal">
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="+" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="OyN-GC-UE0">
                                 <rect key="frame" x="284" y="238" width="20" height="20"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -254,16 +264,6 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <state key="normal" title="Присвоить">
-                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="zwq-R0-DQH">
-                                <rect key="frame" x="279" y="233" width="30" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <animations/>
-                                <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="22"/>
-                                <state key="normal">
                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                             </button>
@@ -923,7 +923,7 @@
                                 </subviews>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
-                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" id="qX1-ZA-byD">
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" showsUserLocation="YES" id="qX1-ZA-byD">
                                 <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <connections>
@@ -957,6 +957,15 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
+                    <connections>
+                        <outlet property="buttonBackMapViewDetailMyOrders" destination="uUn-IZ-me3" id="XNL-O4-yJn"/>
+                        <outlet property="buttonSettingMapViewDetailMyOrders" destination="cmj-Rk-f2B" id="93o-j0-35b"/>
+                        <outlet property="buttonZoomInMapViewDetailMyOrders" destination="p87-N8-SIo" id="Tul-Dl-V1V"/>
+                        <outlet property="buttonZoomOutMapViewDetailMyOrders" destination="jXa-l1-Yfe" id="1Iy-bd-C5V"/>
+                        <outlet property="labelTopBarMapViewDetailMyOrders" destination="VUj-d4-vE4" id="M5L-5T-y1Q"/>
+                        <outlet property="mapViewDetailMyOrders" destination="qX1-ZA-byD" id="LQs-7m-DOg"/>
+                        <outlet property="topBarMapViewDetailMyOrders" destination="dDV-d4-bHP" id="z9k-rL-jHw"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dgc-zr-TpL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
