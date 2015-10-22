@@ -157,13 +157,15 @@
         [self.mainScrollViewOrder addSubview:colorLine];
 
         //Улица заказщика---------------------------------------------------
-        UILabel* labelStreetСustomer = [[UILabel alloc] initWithFrame:CGRectMake(40, 110, 240, 20)];
+        UILabel* labelStreetСustomer = [[UILabel alloc] initWithFrame:CGRectMake(40, 110, 240, 40)];
         labelStreetСustomer.text = parser.address;
         labelStreetСustomer.font = [UIFont fontWithName:@"Helvetica-Bold" size:12];
+        labelStreetСustomer.numberOfLines = 0;
+        labelStreetСustomer.lineBreakMode = NSLineBreakByWordWrapping;
         [self.mainScrollViewOrder addSubview:labelStreetСustomer];
 
         //Квартира, подъезд, домовон----------------------------------------
-        UILabel* labelApartmentAndIntercom = [[UILabel alloc] initWithFrame:CGRectMake(40, 130, 250, 20)];
+        UILabel* labelApartmentAndIntercom = [[UILabel alloc] initWithFrame:CGRectMake(40, 140, 250, 20)];
         NSString* resultAdress = [NSString stringWithFormat:@"кв. %@, подъезд %@, домофон %@", parser.flat, parser.porch, parser.intercom];
         labelApartmentAndIntercom.text = resultAdress;
         labelApartmentAndIntercom.font = [UIFont fontWithName:@"HelveticaNeue" size:12];
@@ -178,19 +180,19 @@
 
         //Комментарии заказчика-------------------------------------------
         HeightForText* heightForText = [HeightForText new];
-
-        self.textFieldCommentsHeight = [heightForText getHeightForText:parser.comment textWith:self.view.frame.size.width withFont:[UIFont systemFontOfSize:20.f]];
-
-        UITextView* textFieldComments = [[UITextView alloc] initWithFrame:CGRectMake(35, 183, 180, self.textFieldCommentsHeight)];
-        textFieldComments.text = parser.comment;
-        textFieldComments.editable = NO;
-        textFieldComments.scrollEnabled = NO;
-        textFieldComments.font = [UIFont fontWithName:@"HelveticaNeue-Italic" size:12];
-        textFieldComments.backgroundColor = [UIColor clearColor];
-        [self.mainScrollViewOrder addSubview:textFieldComments];
+        
+        self.textFieldCommentsHeight = [heightForText getHeightForText:parser.comment textWith:self.view.frame.size.width withFont:[UIFont systemFontOfSize:14.f]];
+        
+        UILabel* LabelFieldComments = [[UILabel alloc] initWithFrame:CGRectMake(35, 183, 250, self.textFieldCommentsHeight)];
+        LabelFieldComments.text = parser.comment;
+        LabelFieldComments.numberOfLines = 0;
+        LabelFieldComments.lineBreakMode = NSLineBreakByWordWrapping;
+        LabelFieldComments.font = [UIFont fontWithName:@"HelveticaNeue-Italic" size:12];
+        LabelFieldComments.backgroundColor = [UIColor clearColor];
+        [self.mainScrollViewOrder addSubview:LabelFieldComments];
 
         //Заголовок списка товаров----------------------------------------
-        UILabel* labelHeaderItems = [[UILabel alloc] initWithFrame:CGRectMake(125, 200 + self.textFieldCommentsHeight, 70, 20)];
+        UILabel* labelHeaderItems = [[UILabel alloc] initWithFrame:CGRectMake(125, 190 + self.textFieldCommentsHeight, 70, 20)];
         labelHeaderItems.text = @"Товары";
         labelHeaderItems.textColor = [UIColor colorWithHexString:@"175e07"];
         labelHeaderItems.font = [UIFont fontWithName:@"Helvetica-Bold" size:18];
@@ -205,7 +207,7 @@
             self.labelNameItemsHeight = [heightForText getHeightForText:[dict objectForKey:@"name"] textWith:self.view.frame.size.width withFont:[UIFont systemFontOfSize:18.2f]];
 
             UILabel* labelNameItems = [[UILabel alloc] initWithFrame:
-            CGRectMake(15, 250 + self.textFieldCommentsHeight + self.labelNameItemsHeight * i , 160, self.labelNameItemsHeight)];
+            CGRectMake(15, 210 + self.textFieldCommentsHeight + self.labelNameItemsHeight * i , 160, self.labelNameItemsHeight)];
             labelNameItems.numberOfLines = 0;
             labelNameItems.lineBreakMode = NSLineBreakByWordWrapping;
             labelNameItems.text = [dict objectForKey:@"name"];
@@ -213,14 +215,14 @@
             [self.mainScrollViewOrder addSubview:labelNameItems];
 
             UILabel* labelNumberItems = [[UILabel alloc] initWithFrame:
-            CGRectMake(200, 250 + self.textFieldCommentsHeight + self.labelNameItemsHeight * i, 150, self.labelNameItemsHeight)];
+            CGRectMake(200, 210 + self.textFieldCommentsHeight + self.labelNameItemsHeight * i, 150, self.labelNameItemsHeight)];
             NSString* resultCount = [NSString stringWithFormat:@"%@ шт.", [dict objectForKey:@"count"]];
             labelNumberItems.text = resultCount;
             labelNumberItems.font = [UIFont fontWithName:@"HelveticaNeue" size:12];
             [self.mainScrollViewOrder addSubview:labelNumberItems];
 
             UILabel* labelCostItems = [[UILabel alloc] initWithFrame:
-            CGRectMake(240, 250 + self.textFieldCommentsHeight + self.labelNameItemsHeight * i, 150, self.labelNameItemsHeight)];
+            CGRectMake(240, 210 + self.textFieldCommentsHeight + self.labelNameItemsHeight * i, 150, self.labelNameItemsHeight)];
             NSString* resultPrice = [NSString stringWithFormat:@"%@ руб.", [dict objectForKey:@"price"]];
             labelCostItems.text = resultPrice;
             labelCostItems.font = [UIFont fontWithName:@"HelveticaNeue" size:12];
@@ -228,7 +230,7 @@
         }
         
         //Высота всех товаров--------------------------------------------------------------------
-        self.heightAllItems = 250 + self.textFieldCommentsHeight + self.labelNameItemsHeight * self.parseItems.count;
+        self.heightAllItems = 210 + self.textFieldCommentsHeight + self.labelNameItemsHeight * self.parseItems.count;
         
         //Параметры mainScrollViewOrder----------------------------------------------------------
         NSInteger number = 200 + self.heightAllItems;
