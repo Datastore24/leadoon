@@ -21,6 +21,7 @@
 #import "ParserCourier.h"
 #import "ParserResponseOrders.h"
 #import "ParseDate.h"
+#import "MapViewScoreboardOrders.h"
 
 
 
@@ -84,6 +85,7 @@
     
     //Параметры кнопки buttonOnMap----------------------------------------------------
     self.buttonOnMap.layer.cornerRadius = 10.f;
+    [self.buttonOnMap addTarget:self action:@selector(actionButtonOnMap) forControlEvents:UIControlEventTouchUpInside];
     
     //Параметры tableViewScoreboardOrders---------------------------------------------
     self.tableViewScoreboardOrders.backgroundColor = [UIColor clearColor];
@@ -110,7 +112,11 @@
 }
 
 
-
+- (void) actionButtonOnMap
+{
+    MapViewScoreboardOrders * detail = [self.storyboard instantiateViewControllerWithIdentifier:@"mapViewScoreboardOrders"];
+    [self.navigationController pushViewController:detail animated:YES];
+}
 
 #pragma mark - API
 
