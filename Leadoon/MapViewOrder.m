@@ -43,6 +43,8 @@
     
     [self.mapView addAnnotations:self.annotationArray];
     
+    
+    
     CLLocationCoordinate2D cord;
     cord.latitude = 55.73850322752935;
     cord.longitude = 37.59373962879181;
@@ -104,13 +106,12 @@
 
     [self.locationManager startUpdatingLocation];
     self.locationManager.delegate = self;
+    
+    self.mapView.userLocation.title = @"Ваше местоположение";
+    
+    
 
 }
-
-//- (void) addPinsonArray: (NSMutableArray *) array
-//{
-//    
-//}
 
 - (void)didReceiveMemoryWarning
 {
@@ -195,7 +196,9 @@
 - (MKAnnotationView *)mapView:(MKMapView *)mV viewForAnnotation:(id <MKAnnotation>)annotation {
     
     // Don't mess with user location
+    
     if(![annotation isKindOfClass:[ZSAnnotation class]])
+        
         return nil;
     
     ZSAnnotation *a = (ZSAnnotation *)annotation;
