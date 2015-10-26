@@ -12,7 +12,7 @@
 
 #import "APIClass.h"
 #import "APIPostClass.h"
-#import "ParserOrder.h"
+#import "ParserOrders.h"
 #import "HeightForText.h"
 
 #import "MyOrdersView.h"
@@ -44,7 +44,7 @@
     [super viewDidLoad];
     
     for (int i = 0; i < self.arrayOrders.count; i++) {
-        ParserOrder * parser = [self.arrayOrders objectAtIndex:i];
+        ParserOrders * parser = [self.arrayOrders objectAtIndex:i];
 
 //            NSLog(@"%@", parser.orderLat);
          NSLog(@"* * * * * * * * * * * *  * * * * * * * * * * *");
