@@ -35,8 +35,6 @@
 @property (weak, nonatomic) IBOutlet UILabel* labelButtonZoomIn;
 @property (weak, nonatomic) IBOutlet UILabel* labelButtomZoomOut;
 
-@property (strong, nonatomic) NSMutableArray * arrayResponce; //Массив с данными API
-@property (strong, nonatomic) NSMutableArray * arrayOrders; //Массив с заказами
 
 @end
 
@@ -47,6 +45,8 @@
 
 {
     [super viewDidLoad];
+    
+    NSLog(@"%@",self.arrayOrders);
 
     self.annotationArray = [[NSMutableArray alloc] init];
 

@@ -24,6 +24,8 @@
 @property (strong,nonatomic) NSString * status;
 @property (strong,nonatomic) NSString * metro_line_id;
 @property (strong,nonatomic) NSString * metro_id;
+@property (strong,nonatomic) NSString * olong;
+@property (strong,nonatomic) NSString * olat;
 @property (strong,nonatomic) NSString * wfrom;
 @property (strong,nonatomic) NSString * wto;
 @property (strong,nonatomic) NSString * order_count;
