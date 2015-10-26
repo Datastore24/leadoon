@@ -115,6 +115,7 @@
 - (void) actionButtonOnMap
 {
     MapViewScoreboardOrders * detail = [self.storyboard instantiateViewControllerWithIdentifier:@"mapViewScoreboardOrders"];
+    detail.arrayOrders=self.arrayOrders; //Массив с данными
     [self.navigationController pushViewController:detail animated:YES];
 }
 
@@ -135,6 +136,7 @@
         
         [parsingResponce parsing:response andArray:self.arrayOrders andBlock:^{
             [self reloadTableViewWhenNewEvent];
+           
             
         }];
         
