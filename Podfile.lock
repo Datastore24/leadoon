@@ -27,6 +27,7 @@ PODS:
     - SDWebImage/Core (= 3.7.3)
   - SDWebImage/Core (3.7.3)
   - SVPullToRefresh (0.4.1)
+  - YandexMapKit (1.0.11)
 
 DEPENDENCIES:
   - AFNetworking (~> 2.0)
@@ -35,6 +36,7 @@ DEPENDENCIES:
   - SCLAlertView-Objective-C
   - SDWebImage (~> 3.7)
   - SVPullToRefresh
+  - YandexMapKit
 
 SPEC CHECKSUMS:
   AFNetworking: 8e4e60500beb8bec644cf575beee72990a76d399
@@ -43,5 +45,6 @@ SPEC CHECKSUMS:
   SCLAlertView-Objective-C: e36ab12dc1ec4ff6f932888083b21d71a3a1ad23
   SDWebImage: 1d2b1a1efda1ade1b00b6f8498865f8ddedc8a84
   SVPullToRefresh: ba2e718695a43253d8bea6852d2960097dc15d8c
+  YandexMapKit: 70c6e0819e88f742e3800711f7aedecaf3029300
 
 COCOAPODS: 0.39.0
