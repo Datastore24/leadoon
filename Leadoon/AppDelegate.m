@@ -9,7 +9,7 @@
 #import "AppDelegate.h"
 #import "CouriersDbClass.h"
 #import <MagicalRecord/MagicalRecord.h>
-#import <GoogleMaps/GoogleMaps.h>
+
 
 @interface AppDelegate ()
 
@@ -20,7 +20,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
-    [GMSServices provideAPIKey:@"AIzaSyAYJDa2PwD7kKz7D3Hg7koBecFtfmGslyo"];
+        
     [MagicalRecord setupCoreDataStackWithStoreNamed:@"Couriers.sqlite"];
     
     return YES;

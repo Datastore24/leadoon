@@ -9,7 +9,7 @@
 #import "MapViewScoreboardOrders.h"
 #import "SettingsView.h"
 #import <SCLAlertView-Objective-C/SCLAlertView.h>
-#import <GoogleMaps/GoogleMaps.h>
+
 
 @interface MapViewScoreboardOrders ()
 
@@ -24,12 +24,11 @@
 @property (weak, nonatomic) IBOutlet UILabel *labelButtonZoomIn;
 @property (weak, nonatomic) IBOutlet UILabel *labelButtomZoomOut;
 
-@property (strong, nonatomic) GMSCameraPosition * camera;
 
 @end
 
 @implementation MapViewScoreboardOrders{
-    GMSMapView *mapView_;
+    
 }
 
 - (void)viewDidLoad
@@ -72,25 +71,7 @@
     //-----------------------------------------------------------------------------------------
     //Рабочий парсинг--------------------------------------------------------------------------
     
-    self.camera = [GMSCameraPosition cameraWithLatitude:-33.86
-                                                            longitude:151.20
-                                                                 zoom:5];
-    mapView_ = [GMSMapView mapWithFrame:CGRectZero camera:self.camera];
-    mapView_.myLocationEnabled = YES;
-    self.view = mapView_;
-    
-    // Creates a marker in the center of the map.
-    GMSMarker *marker = [[GMSMarker alloc] init];
-    marker.position = CLLocationCoordinate2DMake(-33.86, 151.20);
-    marker.title = @"Sydney";
-    marker.snippet = @"Australia";
-    marker.map = mapView_;
-    
-    [mapView_ addSubview:self.buttonZoomInMapViewScoreboardOrders];
-    [mapView_ addSubview:self.buttonZoomOutMapViewScoreboardOrders];
-    [mapView_ addSubview:self.labelButtomZoomOut];
-    [mapView_ addSubview:self.labelButtonZoomIn];
-
+   
 
 
 }
