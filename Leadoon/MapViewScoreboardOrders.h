@@ -17,5 +17,6 @@
 @property (weak, nonatomic) IBOutlet MKMapView *mapView;
 @property (nonatomic, strong) CLLocationManager * locationManager;
 @property (nonatomic,strong) CLLocation * currentLocathion;
+@property (strong, nonatomic) NSMutableArray * arrayOrders; //Массив с заказами
 
 @end

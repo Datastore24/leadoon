@@ -24,6 +24,8 @@
              @"status" : mts_key(status),
              @"metro_line_id" : mts_key(metro_line_id),
              @"metro_id" : mts_key(metro_id),
+             @"long" : mts_key(olong),
+             @"lat" : mts_key(olat),
              @"w_from" : mts_key(wfrom),
              @"w_to" : mts_key(wto),
              @"order_count" : mts_key(order_count),
