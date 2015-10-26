@@ -13,9 +13,6 @@
 #import "APIClass.h"
 #import "APIPostClass.h"
 #import "ParserOrder.h"
-#import "ParserCourier.h"
-#import "ParserResponseOrder.h"
-#import "ParseDate.h"
 #import "HeightForText.h"
 
 #import "MyOrdersView.h"
@@ -46,9 +43,19 @@
 {
     [super viewDidLoad];
     
-    NSLog(@"%@",self.arrayOrders);
+    for (int i = 0; i < self.arrayOrders.count; i++) {
+        ParserOrder * parser = [self.arrayOrders objectAtIndex:i];
 
-    self.annotationArray = [[NSMutableArray alloc] init];
+//            NSLog(@"%@", parser.orderLat);
+         NSLog(@"* * * * * * * * * * * *  * * * * * * * * * * *");
+            NSLog(@"getting_type == \"%@\"", parser.getting_type);
+        NSLog(@"metro_id == \"%@\"", parser.metro_id);
+        NSLog(@"metro_line_id == \"%@\"", parser.metro_line_id);
+       
+
+
+    }
+
 
     CLLocationCoordinate2D cord;
     cord.latitude = 55.73850322752935;
