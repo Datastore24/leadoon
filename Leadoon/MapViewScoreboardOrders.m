@@ -53,10 +53,10 @@
 
          NSLog(@"* * * * * * * * * * * *  * * * * * * * * * * *");
             NSLog(@"getting_type == \"%@\"", parser.getting_type);
-//        NSLog(@"metro_id == \"%@\"", parser.metro_id);
-//        NSLog(@"metro_line_id == \"%@\"", parser.metro_line_id);
+        NSLog(@"order_id == \"%@\"", parser.order_id);
         NSLog(@"olat == \"%@\"", parser.olat);
         NSLog(@"olong == \"%@\"", parser.olong);
+      
 //        NSLog(@"%@", parser.address);
 //            annotation.title = parser.address;
 //            annotation.subtitle = [self metroStationNameByID:parser.metro_id];
