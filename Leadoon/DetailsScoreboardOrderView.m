@@ -164,13 +164,16 @@
         labelStreetСustomer.lineBreakMode = NSLineBreakByWordWrapping;
         [self.mainScrollViewOrder addSubview:labelStreetСustomer];
 
-        //Квартира, подъезд, домовон----------------------------------------
+        //Квартира, подъезд, домофон----------------------------------------
         UILabel* labelApartmentAndIntercom = [[UILabel alloc] initWithFrame:CGRectMake(40, 140, 250, 20)];
-        NSString* resultAdress = [NSString stringWithFormat:@"кв. %@, подъезд %@, домофон %@", parser.flat, parser.porch, parser.intercom];
-        labelApartmentAndIntercom.text = resultAdress;
-        labelApartmentAndIntercom.font = [UIFont fontWithName:@"HelveticaNeue" size:12];
-        labelApartmentAndIntercom.alpha = 0.5f;
-        [self.mainScrollViewOrder addSubview:labelApartmentAndIntercom];
+        if([parser.getting_type integerValue] !=2 && [parser.getting_type integerValue] !=1){
+            NSString* resultAdress = [NSString stringWithFormat:@"кв. %@, подъезд %@, домофон %@", parser.flat, parser.porch, parser.intercom];
+            labelApartmentAndIntercom.text = resultAdress;
+            labelApartmentAndIntercom.font = [UIFont fontWithName:@"HelveticaNeue" size:12];
+            labelApartmentAndIntercom.alpha = 0.5f;
+            [self.mainScrollViewOrder addSubview:labelApartmentAndIntercom];
+        }
+        
 
         //Имя заказщика---------------------------------------------------
         UILabel* labelNameСustomer = [[UILabel alloc] initWithFrame:CGRectMake(40, 165, 200, 20)];
@@ -205,9 +208,21 @@
             
             //Высота нашего лейбла
             self.labelNameItemsHeight = [heightForText getHeightForText:[dict objectForKey:@"name"] textWith:self.view.frame.size.width withFont:[UIFont systemFontOfSize:18.2f]];
-
-            UILabel* labelNameItems = [[UILabel alloc] initWithFrame:
+            UILabel* labelNameItems;
+            if([self.getting_type integerValue] == 0){
+            labelNameItems = [[UILabel alloc] initWithFrame:
             CGRectMake(15, 210 + self.textFieldCommentsHeight + self.labelNameItemsHeight * i , 160, self.labelNameItemsHeight)];
+            }else if([self.getting_type integerValue] == 2){
+                labelNameItems = [[UILabel alloc] initWithFrame:
+                                  CGRectMake(50, 210 + self.textFieldCommentsHeight + self.labelNameItemsHeight * i , 160, self.labelNameItemsHeight)];
+                UILabel * labelOrderId = [[UILabel alloc] initWithFrame:  CGRectMake(15, 210 + self.textFieldCommentsHeight + self.labelNameItemsHeight * i , 40, self.labelNameItemsHeight)];
+                labelOrderId.numberOfLines = 0;
+                labelOrderId.lineBreakMode = NSLineBreakByWordWrapping;
+                labelOrderId.text = [dict objectForKey:@"order_id"];
+                labelOrderId.font = [UIFont fontWithName:@"HelveticaNeue" size:12];
+                [self.mainScrollViewOrder addSubview:labelOrderId];
+            }
+            
             labelNameItems.numberOfLines = 0;
             labelNameItems.lineBreakMode = NSLineBreakByWordWrapping;
             labelNameItems.text = [dict objectForKey:@"name"];
@@ -376,6 +391,7 @@
 
     NSDictionary* params = [[NSDictionary alloc] initWithObjectsAndKeys:
                                                      self.orderID, @"id",
+                                                     self.getting_type, @"getting_type",
                                                  nil];
 
     APIClass* api = [APIClass new]; //создаем API
@@ -384,7 +400,7 @@
                      complitionBlock:^(id response) {
 
                          ParserResponseOrder* parsingResponce = [[ParserResponseOrder alloc] init];
-
+                         NSLog(@"%@",response);
                          self.arrayResponse = [parsingResponce parsing:response];
 
                          block();
@@ -394,6 +410,12 @@
 //Тащим заказы с сервера
 - (void)postApiOrder
 {
+    NSString * status;
+    if([self.getting_type integerValue] == 0){
+        status = [NSString stringWithFormat:@"%i",60];
+    }else if ([self.getting_type integerValue] == 2) {
+        status = [NSString stringWithFormat:@"%i",130];
+    }
     //Передаваемые параметры
     NSMutableArray* arrayCourier = [[SingleTone sharedManager] parsingArray];
     ParserCourier* parse = [arrayCourier objectAtIndex:0];
@@ -401,6 +423,7 @@
     NSDictionary* params = [[NSDictionary alloc] initWithObjectsAndKeys:
                                                      parse.courierId, @"courier_id",
                                                  self.orderID, @"order_id",
+                                                status,@"status",
                                                  nil];
 
     APIPostClass* api = [APIPostClass new]; //создаем API
@@ -1008,7 +1031,7 @@
         stationName = @"Зябликово";
         break;
     default:
-        NSLog(@"Integer out of range");
+        NSLog(@"");
         break;
     }
 

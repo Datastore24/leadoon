@@ -200,6 +200,9 @@
         [view removeFromSuperview];
     }
     
+    
+    if([self.arrayOrders count] > 0 && [self.arrayOrders count] > indexPath.row){
+        
     LabelsTableViewCall * typeLabel = [[LabelsTableViewCall alloc] init];
     NSString * string = @"Заказ";
     ParserOrders * parser =[self.arrayOrders objectAtIndex:indexPath.row];
@@ -226,8 +229,13 @@
     //
     
     //Обрезаем последние :00
-    parser.delivery_time_from = [parser.delivery_time_from substringToIndex:[parser.delivery_time_from length] - 3];
-    parser.delivery_time_to = [parser.delivery_time_to substringToIndex:[parser.delivery_time_to length] - 3];
+    if(parser.delivery_time_from.length>5){
+        parser.delivery_time_from = [parser.delivery_time_from substringToIndex:[parser.delivery_time_from length] - 3];
+    }
+    
+    if(parser.delivery_time_to.length>5){
+        parser.delivery_time_to = [parser.delivery_time_to substringToIndex:[parser.delivery_time_to length] - 3];
+    }
     //
     
     //Вывод диапазона времени доставки
@@ -283,7 +291,7 @@
         //
     }
     
-    
+    }
     cell.backgroundColor = [UIColor clearColor];
     
     return cell;
