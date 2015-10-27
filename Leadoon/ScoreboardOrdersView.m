@@ -103,6 +103,9 @@
         
     }];
     
+    
+   
+    
 
 }
 
@@ -133,8 +136,10 @@
     [api getDataFromServerWithParams:params method:@"action=load_orders" complitionBlock:^(id response) {
         
         ParserResponseOrders * parsingResponce =[[ParserResponseOrders alloc] init];
-        
+      
         [parsingResponce parsing:response andArray:self.arrayOrders andBlock:^{
+      
+            
             [self reloadTableViewWhenNewEvent];
            
             
@@ -155,7 +160,7 @@
     
     self.tableViewScoreboardOrders.scrollEnabled = YES;
     
-    [self.tableViewScoreboardOrders.pullToRefreshView stopAnimating];
+   
     //После обновления
  
     //
@@ -248,8 +253,13 @@
     //
     
     //Обрезаем последние :00
-    parser.delivery_time_from = [parser.delivery_time_from substringToIndex:[parser.delivery_time_from length] - 3];
-    parser.delivery_time_to = [parser.delivery_time_to substringToIndex:[parser.delivery_time_to length] - 3];
+    if(parser.delivery_time_from.length>5){
+        parser.delivery_time_from = [parser.delivery_time_from substringToIndex:[parser.delivery_time_from length] - 3];
+    }
+    
+    if(parser.delivery_time_to.length>5){
+        parser.delivery_time_to = [parser.delivery_time_to substringToIndex:[parser.delivery_time_to length] - 3];
+    }
     //
     
     //Вывод диапазона времени доставки
@@ -317,6 +327,7 @@
     DetailsScoreboardOrderView* detail = [self.storyboard instantiateViewControllerWithIdentifier:@"DetailsScoreboardOrder"];
     ParserOrders * parser =[self.arrayOrders objectAtIndex:indexPath.row];
     detail.orderID =parser.order_id;
+    detail.getting_type=parser.getting_type;
     [self.navigationController pushViewController:detail animated:YES];
 }
 

@@ -226,8 +226,13 @@
     //
     
     //Обрезаем последние :00
-    parser.delivery_time_from = [parser.delivery_time_from substringToIndex:[parser.delivery_time_from length] - 3];
-    parser.delivery_time_to = [parser.delivery_time_to substringToIndex:[parser.delivery_time_to length] - 3];
+    if(parser.delivery_time_from.length>5){
+        parser.delivery_time_from = [parser.delivery_time_from substringToIndex:[parser.delivery_time_from length] - 3];
+    }
+    
+    if(parser.delivery_time_to.length>5){
+        parser.delivery_time_to = [parser.delivery_time_to substringToIndex:[parser.delivery_time_to length] - 3];
+    }
     //
     
     //Вывод диапазона времени доставки
