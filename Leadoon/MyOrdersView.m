@@ -200,6 +200,9 @@
         [view removeFromSuperview];
     }
     
+    
+    if([self.arrayOrders count] > 0 && [self.arrayOrders count] > indexPath.row){
+        
     LabelsTableViewCall * typeLabel = [[LabelsTableViewCall alloc] init];
     NSString * string = @"Заказ";
     ParserOrders * parser =[self.arrayOrders objectAtIndex:indexPath.row];
@@ -288,7 +291,7 @@
         //
     }
     
-    
+    }
     cell.backgroundColor = [UIColor clearColor];
     
     return cell;

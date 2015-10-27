@@ -227,6 +227,12 @@
         [view removeFromSuperview];
     }
     
+
+    if([self.arrayOrders count] > 0 && [self.arrayOrders count] > indexPath.row){
+        
+        
+        
+    
     LabelsTableViewCall * typeLabel = [[LabelsTableViewCall alloc] init];
 //    NSString * string = @"Заказ";
     ParserOrders * parser =[self.arrayOrders objectAtIndex:indexPath.row];
@@ -290,7 +296,10 @@
     //Строка веса
     NSString * resultWeight;
     if(!parser.order_count){
-        resultWeight = [NSString stringWithFormat:@"Вес %@-%@ кг",parser.wfrom,parser.wto];
+
+            resultWeight = [NSString stringWithFormat:@"Вес %@-%@ кг",parser.wfrom,parser.wto];
+
+        
     }else{
         resultWeight = [NSString stringWithFormat:@"%@ заказа(ов)",parser.order_count];
     }
@@ -311,7 +320,7 @@
     
     [cell addSubview:[typeLabel labelLineLeft]];
     
-    
+    }
     cell.backgroundColor = [UIColor clearColor];
     
     return cell;
