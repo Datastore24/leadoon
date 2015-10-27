@@ -10,4 +10,5 @@
 
 @interface DetailsScoreboardOrderView : UIViewController
 @property (strong,nonatomic) NSString * orderID;
+@property (strong,nonatomic) NSString * getting_type;
 @end
