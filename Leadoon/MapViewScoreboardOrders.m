@@ -51,6 +51,8 @@
     for (int i = 0; i < self.arrayOrders.count; i++) {
         ParserOrders * parser = [self.arrayOrders objectAtIndex:i];
 
+        
+        
          NSLog(@"* * * * * * * * * * * *  * * * * * * * * * * *");
             NSLog(@"getting_type == \"%@\"", parser.getting_type);
         NSLog(@"order_id == \"%@\"", parser.order_id);
