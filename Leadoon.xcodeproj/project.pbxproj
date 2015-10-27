@@ -21,7 +21,6 @@
 		776F17231BD184B20085891A /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 776F17221BD184B20085891A /* QuartzCore.framework */; };
 		776F17291BD19B3D0085891A /* DetailsScoreboardOrderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 776F17281BD19B3D0085891A /* DetailsScoreboardOrderView.m */; settings = {ASSET_TAGS = (); }; };
 		7777DCB31BD7C63D0068922D /* MapViewDetailMyOrders.m in Sources */ = {isa = PBXBuildFile; fileRef = 7777DCB21BD7C63D0068922D /* MapViewDetailMyOrders.m */; settings = {ASSET_TAGS = (); }; };
-		778671AA1BD4126600E9E7E5 /* MKMapViewZoom-master in Resources */ = {isa = PBXBuildFile; fileRef = 778671A91BD4126600E9E7E5 /* MKMapViewZoom-master */; settings = {ASSET_TAGS = (); }; };
 		778D88AD1BCEEC84007E1F51 /* ScoreboardOrdersView.m in Sources */ = {isa = PBXBuildFile; fileRef = 778D88AC1BCEEC84007E1F51 /* ScoreboardOrdersView.m */; settings = {ASSET_TAGS = (); }; };
 		779C5AA51BCAFD4600F4F31D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 779C5AA41BCAFD4600F4F31D /* main.m */; };
 		779C5AA81BCAFD4600F4F31D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 779C5AA71BCAFD4600F4F31D /* AppDelegate.m */; };
@@ -104,7 +103,6 @@
 		776F17281BD19B3D0085891A /* DetailsScoreboardOrderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailsScoreboardOrderView.m; sourceTree = "<group>"; };
 		7777DCB11BD7C63D0068922D /* MapViewDetailMyOrders.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapViewDetailMyOrders.h; sourceTree = "<group>"; };
 		7777DCB21BD7C63D0068922D /* MapViewDetailMyOrders.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapViewDetailMyOrders.m; sourceTree = "<group>"; };
-		778671A91BD4126600E9E7E5 /* MKMapViewZoom-master */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "MKMapViewZoom-master"; sourceTree = "<group>"; };
 		778D88AB1BCEEC84007E1F51 /* ScoreboardOrdersView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScoreboardOrdersView.h; sourceTree = "<group>"; };
 		778D88AC1BCEEC84007E1F51 /* ScoreboardOrdersView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScoreboardOrdersView.m; sourceTree = "<group>"; };
 		779C5AA01BCAFD4500F4F31D /* Leadoon.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Leadoon.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -350,7 +348,6 @@
 		779C5AA31BCAFD4600F4F31D /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				778671A91BD4126600E9E7E5 /* MKMapViewZoom-master */,
 				779C5AA41BCAFD4600F4F31D /* main.m */,
 			);
 			name = "Supporting Files";
@@ -603,7 +600,6 @@
 			files = (
 				779C5AB31BCAFD4600F4F31D /* LaunchScreen.storyboard in Resources */,
 				77FAA9BC1BCFB42900349A05 /* imageMetro2.png in Resources */,
-				778671AA1BD4126600E9E7E5 /* MKMapViewZoom-master in Resources */,
 				77FAA9BB1BCFB42900349A05 /* imageMetro1.png in Resources */,
 				779C5AB01BCAFD4600F4F31D /* Assets.xcassets in Resources */,
 				77E8F4201BD2B97F00D2509E /* timeImage.png in Resources */,
