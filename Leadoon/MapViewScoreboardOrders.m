@@ -80,7 +80,7 @@
         annotation.coordinate = coord;
         annotation.title = parser.address;
         annotation.subtitle = [self metroStationNameByID:parser.metro_id];
-        annotation.typeNumber = [parser.getting_type integerValue];
+            annotation.type = parser.getting_type;
         
         [self.mapView addAnnotation:annotation];
 
@@ -209,6 +209,9 @@
         
         MKPinAnnotationView *annView = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"ParkingPin"];
         
+        UIButton * buttonDetailMapAnnotation = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
+        [buttonDetailMapAnnotation addTarget:self action:@selector(actionButtonDetailMapAnnotation) forControlEvents:UIControlEventTouchUpInside];
+        
         AnnotationMap * annotationTest = (AnnotationMap*)annotation;
         if ([annotationTest.type integerValue] == 0) {
             
@@ -219,6 +222,7 @@
             annView.canShowCallout = YES;
             annView.calloutOffset = CGPointMake(0, 0);
             [annView addSubview:imageView];
+            annView.rightCalloutAccessoryView = buttonDetailMapAnnotation;
             
             return annView;
         }
@@ -232,6 +236,7 @@
             annView.canShowCallout = YES;
             annView.calloutOffset = CGPointMake(0, 0);
             [annView addSubview:imageView];
+            annView.rightCalloutAccessoryView = buttonDetailMapAnnotation;
             
             return annView;
             
@@ -246,6 +251,7 @@
             annView.canShowCallout = YES;
             annView.calloutOffset = CGPointMake(0, 0);
             [annView addSubview:imageView];
+            annView.rightCalloutAccessoryView = buttonDetailMapAnnotation;
             
             return annView;
             
@@ -256,6 +262,11 @@
     {
         return nil;
     }
+}
+
+- (void) actionButtonDetailMapAnnotation
+{
+    NSLog(@"actionButtonDetailMapAnnotation");
 }
 
 //Имя станции метро--------------------------------------
