@@ -15,5 +15,6 @@
 @property (nonatomic, copy) NSString *title;
 @property (nonatomic, copy) NSString *subtitle;
 @property (strong, nonatomic) NSString* type;
+@property (assign, nonatomic) NSInteger typeNumber;
 
 @end
