@@ -9,6 +9,10 @@
 /* Begin PBXBuildFile section */
 		43CE65F39BA469C87A37D02C /* libPods-Leadoon.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C59AE2F176CF95A5A7C5D435 /* libPods-Leadoon.a */; };
 		770C1E781BD78664005E4A50 /* phoneImage.png in Resources */ = {isa = PBXBuildFile; fileRef = 770C1E771BD78664005E4A50 /* phoneImage.png */; settings = {ASSET_TAGS = (); }; };
+		770D556D1BDFD66D0059260F /* AnnotationMap.m in Sources */ = {isa = PBXBuildFile; fileRef = 770D556C1BDFD66D0059260F /* AnnotationMap.m */; settings = {ASSET_TAGS = (); }; };
+		770D55711BDFD83F0059260F /* bluePin.png in Resources */ = {isa = PBXBuildFile; fileRef = 770D556E1BDFD83F0059260F /* bluePin.png */; settings = {ASSET_TAGS = (); }; };
+		770D55721BDFD83F0059260F /* brownPin.png in Resources */ = {isa = PBXBuildFile; fileRef = 770D556F1BDFD83F0059260F /* brownPin.png */; settings = {ASSET_TAGS = (); }; };
+		770D55731BDFD83F0059260F /* greenPin.png in Resources */ = {isa = PBXBuildFile; fileRef = 770D55701BDFD83F0059260F /* greenPin.png */; settings = {ASSET_TAGS = (); }; };
 		7713A3211BD0054F00F14506 /* basket.png in Resources */ = {isa = PBXBuildFile; fileRef = 7713A3201BD0054F00F14506 /* basket.png */; settings = {ASSET_TAGS = (); }; };
 		772E41D71BD965CC00FA23D4 /* MapViewScoreboardOrders.m in Sources */ = {isa = PBXBuildFile; fileRef = 772E41D61BD965CC00FA23D4 /* MapViewScoreboardOrders.m */; settings = {ASSET_TAGS = (); }; };
 		77501CE21BD5973300596DA8 /* ZSAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 77501CE11BD5973300596DA8 /* ZSAnnotation.m */; settings = {ASSET_TAGS = (); }; };
@@ -81,6 +85,11 @@
 
 /* Begin PBXFileReference section */
 		770C1E771BD78664005E4A50 /* phoneImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = phoneImage.png; sourceTree = "<group>"; };
+		770D556B1BDFD66D0059260F /* AnnotationMap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnnotationMap.h; sourceTree = "<group>"; };
+		770D556C1BDFD66D0059260F /* AnnotationMap.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnnotationMap.m; sourceTree = "<group>"; };
+		770D556E1BDFD83F0059260F /* bluePin.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bluePin.png; sourceTree = "<group>"; };
+		770D556F1BDFD83F0059260F /* brownPin.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = brownPin.png; sourceTree = "<group>"; };
+		770D55701BDFD83F0059260F /* greenPin.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = greenPin.png; sourceTree = "<group>"; };
 		7713A3201BD0054F00F14506 /* basket.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = basket.png; sourceTree = "<group>"; };
 		772E41D51BD965CC00FA23D4 /* MapViewScoreboardOrders.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapViewScoreboardOrders.h; sourceTree = "<group>"; };
 		772E41D61BD965CC00FA23D4 /* MapViewScoreboardOrders.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapViewScoreboardOrders.m; sourceTree = "<group>"; };
@@ -231,6 +240,11 @@
 				77501CE11BD5973300596DA8 /* ZSAnnotation.m */,
 				77501CE31BD5997B00596DA8 /* ZSPinAnnotation.h */,
 				77501CE41BD5997B00596DA8 /* ZSPinAnnotation.m */,
+				770D556B1BDFD66D0059260F /* AnnotationMap.h */,
+				770D556C1BDFD66D0059260F /* AnnotationMap.m */,
+				770D556E1BDFD83F0059260F /* bluePin.png */,
+				770D556F1BDFD83F0059260F /* brownPin.png */,
+				770D55701BDFD83F0059260F /* greenPin.png */,
 			);
 			name = CustonAnnotation;
 			sourceTree = "<group>";
@@ -596,10 +610,13 @@
 				77FDDCDB1BCC207400B2C13B /* buttonSettingsImage.png in Resources */,
 				77FDDCE11BCC36B800B2C13B /* buttonBack.png in Resources */,
 				770C1E781BD78664005E4A50 /* phoneImage.png in Resources */,
+				770D55711BDFD83F0059260F /* bluePin.png in Resources */,
+				770D55731BDFD83F0059260F /* greenPin.png in Resources */,
 				77E8F41F1BD2B97F00D2509E /* homeImage.png in Resources */,
 				77E8F4211BD2B97F00D2509E /* locationImage.png in Resources */,
 				77E8F41E1BD2B97F00D2509E /* customerImage.png in Resources */,
 				779C5AAE1BCAFD4600F4F31D /* Main.storyboard in Resources */,
+				770D55721BDFD83F0059260F /* brownPin.png in Resources */,
 				7713A3211BD0054F00F14506 /* basket.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -687,6 +704,7 @@
 				AD87E9BD1BCD035800AF5C11 /* ParserResponseCourier.m in Sources */,
 				AD2A24951BD0CEF000E0BC31 /* ParserOrders.m in Sources */,
 				779C5AA81BCAFD4600F4F31D /* AppDelegate.m in Sources */,
+				770D556D1BDFD66D0059260F /* AnnotationMap.m in Sources */,
 				AD87E9AF1BCCF59800AF5C11 /* CouriersDbClass.m in Sources */,
 				779C5AA51BCAFD4600F4F31D /* main.m in Sources */,
 				776F17291BD19B3D0085891A /* DetailsScoreboardOrderView.m in Sources */,

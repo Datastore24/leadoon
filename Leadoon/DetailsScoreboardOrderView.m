@@ -166,11 +166,14 @@
 
         //Квартира, подъезд, домофон----------------------------------------
         UILabel* labelApartmentAndIntercom = [[UILabel alloc] initWithFrame:CGRectMake(40, 140, 250, 20)];
-        NSString* resultAdress = [NSString stringWithFormat:@"кв. %@, подъезд %@, домофон %@", parser.flat, parser.porch, parser.intercom];
-        labelApartmentAndIntercom.text = resultAdress;
-        labelApartmentAndIntercom.font = [UIFont fontWithName:@"HelveticaNeue" size:12];
-        labelApartmentAndIntercom.alpha = 0.5f;
-        [self.mainScrollViewOrder addSubview:labelApartmentAndIntercom];
+        if([parser.getting_type integerValue] !=2 && [parser.getting_type integerValue] !=1){
+            NSString* resultAdress = [NSString stringWithFormat:@"кв. %@, подъезд %@, домофон %@", parser.flat, parser.porch, parser.intercom];
+            labelApartmentAndIntercom.text = resultAdress;
+            labelApartmentAndIntercom.font = [UIFont fontWithName:@"HelveticaNeue" size:12];
+            labelApartmentAndIntercom.alpha = 0.5f;
+            [self.mainScrollViewOrder addSubview:labelApartmentAndIntercom];
+        }
+        
 
         //Имя заказщика---------------------------------------------------
         UILabel* labelNameСustomer = [[UILabel alloc] initWithFrame:CGRectMake(40, 165, 200, 20)];
