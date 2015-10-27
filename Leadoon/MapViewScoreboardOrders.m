@@ -18,6 +18,7 @@
 #import "MyOrdersView.h"
 #import "SingleTone.h"
 #import "ParserResponseOrders.h"
+#import "AnnotationMap.h"
 
 @interface MapViewScoreboardOrders () <CLLocationManagerDelegate, MKMapViewDelegate>
 
@@ -28,9 +29,10 @@
 @property (weak, nonatomic) IBOutlet UIButton* buttonZoomInMapViewScoreboardOrders; //Кнопка увелечения
 @property (weak, nonatomic) IBOutlet UIButton* buttonZoomOutMapViewScoreboardOrders; //Кнопка уменьшения
 
-@property (strong, nonatomic) NSMutableArray* annotationArray; //Массив Аннотаций
 @property (weak, nonatomic) IBOutlet UILabel* labelButtonZoomIn;
 @property (weak, nonatomic) IBOutlet UILabel* labelButtomZoomOut;
+
+@property (strong, nonatomic) NSMutableArray * arrayAnnotations;
 
 
 @end
@@ -43,49 +45,47 @@
 {
     [super viewDidLoad];
     
-    ZSAnnotation* annotation = nil;
+
+    
     
     for (int i = 0; i < self.arrayOrders.count; i++) {
         ParserOrders * parser = [self.arrayOrders objectAtIndex:i];
 
          NSLog(@"* * * * * * * * * * * *  * * * * * * * * * * *");
-            NSLog(@"getting_type == \"%d\"", [parser.getting_type integerValue]);
+            NSLog(@"getting_type == \"%@\"", parser.getting_type);
 //        NSLog(@"metro_id == \"%@\"", parser.metro_id);
 //        NSLog(@"metro_line_id == \"%@\"", parser.metro_line_id);
-//        NSLog(@"olat == \"%@\"", parser.olat);
-//        NSLog(@"olong == \"%@\"", parser.olong);
+        NSLog(@"olat == \"%@\"", parser.olat);
+        NSLog(@"olong == \"%@\"", parser.olong);
 //        NSLog(@"%@", parser.address);
-
-        
-        for (int i = 0; i < self.arrayOrders.count; i++) {
-
-            
-            annotation = [[ZSAnnotation alloc] init];
-            annotation.type = ZSPinAnnotationTypeDisc;
-            if ([parser.getting_type integerValue] == 0) {
-                annotation.color = [UIColor blueColor];
-            }
-            else if ([parser.getting_type integerValue] == 1) {
-                annotation.color = [UIColor brownColor];
-            }
-            else if ([parser.getting_type integerValue] == 2) {
-                annotation.color = [UIColor greenColor];
-            }
-            annotation.coordinate = CLLocationCoordinate2DMake([parser.olat floatValue], [parser.olong floatValue]);
-            
-            
-
-            
 //            annotation.title = parser.address;
 //            annotation.subtitle = [self metroStationNameByID:parser.metro_id];
+        
+        if (parser.olat == nil) {
             
-            
-            [self.mapView addAnnotation:annotation];
+            NSLog(@"Error data");
         }
-       
+        
+        else {
+            
+        AnnotationMap * annotation = [[AnnotationMap alloc] init];
+        
+        CLLocationCoordinate2D coord;
+        coord.latitude = [parser.olat floatValue];
+        coord.longitude = [parser.olong floatValue];
+        
+        
+        annotation.coordinate = coord;
+        annotation.title = parser.address;
+        annotation.subtitle = [self metroStationNameByID:parser.metro_id];
+        annotation.typeNumber = [parser.getting_type integerValue];
+        
+        [self.mapView addAnnotation:annotation];
 
-
+        }
     }
+    
+
 
 
     CLLocationCoordinate2D cord;
@@ -201,48 +201,59 @@
 
 #pragma mark - MapKit
 
-- (MKMapRect)makeMapRectWithAnnotations:(NSArray*)annotations
-{
-
-    MKMapRect flyTo = MKMapRectNull;
-    for (id<MKAnnotation> annotation in annotations) {
-        MKMapPoint annotationPoint = MKMapPointForCoordinate(annotation.coordinate);
-        MKMapRect pointRect = MKMapRectMake(annotationPoint.x, annotationPoint.y, 0, 0);
-        if (MKMapRectIsNull(flyTo)) {
-            flyTo = pointRect;
-        }
-        else {
-            flyTo = MKMapRectUnion(flyTo, pointRect);
-        }
-    }
-
-    return flyTo;
-}
-
 - (MKAnnotationView*)mapView:(MKMapView*)mV viewForAnnotation:(id<MKAnnotation>)annotation
 {
-
-    // Don't mess with user location
-
-    if (![annotation isKindOfClass:[ZSAnnotation class]])
-
-        return nil;
-
-    ZSAnnotation* a = (ZSAnnotation*)annotation;
-    static NSString* defaultPinID = @"StandardIdentifier";
-
-    // Create the ZSPinAnnotation object and reuse it
-    ZSPinAnnotation* pinView = (ZSPinAnnotation*)[self.mapView dequeueReusableAnnotationViewWithIdentifier:defaultPinID];
-    if (pinView == nil) {
-        pinView = [[ZSPinAnnotation alloc] initWithAnnotation:annotation reuseIdentifier:defaultPinID];
+    if (![annotation isKindOfClass:[MKUserLocation class]]) {
+        
+        MKPinAnnotationView *annView = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"ParkingPin"];
+        
+        AnnotationMap * annotationTest = (AnnotationMap*)annotation;
+        if ([annotationTest.type integerValue] == 0) {
+            
+            UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"bluePin.png"]];
+            imageView.frame = CGRectMake(-6, -5, 30, 50);
+            
+            annView.animatesDrop = TRUE;
+            annView.canShowCallout = YES;
+            annView.calloutOffset = CGPointMake(0, 0);
+            [annView addSubview:imageView];
+            
+            return annView;
+        }
+        
+        else if ([annotationTest.type integerValue] == 1) {
+            
+            UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"brownPin.png"]];
+            imageView.frame = CGRectMake(-6, -5, 30, 50);
+            
+            annView.animatesDrop = TRUE;
+            annView.canShowCallout = YES;
+            annView.calloutOffset = CGPointMake(0, 0);
+            [annView addSubview:imageView];
+            
+            return annView;
+            
+        }
+        
+        else {
+            
+            UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"greenPin.png"]];
+            imageView.frame = CGRectMake(-6, -5, 30, 50);
+            
+            annView.animatesDrop = TRUE;
+            annView.canShowCallout = YES;
+            annView.calloutOffset = CGPointMake(0, 0);
+            [annView addSubview:imageView];
+            
+            return annView;
+            
+        }
     }
-
-    // Set the type of pin to draw and the color
-    pinView.annotationType = ZSPinAnnotationTypeTagStroke;
-    pinView.annotationColor = a.color;
-    pinView.canShowCallout = YES;
-
-    return pinView;
+    
+    else
+    {
+        return nil;
+    }
 }
 
 //Имя станции метро--------------------------------------
