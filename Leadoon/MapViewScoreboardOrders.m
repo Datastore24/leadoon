@@ -50,15 +50,15 @@
     for (int i = 0; i < self.arrayOrders.count; i++) {
         ParserOrders* parser = [self.arrayOrders objectAtIndex:i];
 
-        NSLog(@"* * * * * * * * * * * *  * * * * * * * * * * *");
-        NSLog(@"getting_type == \"%@\"", parser.getting_type);
-        NSLog(@"order_id == \"%@\"", parser.order_id);
-        NSLog(@"olat == \"%@\"", parser.olat);
-        NSLog(@"olong == \"%@\"", parser.olong);
-
-        //        NSLog(@"%@", parser.address);
-        //            annotation.title = parser.address;
-        //            annotation.subtitle = [self metroStationNameByID:parser.metro_id];
+//        NSLog(@"* * * * * * * * * * * *  * * * * * * * * * * *");
+//        NSLog(@"getting_type == \"%@\"", parser.getting_type);
+//        NSLog(@"order_id == \"%@\"", parser.order_id);
+//        NSLog(@"olat == \"%@\"", parser.olat);
+//        NSLog(@"olong == \"%@\"", parser.olong);
+//
+//        //        NSLog(@"%@", parser.address);
+//        //            annotation.title = parser.address;
+//        //            annotation.subtitle = [self metroStationNameByID:parser.metro_id];
 
         if (parser.olat == nil) {
 

@@ -10,10 +10,14 @@
 #import <MapKit/MapKit.h>
 #import "ZSAnnotation.h"
 #import "ZSPinAnnotation.h"
+#import "AnnotationMap.h"
+#import "UIView+MKAnnotationView.h"
 
 @interface MapViewOrder : UIViewController
 @property (weak, nonatomic) IBOutlet MKMapView *mapView;
 @property (nonatomic, strong) CLLocationManager * locationManager;
 @property (nonatomic,strong) CLLocation * currentLocathion;
+
+@property (strong, nonatomic) NSArray * parseItems; //Массив с заказами
 
 @end

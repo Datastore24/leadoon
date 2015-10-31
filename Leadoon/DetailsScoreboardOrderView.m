@@ -100,12 +100,10 @@
         else {
             labelDays.text = parser.delivery_date;
         }
-        //
-
-        //    labelDays.text = @"Завтра";
         labelDays.font = [UIFont fontWithName:@"Helvetica-Bold" size:12];
         labelDays.textColor = [UIColor blackColor];
         [self.mainScrollViewOrder addSubview:labelDays];
+        
 
         //Временной интервал-----------------------------------------------
         UILabel* labelTimeInterval = [[UILabel alloc] initWithFrame:CGRectMake(95, 20, 100, 12)];
@@ -382,6 +380,7 @@
                                     forControlEvents:UIControlEventTouchUpInside];
 
     }];
+    
 }
 
 //Тащим заказы с сервера
@@ -400,7 +399,7 @@
                      complitionBlock:^(id response) {
 
                          ParserResponseOrder* parsingResponce = [[ParserResponseOrder alloc] init];
-                         NSLog(@"%@",response);
+//                         NSLog(@"%@",response);
                          self.arrayResponse = [parsingResponce parsing:response];
 
                          block();
@@ -1099,6 +1098,8 @@
 {
     [Animation move_Label_Text_View_Right:self.buttonOnMap Points:0.f alpha:1.f];
     MapViewOrder* detail = [self.storyboard instantiateViewControllerWithIdentifier:@"MapOrder"];
+    detail.parseItems = self.arrayResponse;
+    
     [self.navigationController pushViewController:detail animated:YES];
 }
 

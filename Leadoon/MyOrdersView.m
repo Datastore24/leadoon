@@ -117,7 +117,7 @@
     
     APIClass * api =[APIClass new]; //создаем API
     [api getDataFromServerWithParams:params method:@"action=load_my_orders" complitionBlock:^(id response) {
-        NSLog(@"%@",response);
+//        NSLog(@"%@",response);
         ParserResponseOrders * parsingResponce =[[ParserResponseOrders alloc] init];
         
         [parsingResponce parsing:response andArray:self.arrayOrders andBlock:^{
