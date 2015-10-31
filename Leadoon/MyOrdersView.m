@@ -20,6 +20,7 @@
 #import "ParserResponseOrders.h"
 #import "ParseDate.h"
 #import "MyOrdersViewDetail.h"
+#import "MapViewMyOrdersView.h"
 
 @interface MyOrdersView () <UITableViewDataSource, UITableViewDelegate>
 
@@ -79,9 +80,6 @@
     [self.buttonBackScoreboardOrdersView addTarget:self action:@selector(actionButtonBackScoreboardOrdersView)
                                   forControlEvents:UIControlEventTouchUpInside];
     
-    //Параметры кнопки buttonOnMap----------------------------------------------------
-    self.buttonOnMap.layer.cornerRadius = 10.f;
-    
     //Параметры tableViewScoreboardOrders---------------------------------------------
     self.tableViewScoreboardOrders.backgroundColor = [UIColor clearColor];
     
@@ -90,11 +88,18 @@
     
     [self.tableViewScoreboardOrders addPullToRefreshWithActionHandler:^{
         NSLog(@"UPDATE");
+        
         [self.arrayOrders removeAllObjects];
         [self getApiOrders];
         [self.tableViewScoreboardOrders.pullToRefreshView stopAnimating];
         
+        
+        
     }];
+    
+    //Параметры кнопки buttonOnMap----------------------------------------------------
+    self.buttonOnMap.layer.cornerRadius = 10.f;
+    [self.buttonOnMap addTarget:self action:@selector(actionButtonOnMap) forControlEvents:UIControlEventTouchUpInside];
     
 }
 
@@ -307,6 +312,14 @@
     MyOrdersViewDetail* detail = [self.storyboard instantiateViewControllerWithIdentifier:@"myOrdersViewDetail"];
     ParserOrders * parser =[self.arrayOrders objectAtIndex:indexPath.row];
     detail.orderID =parser.order_id;
+    [self.navigationController pushViewController:detail animated:YES];
+}
+
+//Дествие кнопки buttonOnMap-----------------------------------------------------------
+- (void) actionButtonOnMap
+{
+    MapViewMyOrdersView * detail = [self.storyboard instantiateViewControllerWithIdentifier:@"mapViewMyOrders"];
+    detail.arrayOrders = self.arrayOrders;
     [self.navigationController pushViewController:detail animated:YES];
 }
 

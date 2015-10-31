@@ -7,7 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <MapKit/MapKit.h>
 
 @interface MapViewMyOrdersView : UIViewController
+@property (weak, nonatomic) IBOutlet MKMapView *mapView; //Карта
+@property (nonatomic, strong) CLLocationManager * locationManager;
+@property (nonatomic,strong) CLLocation * currentLocathion;
+
+@property (nonatomic, strong) NSMutableArray * arrayOrders;
 
 @end
