@@ -15,7 +15,6 @@
 		770D55731BDFD83F0059260F /* greenPin.png in Resources */ = {isa = PBXBuildFile; fileRef = 770D55701BDFD83F0059260F /* greenPin.png */; settings = {ASSET_TAGS = (); }; };
 		7713A3211BD0054F00F14506 /* basket.png in Resources */ = {isa = PBXBuildFile; fileRef = 7713A3201BD0054F00F14506 /* basket.png */; settings = {ASSET_TAGS = (); }; };
 		772E41D71BD965CC00FA23D4 /* MapViewScoreboardOrders.m in Sources */ = {isa = PBXBuildFile; fileRef = 772E41D61BD965CC00FA23D4 /* MapViewScoreboardOrders.m */; settings = {ASSET_TAGS = (); }; };
-		773636381BE53EFF0092796D /* MapViewMyOrdersView.m in Sources */ = {isa = PBXBuildFile; fileRef = 773636371BE53EFF0092796D /* MapViewMyOrdersView.m */; settings = {ASSET_TAGS = (); }; };
 		77501CE21BD5973300596DA8 /* ZSAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 77501CE11BD5973300596DA8 /* ZSAnnotation.m */; settings = {ASSET_TAGS = (); }; };
 		77501CE51BD5997B00596DA8 /* ZSPinAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 77501CE41BD5997B00596DA8 /* ZSPinAnnotation.m */; settings = {ASSET_TAGS = (); }; };
 		775A84FA1BCBD2A2003BDC3D /* Animation.m in Sources */ = {isa = PBXBuildFile; fileRef = 775A84F91BCBD2A2003BDC3D /* Animation.m */; settings = {ASSET_TAGS = (); }; };
@@ -93,8 +92,6 @@
 		7713A3201BD0054F00F14506 /* basket.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = basket.png; sourceTree = "<group>"; };
 		772E41D51BD965CC00FA23D4 /* MapViewScoreboardOrders.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapViewScoreboardOrders.h; sourceTree = "<group>"; };
 		772E41D61BD965CC00FA23D4 /* MapViewScoreboardOrders.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapViewScoreboardOrders.m; sourceTree = "<group>"; };
-		773636361BE53EFF0092796D /* MapViewMyOrdersView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapViewMyOrdersView.h; sourceTree = "<group>"; };
-		773636371BE53EFF0092796D /* MapViewMyOrdersView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapViewMyOrdersView.m; sourceTree = "<group>"; };
 		77501CE01BD5973300596DA8 /* ZSAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZSAnnotation.h; sourceTree = "<group>"; };
 		77501CE11BD5973300596DA8 /* ZSAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZSAnnotation.m; sourceTree = "<group>"; };
 		77501CE31BD5997B00596DA8 /* ZSPinAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZSPinAnnotation.h; sourceTree = "<group>"; };
@@ -388,8 +385,6 @@
 		77C3C1C21BD653BD00BD8299 /* MyOrdersView */ = {
 			isa = PBXGroup;
 			children = (
-				773636361BE53EFF0092796D /* MapViewMyOrdersView.h */,
-				773636371BE53EFF0092796D /* MapViewMyOrdersView.m */,
 				77C903711BD6ABF800B54E6A /* MyOrdersViewDetail */,
 				AD2A24A21BD1327A00E0BC31 /* MyOrdersView.h */,
 				AD2A24A31BD1327A00E0BC31 /* MyOrdersView.m */,
@@ -716,7 +711,6 @@
 				AD2A249B1BD0D4F100E0BC31 /* ParseDate.m in Sources */,
 				77C903791BD6CB5F00B54E6A /* HeightForText.m in Sources */,
 				77FAA9B41BCF9A3A00349A05 /* LabelsTableViewCall.m in Sources */,
-				773636381BE53EFF0092796D /* MapViewMyOrdersView.m in Sources */,
 				AD87E9C01BCD924600AF5C11 /* SingleTone.m in Sources */,
 				77FDDCDF1BCC261E00B2C13B /* SettingsView.m in Sources */,
 				AD87E9A51BCCF4AB00AF5C11 /* UsersModel.xcdatamodeld in Sources */,
