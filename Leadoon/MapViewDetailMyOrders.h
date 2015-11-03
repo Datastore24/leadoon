@@ -17,4 +17,6 @@
 @property (nonatomic, strong) CLLocationManager * locationManager;
 @property (nonatomic,strong) CLLocation * currentLocathion;
 
+@property (strong, nonatomic) NSArray * parseItems; //Массив с заказами
+
 @end

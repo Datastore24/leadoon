@@ -1272,6 +1272,7 @@
 - (void) actionButtonMapViewMyOrderDetail
 {
     MapViewDetailMyOrders * detail = [self.storyboard instantiateViewControllerWithIdentifier:@"mapViewMyOrderDetail"];
+    detail.parseItems = self.arrayResponse;
     [self.navigationController pushViewController:detail animated:YES];
 }
 
