@@ -42,38 +42,27 @@
         NSLog(@"metro_id %@", parser.metro_id);
         NSLog(@"getting_type %@", parser.getting_type);
     
-    if (parser.orderLat == nil) {
-        
-        NSLog(@"Error data");
-    }
+    AnnotationMap* annotation = [[AnnotationMap alloc] init];
     
-    else {
-        
-        AnnotationMap* annotation = [[AnnotationMap alloc] init];
-        
-        CLLocationCoordinate2D myCoordinate;
-        myCoordinate.latitude = [parser.orderLat floatValue];
-        
-        
-        myCoordinate.longitude = [parser.orderLong floatValue];
-        
-        
-        
-        annotation.coordinate = myCoordinate;
-        NSLog(@"%f", myCoordinate.latitude);
-        NSLog(@"%f", myCoordinate.longitude);
-        annotation.title = @"Привет";
-        annotation.subtitle = @"Как дела";
-        annotation.type = parser.getting_type;
-        
-        [self.mapView addAnnotation:annotation];
-    }
+    CGFloat lat = [parser.orderLat floatValue];
+    CGFloat lon = [parser.orderLong floatValue];
+    
+    CLLocationCoordinate2D coord;
+    coord.latitude = lat;
+    coord.longitude = lon;
+    
+    annotation.coordinate = coord;
+    annotation.title = parser.address;
+    annotation.subtitle = [self metroStationNameByID:parser.metro_id];
+    annotation.type = parser.getting_type;
+    
+    [self.mapView addAnnotation:annotation];
     
     
     
     CLLocationCoordinate2D cord;
-    cord.latitude = 55.73850322752935;
-    cord.longitude = 37.69373962879181;
+    cord.latitude = [parser.orderLat floatValue];
+    cord.longitude = [parser.orderLong floatValue];
     
     self.mapView.region = MKCoordinateRegionMakeWithDistance(cord, 2000, 2000);
     
@@ -213,13 +202,22 @@
     if (![annotation isKindOfClass:[MKUserLocation class]]) {
         
         MKPinAnnotationView* annView = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"ParkingPin"];
-        //Создание кнопки перехода в  детали------------------------------------------------------
+//        //Создание кнопки перехода в  детали------------------------------------------------------
         UIButton* buttonDetailMapAnnotation = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
-        [buttonDetailMapAnnotation addTarget:self action:@selector(actionButtonDetailMapAnnotation:) forControlEvents:UIControlEventTouchUpInside];
+//        [buttonDetailMapAnnotation addTarget:self action:@selector(actionButtonDetailMapAnnotation:) forControlEvents:UIControlEventTouchUpInside];
         
         //Создание кнопки построение маршрута-----------------------------------------------------
-        UIButton* directionButton = [UIButton buttonWithType:UIButtonTypeContactAdd];
-        [directionButton addTarget:self action:@selector(actionButtonDirection:) forControlEvents:UIControlEventTouchUpInside];
+        UIImageView * buttonImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"nav.png"]];
+        buttonImage.frame = buttonDetailMapAnnotation.frame;
+        
+        
+        UIButton *directionButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        [directionButton addTarget:self
+                            action:@selector(actionButtonDirection:)
+                  forControlEvents:UIControlEventTouchUpInside];
+        [directionButton setTitle:@"Show View" forState:UIControlStateNormal];
+        directionButton.frame = buttonDetailMapAnnotation.frame;
+        [directionButton addSubview:buttonImage];
         
         AnnotationMap* annotationTest = (AnnotationMap*)annotation;
         if ([annotationTest.type integerValue] == 0) {
@@ -231,7 +229,7 @@
             annView.canShowCallout = YES;
             annView.calloutOffset = CGPointMake(0, 0);
             [annView addSubview:imageView];
-            annView.rightCalloutAccessoryView = buttonDetailMapAnnotation;
+//            annView.rightCalloutAccessoryView = buttonDetailMapAnnotation;
             annView.leftCalloutAccessoryView = directionButton;
             
             return annView;
@@ -246,7 +244,7 @@
             annView.canShowCallout = YES;
             annView.calloutOffset = CGPointMake(0, 0);
             [annView addSubview:imageView];
-            annView.rightCalloutAccessoryView = buttonDetailMapAnnotation;
+//            annView.rightCalloutAccessoryView = buttonDetailMapAnnotation;
             annView.leftCalloutAccessoryView = directionButton;
             
             return annView;
@@ -261,7 +259,7 @@
             annView.canShowCallout = YES;
             annView.calloutOffset = CGPointMake(0, 0);
             [annView addSubview:imageView];
-            annView.rightCalloutAccessoryView = buttonDetailMapAnnotation;
+//            annView.rightCalloutAccessoryView = buttonDetailMapAnnotation;
             annView.leftCalloutAccessoryView = directionButton;
             
             return annView;
@@ -356,7 +354,7 @@
             
             [self.mapView addOverlays:array level:MKOverlayLevelAboveRoads];
             
-            [self.mapView setRegion:MKCoordinateRegionMakeWithDistance(self.mapView.userLocation.coordinate, 10000, 10000) animated:YES];
+            [self.mapView setRegion:MKCoordinateRegionMakeWithDistance(self.mapView.userLocation.coordinate, 4000, 4000) animated:YES];
             
             
             
