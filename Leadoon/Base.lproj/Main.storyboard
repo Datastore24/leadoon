@@ -1069,6 +1069,13 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" showsUserLocation="YES" id="qX1-ZA-byD">
+                                <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <connections>
+                                    <outlet property="delegate" destination="7dq-M0-igU" id="fCL-vC-ju0"/>
+                                </connections>
+                            </mapView>
                             <view contentMode="scaleToFill" id="dDV-d4-bHP">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="64"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -1101,13 +1108,6 @@
                                 </subviews>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
-                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" showsUserLocation="YES" id="qX1-ZA-byD">
-                                <rect key="frame" x="0.0" y="64" width="320" height="504"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <connections>
-                                    <outlet property="delegate" destination="7dq-M0-igU" id="fCL-vC-ju0"/>
-                                </connections>
-                            </mapView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="p87-N8-SIo">
                                 <rect key="frame" x="279" y="233" width="30" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -1132,6 +1132,14 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Mnu-oa-vGJ">
+                                <rect key="frame" x="103" y="518" width="115" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <state key="normal" title="Отмена">
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
@@ -1140,8 +1148,9 @@
                         <outlet property="buttonSettingMapViewDetailMyOrders" destination="cmj-Rk-f2B" id="93o-j0-35b"/>
                         <outlet property="buttonZoomInMapViewDetailMyOrders" destination="p87-N8-SIo" id="Tul-Dl-V1V"/>
                         <outlet property="buttonZoomOutMapViewDetailMyOrders" destination="jXa-l1-Yfe" id="1Iy-bd-C5V"/>
+                        <outlet property="buttonСancell" destination="Mnu-oa-vGJ" id="kdQ-vL-Tom"/>
                         <outlet property="labelTopBarMapViewDetailMyOrders" destination="VUj-d4-vE4" id="M5L-5T-y1Q"/>
-                        <outlet property="mapViewDetailMyOrders" destination="qX1-ZA-byD" id="LQs-7m-DOg"/>
+                        <outlet property="mapView" destination="qX1-ZA-byD" id="j41-dL-aiM"/>
                         <outlet property="topBarMapViewDetailMyOrders" destination="dDV-d4-bHP" id="z9k-rL-jHw"/>
                     </connections>
                 </viewController>
