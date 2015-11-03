@@ -9,6 +9,7 @@
 #import "MapViewDetailMyOrders.h"
 #import "SettingsView.h"
 #import <SCLAlertView-Objective-C/SCLAlertView.h>
+#import "ParserOrder.h"
 
 @interface MapViewDetailMyOrders () <CLLocationManagerDelegate, MKMapViewDelegate>
 
@@ -31,19 +32,13 @@
 {
     [super viewDidLoad];
     
-    self.annotationArray = [[NSMutableArray alloc] init];
+    ParserOrder * parser = [self.parseItems objectAtIndex:0];
     
-    ZSAnnotation *annotation = nil;
-    
-    annotation = [[ZSAnnotation alloc] init];
-    annotation.coordinate = CLLocationCoordinate2DMake(55.73850322752935, 37.69373962879181);
-    annotation.color = [UIColor brownColor];
-    annotation.title = @"13-я парковая 40";
-    annotation.subtitle = @"Щелковская";
-    annotation.type = ZSPinAnnotationTypeDisc;
-    [self.annotationArray addObject:annotation];
-    
-    [self.mapViewDetailMyOrders addAnnotations:self.annotationArray];
+        NSLog(@"orderLat %@", parser.orderLat);
+        NSLog(@"orderLong %@", parser.orderLong);
+        NSLog(@"address %@", parser.address);
+        NSLog(@"metro_id %@", parser.metro_id);
+        NSLog(@"getting_type %@", parser.getting_type);
     
     
     
@@ -166,50 +161,5 @@
     [self.mapViewDetailMyOrders setRegion:region animated:YES];
 }
 
-#pragma mark - MapKit
-
-- (MKMapRect)makeMapRectWithAnnotations:(NSArray *)annotations {
-    
-    MKMapRect flyTo = MKMapRectNull;
-    for (id <MKAnnotation> annotation in annotations) {
-        MKMapPoint annotationPoint = MKMapPointForCoordinate(annotation.coordinate);
-        MKMapRect pointRect = MKMapRectMake(annotationPoint.x, annotationPoint.y, 0, 0);
-        if (MKMapRectIsNull(flyTo)) {
-            flyTo = pointRect;
-        } else {
-            flyTo = MKMapRectUnion(flyTo, pointRect);
-        }
-    }
-    
-    return flyTo;
-    
-}
-
-
-- (MKAnnotationView *)mapView:(MKMapView *)mV viewForAnnotation:(id <MKAnnotation>)annotation {
-    
-    // Don't mess with user location
-    
-    if(![annotation isKindOfClass:[ZSAnnotation class]])
-        
-        return nil;
-    
-    ZSAnnotation *a = (ZSAnnotation *)annotation;
-    static NSString *defaultPinID = @"StandardIdentifier";
-    
-    // Create the ZSPinAnnotation object and reuse it
-    ZSPinAnnotation *pinView = (ZSPinAnnotation *)[self.mapViewDetailMyOrders dequeueReusableAnnotationViewWithIdentifier:defaultPinID];
-    if (pinView == nil){
-        pinView = [[ZSPinAnnotation alloc] initWithAnnotation:annotation reuseIdentifier:defaultPinID];
-    }
-    
-    // Set the type of pin to draw and the color
-    pinView.annotationType = ZSPinAnnotationTypeTagStroke;
-    pinView.annotationColor = a.color;
-    pinView.canShowCallout = YES;
-    
-    return pinView;
-    
-}
 
 @end
