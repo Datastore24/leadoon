@@ -7,6 +7,11 @@
 //
 
 #import "MapViewMyOrdersView.h"
+<<<<<<< HEAD
+
+@implementation MapViewMyOrdersView
+
+=======
 #import "SettingsView.h"
 #import "ParserOrders.h"
 #import "AnnotationMap.h"
@@ -864,4 +869,5 @@
 }
 
 
+>>>>>>> master
 @end
