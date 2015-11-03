@@ -20,6 +20,7 @@
 #import "ParserResponseOrders.h"
 #import "ParseDate.h"
 #import "MyOrdersViewDetail.h"
+#import "MapViewMyOrders.h"
 
 @interface MyOrdersView () <UITableViewDataSource, UITableViewDelegate>
 
@@ -81,6 +82,7 @@
     
     //Параметры кнопки buttonOnMap----------------------------------------------------
     self.buttonOnMap.layer.cornerRadius = 10.f;
+    [self.buttonOnMap addTarget:self action:@selector(actionButtonOnMap) forControlEvents:UIControlEventTouchUpInside];
     
     //Параметры tableViewScoreboardOrders---------------------------------------------
     self.tableViewScoreboardOrders.backgroundColor = [UIColor clearColor];
@@ -307,6 +309,13 @@
     MyOrdersViewDetail* detail = [self.storyboard instantiateViewControllerWithIdentifier:@"myOrdersViewDetail"];
     ParserOrders * parser =[self.arrayOrders objectAtIndex:indexPath.row];
     detail.orderID =parser.order_id;
+    [self.navigationController pushViewController:detail animated:YES];
+}
+
+- (void) actionButtonOnMap
+{
+    MapViewMyOrders * detail = [self.storyboard instantiateViewControllerWithIdentifier:@"mapViewMyOrderz"];
+    detail.arrayOrders=self.arrayOrders; //Массив с данными
     [self.navigationController pushViewController:detail animated:YES];
 }
 

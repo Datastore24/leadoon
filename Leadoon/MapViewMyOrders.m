@@ -11,6 +11,11 @@
 @interface MapViewMyOrders ()
 
 @property (weak, nonatomic) IBOutlet UIView *topBarMapViewMyOrders;
+@property (weak, nonatomic) IBOutlet UIButton *buttonBackMapViewMyOrders;
+@property (weak, nonatomic) IBOutlet UIButton *buttonSettingMapViewMyOrders;
+@property (weak, nonatomic) IBOutlet UILabel *labelTopBarMapViewMyOrders;
+@property (weak, nonatomic) IBOutlet UIButton *buttonZoomInMapViewMyOrders;
+@property (weak, nonatomic) IBOutlet UIButton *buttonZoomOutMapViewMyOrders;
 
 
 @end
