@@ -136,7 +136,6 @@
     [api getDataFromServerWithParams:params method:@"action=load_orders" complitionBlock:^(id response) {
         
         ParserResponseOrders * parsingResponce =[[ParserResponseOrders alloc] init];
-      
         [parsingResponce parsing:response andArray:self.arrayOrders andBlock:^{
       
             

@@ -21,8 +21,6 @@
 		776F17231BD184B20085891A /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 776F17221BD184B20085891A /* QuartzCore.framework */; };
 		776F17291BD19B3D0085891A /* DetailsScoreboardOrderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 776F17281BD19B3D0085891A /* DetailsScoreboardOrderView.m */; settings = {ASSET_TAGS = (); }; };
 		7777DCB31BD7C63D0068922D /* MapViewDetailMyOrders.m in Sources */ = {isa = PBXBuildFile; fileRef = 7777DCB21BD7C63D0068922D /* MapViewDetailMyOrders.m */; settings = {ASSET_TAGS = (); }; };
-		778671AA1BD4126600E9E7E5 /* MKMapViewZoom-master in Resources */ = {isa = PBXBuildFile; fileRef = 778671A91BD4126600E9E7E5 /* MKMapViewZoom-master */; settings = {ASSET_TAGS = (); }; };
-		778671AD1BD412E500E9E7E5 /* MKMapView+ZoomLevel.m in Sources */ = {isa = PBXBuildFile; fileRef = 778671AC1BD412E500E9E7E5 /* MKMapView+ZoomLevel.m */; settings = {ASSET_TAGS = (); }; };
 		778D88AD1BCEEC84007E1F51 /* ScoreboardOrdersView.m in Sources */ = {isa = PBXBuildFile; fileRef = 778D88AC1BCEEC84007E1F51 /* ScoreboardOrdersView.m */; settings = {ASSET_TAGS = (); }; };
 		779C5AA51BCAFD4600F4F31D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 779C5AA41BCAFD4600F4F31D /* main.m */; };
 		779C5AA81BCAFD4600F4F31D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 779C5AA71BCAFD4600F4F31D /* AppDelegate.m */; };
@@ -33,6 +31,7 @@
 		779C5ABE1BCAFD4600F4F31D /* LeadoonTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 779C5ABD1BCAFD4600F4F31D /* LeadoonTests.m */; };
 		779C5AC91BCAFD4600F4F31D /* LeadoonUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 779C5AC81BCAFD4600F4F31D /* LeadoonUITests.m */; };
 		779C5AD81BCB061300F4F31D /* MainView.m in Sources */ = {isa = PBXBuildFile; fileRef = 779C5AD71BCB061300F4F31D /* MainView.m */; settings = {ASSET_TAGS = (); }; };
+		77C4FD4F1BDFF123009D7C1A /* UIView+MKAnnotationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 77C4FD4E1BDFF123009D7C1A /* UIView+MKAnnotationView.m */; settings = {ASSET_TAGS = (); }; };
 		77C903741BD6AC4300B54E6A /* MyOrdersViewDetail.m in Sources */ = {isa = PBXBuildFile; fileRef = 77C903731BD6AC4200B54E6A /* MyOrdersViewDetail.m */; settings = {ASSET_TAGS = (); }; };
 		77C903791BD6CB5F00B54E6A /* HeightForText.m in Sources */ = {isa = PBXBuildFile; fileRef = 77C903781BD6CB5F00B54E6A /* HeightForText.m */; settings = {ASSET_TAGS = (); }; };
 		77E8F41E1BD2B97F00D2509E /* customerImage.png in Resources */ = {isa = PBXBuildFile; fileRef = 77E8F41A1BD2B97F00D2509E /* customerImage.png */; settings = {ASSET_TAGS = (); }; };
@@ -104,9 +103,6 @@
 		776F17281BD19B3D0085891A /* DetailsScoreboardOrderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailsScoreboardOrderView.m; sourceTree = "<group>"; };
 		7777DCB11BD7C63D0068922D /* MapViewDetailMyOrders.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapViewDetailMyOrders.h; sourceTree = "<group>"; };
 		7777DCB21BD7C63D0068922D /* MapViewDetailMyOrders.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapViewDetailMyOrders.m; sourceTree = "<group>"; };
-		778671A91BD4126600E9E7E5 /* MKMapViewZoom-master */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "MKMapViewZoom-master"; sourceTree = "<group>"; };
-		778671AB1BD412E500E9E7E5 /* MKMapView+ZoomLevel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "MKMapView+ZoomLevel.h"; path = "MKMapViewZoom-master/MKMapView+ZoomLevel.h"; sourceTree = "<group>"; };
-		778671AC1BD412E500E9E7E5 /* MKMapView+ZoomLevel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "MKMapView+ZoomLevel.m"; path = "MKMapViewZoom-master/MKMapView+ZoomLevel.m"; sourceTree = "<group>"; };
 		778D88AB1BCEEC84007E1F51 /* ScoreboardOrdersView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScoreboardOrdersView.h; sourceTree = "<group>"; };
 		778D88AC1BCEEC84007E1F51 /* ScoreboardOrdersView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScoreboardOrdersView.m; sourceTree = "<group>"; };
 		779C5AA01BCAFD4500F4F31D /* Leadoon.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Leadoon.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -127,6 +123,8 @@
 		779C5ACA1BCAFD4600F4F31D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		779C5AD61BCB061300F4F31D /* MainView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainView.h; sourceTree = "<group>"; };
 		779C5AD71BCB061300F4F31D /* MainView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainView.m; sourceTree = "<group>"; };
+		77C4FD4D1BDFF123009D7C1A /* UIView+MKAnnotationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+MKAnnotationView.h"; sourceTree = "<group>"; };
+		77C4FD4E1BDFF123009D7C1A /* UIView+MKAnnotationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+MKAnnotationView.m"; sourceTree = "<group>"; };
 		77C903721BD6AC4200B54E6A /* MyOrdersViewDetail.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyOrdersViewDetail.h; sourceTree = "<group>"; };
 		77C903731BD6AC4200B54E6A /* MyOrdersViewDetail.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyOrdersViewDetail.m; sourceTree = "<group>"; };
 		77C903771BD6CB5F00B54E6A /* HeightForText.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HeightForText.h; sourceTree = "<group>"; };
@@ -234,8 +232,6 @@
 		770C1E791BD7B49A005E4A50 /* CustonAnnotation */ = {
 			isa = PBXGroup;
 			children = (
-				778671AB1BD412E500E9E7E5 /* MKMapView+ZoomLevel.h */,
-				778671AC1BD412E500E9E7E5 /* MKMapView+ZoomLevel.m */,
 				77501CE01BD5973300596DA8 /* ZSAnnotation.h */,
 				77501CE11BD5973300596DA8 /* ZSAnnotation.m */,
 				77501CE31BD5997B00596DA8 /* ZSPinAnnotation.h */,
@@ -352,7 +348,6 @@
 		779C5AA31BCAFD4600F4F31D /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				778671A91BD4126600E9E7E5 /* MKMapViewZoom-master */,
 				779C5AA41BCAFD4600F4F31D /* main.m */,
 			);
 			name = "Supporting Files";
@@ -425,6 +420,8 @@
 		77FAA9B51BCFA99A00349A05 /* Category */ = {
 			isa = PBXGroup;
 			children = (
+				77C4FD4D1BDFF123009D7C1A /* UIView+MKAnnotationView.h */,
+				77C4FD4E1BDFF123009D7C1A /* UIView+MKAnnotationView.m */,
 				77FAA9B61BCFA9C600349A05 /* UIColor+HexColor.h */,
 				77FAA9B71BCFA9C600349A05 /* UIColor+HexColor.m */,
 				77C903781BD6CB5F00B54E6A /* HeightForText.m */,
@@ -603,7 +600,6 @@
 			files = (
 				779C5AB31BCAFD4600F4F31D /* LaunchScreen.storyboard in Resources */,
 				77FAA9BC1BCFB42900349A05 /* imageMetro2.png in Resources */,
-				778671AA1BD4126600E9E7E5 /* MKMapViewZoom-master in Resources */,
 				77FAA9BB1BCFB42900349A05 /* imageMetro1.png in Resources */,
 				779C5AB01BCAFD4600F4F31D /* Assets.xcassets in Resources */,
 				77E8F4201BD2B97F00D2509E /* timeImage.png in Resources */,
@@ -692,12 +688,12 @@
 			files = (
 				772E41D71BD965CC00FA23D4 /* MapViewScoreboardOrders.m in Sources */,
 				AD87E9B91BCCF9DD00AF5C11 /* ParserCourier.m in Sources */,
-				778671AD1BD412E500E9E7E5 /* MKMapView+ZoomLevel.m in Sources */,
 				778D88AD1BCEEC84007E1F51 /* ScoreboardOrdersView.m in Sources */,
 				775A84FA1BCBD2A2003BDC3D /* Animation.m in Sources */,
 				AD87E9B31BCCF7F300AF5C11 /* APIClass.m in Sources */,
 				77E8F4241BD2C3EB00D2509E /* MapViewOrder.m in Sources */,
 				779C5AAB1BCAFD4600F4F31D /* LoginView.m in Sources */,
+				77C4FD4F1BDFF123009D7C1A /* UIView+MKAnnotationView.m in Sources */,
 				77501CE51BD5997B00596DA8 /* ZSPinAnnotation.m in Sources */,
 				77FAA9B81BCFA9C600349A05 /* UIColor+HexColor.m in Sources */,
 				779C5AD81BCB061300F4F31D /* MainView.m in Sources */,

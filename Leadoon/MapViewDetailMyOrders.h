@@ -8,7 +8,6 @@
 
 #import <UIKit/UIKit.h>
 #import <MapKit/MapKit.h>
-#import "MKMapView+ZoomLevel.h"
 #import "ZSAnnotation.h"
 #import "ZSPinAnnotation.h"
 
@@ -17,5 +16,7 @@
 @property (weak, nonatomic) IBOutlet MKMapView *mapViewDetailMyOrders; //Основная карта
 @property (nonatomic, strong) CLLocationManager * locationManager;
 @property (nonatomic,strong) CLLocation * currentLocathion;
+
+@property (strong, nonatomic) NSArray * parseItems; //Массив с заказами
 
 @end

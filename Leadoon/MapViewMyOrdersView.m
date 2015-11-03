@@ -1,142 +1,126 @@
 //
-//  MapViewOrder.m
+//  MapViewMyOrdersView.m
 //  Leadoon
 //
-//  Created by Viktor on 17.10.15.
+//  Created by Viktor on 31.10.15.
 //  Copyright © 2015 Viktor. All rights reserved.
 //
 
-#import "MapViewOrder.h"
+#import "MapViewMyOrdersView.h"
+<<<<<<< HEAD
+
+@implementation MapViewMyOrdersView
+
+=======
 #import "SettingsView.h"
-#import <SCLAlertView-Objective-C/SCLAlertView.h>
-#import "ParserOrder.h"
+#import "ParserOrders.h"
+#import "AnnotationMap.h"
+#import "UIView+MKAnnotationView.h"
 
-@interface MapViewOrder () <CLLocationManagerDelegate, MKMapViewDelegate>
+@interface MapViewMyOrdersView () <CLLocationManagerDelegate, MKMapViewDelegate>
 
-@property (weak, nonatomic) IBOutlet UIView* topBarMapViewOrder; //Верхний бар основного меню
-@property (weak, nonatomic) IBOutlet UIButton* buttonBackMapViewOrder; //Кнопка возврата
-@property (weak, nonatomic) IBOutlet UIButton* buttonSettingMapViewOrder; //Кнопка Настроек
-@property (weak, nonatomic) IBOutlet UIButton* buttomZoomIn; //Кнопка увеличения
-@property (weak, nonatomic) IBOutlet UIButton* ButtonZoomOut; //Кнопка уменьшения
-@property (weak, nonatomic) IBOutlet UIButton *buttonAssigned; //Кнопка присвоить
+@property (weak, nonatomic) IBOutlet UIView *topBarMapViewMyOrdersView; //Верхний Бар
+@property (weak, nonatomic) IBOutlet UIButton *buttonBackMapViewMyOrdersView; //Кнопка назад
+@property (weak, nonatomic) IBOutlet UIButton *buttonSettingMapViewMyOrdersView; //Кнопка настройка
+@property (weak, nonatomic) IBOutlet UILabel *labelTopBarMapViewMyOrdersView; //Строка загаловка
+@property (weak, nonatomic) IBOutlet UIButton *buttonZoomInMapViewMyOrdersView; //Кнопка увелечения
+@property (weak, nonatomic) IBOutlet UIButton *buttonZoomOutMapViewMyOrdersView; //Кнопка уменьшения
 
-@property (strong, nonatomic) NSMutableArray *annotationArray;
 @property (strong, nonatomic) MKDirections* direction;
+
 
 @end
 
-@implementation MapViewOrder
+@implementation MapViewMyOrdersView
 
 - (void)viewDidLoad
+
 {
     [super viewDidLoad];
     
-    ParserOrder * parser = [self.parseItems objectAtIndex:0];
-    
-//    NSLog(@"orderLat %@", parser.orderLat);
-//    NSLog(@"orderLong %@", parser.orderLong);
-//    NSLog(@"address %@", parser.address);
-//    NSLog(@"metro_id %@", parser.metro_id);
-//    NSLog(@"getting_type %@", parser.getting_type);
-    
-    if (parser.orderLat == nil) {
+    for (int i = 0; i < self.arrayOrders.count; i++) {
+        ParserOrders* parser = [self.arrayOrders objectAtIndex:i];
         
-        NSLog(@"Error data");
+                NSLog(@"* * * * * * * * * * * *  * * * * * * * * * * *");
+                NSLog(@"getting_type == \"%@\"", parser.getting_type);
+                NSLog(@"order_id == \"%@\"", parser.order_id);
+                NSLog(@"olat == \"%@\"", parser.olat);
+                NSLog(@"olong == \"%@\"", parser.olong);
+                NSLog(@"%@", parser.address);
+        
+        if (parser.olat == nil) {
+            
+            NSLog(@"Error data");
+        }
+        
+        else {
+            
+            AnnotationMap* annotation = [[AnnotationMap alloc] init];
+            
+            CLLocationCoordinate2D coord;
+            coord.latitude = [parser.olat floatValue];
+            coord.longitude = [parser.olong floatValue];
+            
+            annotation.coordinate = coord;
+            annotation.title = parser.address;
+            annotation.subtitle = [self metroStationNameByID:parser.metro_id];
+            annotation.type = parser.getting_type;
+            
+            [self.mapView addAnnotation:annotation];
+        }
     }
-    
-    else {
-        
-        AnnotationMap* annotation = [[AnnotationMap alloc] init];
-        
-        CLLocationCoordinate2D coord;
-        coord.latitude = [parser.orderLat floatValue];
-        coord.longitude = [parser.orderLong floatValue];
-        
-        annotation.coordinate = coord;
-        annotation.title = parser.address;
-        annotation.subtitle = [self metroStationNameByID:parser.metro_id];
-        annotation.type = parser.getting_type;
-        
-        [self.mapView addAnnotation:annotation];
-    }
-    
-    
-
-    
     
     
     CLLocationCoordinate2D cord;
-    cord.latitude = [parser.orderLat floatValue];
-    cord.longitude = [parser.orderLong floatValue];
+    cord.latitude = 55.73850322752935;
+    cord.longitude = 37.59373962879181;
     
-    self.mapView.region = MKCoordinateRegionMakeWithDistance(cord, 10000, 10000);
+    self.mapView.region = MKCoordinateRegionMakeWithDistance(cord, 50000, 50000);
     
-
     //Параметры кнопки buttomZoomIn-------------------------------------------------
-    self.buttomZoomIn.backgroundColor = [UIColor clearColor];
-    self.buttomZoomIn.layer.borderColor = [UIColor blackColor].CGColor;
-    self.buttomZoomIn.layer.borderWidth = 2.f;
-    self.buttomZoomIn.layer.cornerRadius = 15.f;
-    self.buttomZoomIn.alpha = 7.f;
-    [self.buttomZoomIn addTarget:self
-                          action:@selector(actionButtomZoomIn)
-                forControlEvents:UIControlEventTouchUpInside];
-
-    //Параметры кнопки buttomZoomOut-------------------------------------------------
-    self.ButtonZoomOut.backgroundColor = [UIColor clearColor];
-    self.ButtonZoomOut.layer.borderColor = [UIColor blackColor].CGColor;
-    self.ButtonZoomOut.layer.borderWidth = 2.f;
-    self.ButtonZoomOut.layer.cornerRadius = 15.f;
-    self.ButtonZoomOut.alpha = 7.f;
-    [self.ButtonZoomOut addTarget:self
-                           action:@selector(actionButtomZoomOut)
-                 forControlEvents:UIControlEventTouchUpInside];
+    self.buttonZoomInMapViewMyOrdersView.backgroundColor = [UIColor clearColor];
+    self.buttonZoomInMapViewMyOrdersView.layer.borderColor = [UIColor blackColor].CGColor;
+    self.buttonZoomInMapViewMyOrdersView.layer.borderWidth = 2.f;
+    self.buttonZoomInMapViewMyOrdersView.layer.cornerRadius = 15.f;
+    self.buttonZoomInMapViewMyOrdersView.alpha = 7.f;
+    [self.buttonZoomInMapViewMyOrdersView addTarget:self action:@selector(actionButtonZoomInMapViewMyOrdersView) forControlEvents:UIControlEventTouchUpInside];
     
-    //Параметры кнопки buttonAssigned-----------------------------------------------
-    self.buttonAssigned.backgroundColor = [UIColor whiteColor];
-    self.buttonAssigned.layer.borderColor = [UIColor lightGrayColor].CGColor;
-    self.buttonAssigned.layer.borderWidth = 1.f;
-    self.buttonAssigned.layer.cornerRadius = 9.f;
-    [self.buttonAssigned addTarget:self action:@selector(actionButtonAssigned)
-                              forControlEvents:UIControlEventTouchUpInside];
-
+    //Параметры кнопки buttomZoomOut-------------------------------------------------
+    self.buttonZoomOutMapViewMyOrdersView.backgroundColor = [UIColor clearColor];
+    self.buttonZoomOutMapViewMyOrdersView.layer.borderColor = [UIColor blackColor].CGColor;
+    self.buttonZoomOutMapViewMyOrdersView.layer.borderWidth = 2.f;
+    self.buttonZoomOutMapViewMyOrdersView.layer.cornerRadius = 15.f;
+    self.buttonZoomOutMapViewMyOrdersView.alpha = 7.f;
+    [self.buttonZoomOutMapViewMyOrdersView addTarget:self action:@selector(actionButtonZoomOutMapViewMyOrdersView) forControlEvents:UIControlEventTouchUpInside];
+    
     //Параметры основного view------------------------------------------------------
     self.view.backgroundColor = [UIColor groupTableViewBackgroundColor];
-
+    
     //Параметры topBarMapViewOrder--------------------------------------------------
-    self.topBarMapViewOrder.backgroundColor = [UIColor whiteColor];
-    self.topBarMapViewOrder.layer.borderColor = [UIColor lightGrayColor].CGColor;
-    self.topBarMapViewOrder.layer.borderWidth = 1.f;
-
+    self.topBarMapViewMyOrdersView.backgroundColor = [UIColor whiteColor];
+    self.topBarMapViewMyOrdersView.layer.borderColor = [UIColor lightGrayColor].CGColor;
+    self.topBarMapViewMyOrdersView.layer.borderWidth = 1.f;
+    
     //Параметры buttonBackMapViewOrder----------------------------------------------
-    self.buttonBackMapViewOrder.backgroundColor = [UIColor clearColor];
-    [self.buttonBackMapViewOrder addTarget:self
-                                    action:@selector(actionButtonBackMapViewOrder)
-                          forControlEvents:UIControlEventTouchUpInside];
-
+    self.buttonBackMapViewMyOrdersView.backgroundColor = [UIColor clearColor];
+    [self.buttonBackMapViewMyOrdersView addTarget:self action:@selector(actionButtonBackMapViewMyOrdersView) forControlEvents:UIControlEventTouchUpInside];
+    
     //Параметры нкопки buttonSettingMapViewOrder------------------------------------
-    self.buttonSettingMapViewOrder.backgroundColor = [UIColor clearColor];
-    [self.buttonSettingMapViewOrder addTarget:self
-                                       action:@selector(actionButtonSettingMapViewOrder)
-                             forControlEvents:UIControlEventTouchUpInside];
-
+    self.buttonSettingMapViewMyOrdersView.backgroundColor = [UIColor clearColor];
+    [self.buttonSettingMapViewMyOrdersView addTarget:self
+                                                   action:@selector(actionButtonSettingMapViewMyOrdersView)
+                                         forControlEvents:UIControlEventTouchUpInside];
+    
     //Моё местоположение------------------------------------------------------------
     self.locationManager = [[CLLocationManager alloc] init];
     [self.locationManager requestAlwaysAuthorization];
-
+    
     [self.locationManager startUpdatingLocation];
     self.locationManager.delegate = self;
     
     self.mapView.userLocation.title = @"Ваше местоположение";
-    
-    
-
 }
 
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-}
 
 - (void)dealloc
 {
@@ -145,60 +129,40 @@
     }
 }
 
-- (void) actionButtonAssigned
+//Действие кнопки buttonZoomInMapViewMyOrdersView------------------------------------
+- (void)actionButtonZoomInMapViewMyOrdersView
 {
     
-    SCLAlertView* alertView = [[SCLAlertView alloc] init];
-    
-    //Using Selector
-    [alertView addButton:@"Подтвердить" target:self selector:@selector(alertButtonYes)];
-    [alertView addButton:@"Отмена" target:self selector:@selector(alertButtonNo)];
-    
-    [alertView showNotice:self title:@"Внимание!!" subTitle:@"Вы уверенны что вы хотите взять этот заказ?" closeButtonTitle:nil duration:0.0f];
-}
-
-//Подтвержение заказа---------------------------------------------------------------------------
-- (void)alertButtonYes
-{
-   //Тут метод Кирилла, по подверждению
-}
-//Отмена заказа---------------------------------------------------------------------------------
-- (void)alertButtonNo
-{
-    [self.navigationController popToViewController:[self.navigationController.viewControllers objectAtIndex:2] animated:YES];
-}
-
-//Дествие кнопки buttonBackMapViewOrder---------------------------------------------
-- (void)actionButtonBackMapViewOrder
-{
-    [self.navigationController popViewControllerAnimated:YES];
-}
-
-//Действие кнопки buttonSettingMapViewOrder-----------------------------------------
-- (void)actionButtonSettingMapViewOrder
-{
-    SettingsView* detail = [self.storyboard instantiateViewControllerWithIdentifier:@"settingsView"];
-    [self.navigationController pushViewController:detail animated:YES];
-}
-
-//Действие кнопки buttomZoomIn------------------------------------------------------
-- (void)actionButtomZoomIn
-{
-
     MKCoordinateRegion region = self.mapView.region;
     region.span.latitudeDelta /= 5.0;
     region.span.longitudeDelta /= 5.0;
     [self.mapView setRegion:region animated:YES];
 }
 
-//Действие кнопки buttomZoomOut----------------------------------------------------
-- (void)actionButtomZoomOut
+//Действие кнопки buttonZoomOutMapViewMyOrdersView------------------------------------
+- (void)actionButtonZoomOutMapViewMyOrdersView
 {
     MKCoordinateRegion region = self.mapView.region;
     region.span.latitudeDelta = MIN(region.span.latitudeDelta * 5.0, 180.0);
     region.span.longitudeDelta = MIN(region.span.longitudeDelta * 5.0, 180.0);
     [self.mapView setRegion:region animated:YES];
 }
+
+//Дествие кнопки buttonBackMapViewMyOrdersView-----------------------------------------
+- (void)actionButtonBackMapViewMyOrdersView
+{
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
+//Действие кнопки buttonSettingMapViewMyOrdersView--------------------------------------
+- (void)actionButtonSettingMapViewMyOrdersView
+{
+    SettingsView* detail = [self.storyboard instantiateViewControllerWithIdentifier:@"settingsView"];
+    [self.navigationController pushViewController:detail animated:YES];
+}
+
+
+
 
 #pragma mark - MapKit
 
@@ -349,15 +313,11 @@
             }
             
             [self.mapView addOverlays:array level:MKOverlayLevelAboveRoads];
-            
-            [self.mapView setRegion:MKCoordinateRegionMakeWithDistance(self.mapView.userLocation.coordinate, 10000, 10000) animated:YES];
-            
-            
-            
         }
     }];
-    
 }
+
+
 
 
 //Имя станции метро--------------------------------------
@@ -909,4 +869,5 @@
 }
 
 
+>>>>>>> master
 @end

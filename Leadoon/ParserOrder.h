@@ -26,10 +26,10 @@
 @property (strong,nonatomic) NSString * comment;
 @property (strong,nonatomic) NSString * discount;
 @property (strong,nonatomic) NSString * shipping;
-@property (strong,nonatomic) NSString * orderLong;
-@property (strong,nonatomic) NSString * orderLat;
-@property (strong,nonatomic) NSString * phone1;
-@property (strong,nonatomic) NSString * phone2;
+@property (strong,nonatomic) NSString * orderLong; //Долгота
+@property (strong,nonatomic) NSString * orderLat; //Широта
+@property (strong,nonatomic) NSString * phone1; //Номер телефона
+@property (strong,nonatomic) NSString * phone2; //Номер телефона
 @property (strong,nonatomic) NSString * payment_status;
 @property (strong,nonatomic) NSString * getting_type;
 @property (strong,nonatomic) NSString * order_type;
