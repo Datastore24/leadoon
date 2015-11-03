@@ -33,8 +33,6 @@
 @property (weak, nonatomic) IBOutlet UILabel* labelButtonZoomIn;
 @property (weak, nonatomic) IBOutlet UILabel* labelButtomZoomOut;
 
-@property (strong, nonatomic) NSMutableArray* arrayAnnotations;
-
 @property (strong, nonatomic) MKDirections* direction;
 
 @end
