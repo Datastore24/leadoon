@@ -20,7 +20,6 @@
 @property (weak, nonatomic) IBOutlet UIButton* ButtonZoomOut; //Кнопка уменьшения
 @property (weak, nonatomic) IBOutlet UIButton *buttonAssigned; //Кнопка присвоить
 
-@property (strong, nonatomic) NSMutableArray *annotationArray;
 @property (strong, nonatomic) MKDirections* direction;
 
 @end

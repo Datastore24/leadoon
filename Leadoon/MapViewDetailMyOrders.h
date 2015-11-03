@@ -8,12 +8,11 @@
 
 #import <UIKit/UIKit.h>
 #import <MapKit/MapKit.h>
-#import "ZSAnnotation.h"
-#import "ZSPinAnnotation.h"
 
 
 @interface MapViewDetailMyOrders : UIViewController
-@property (weak, nonatomic) IBOutlet MKMapView *mapViewDetailMyOrders; //Основная карта
+
+@property (weak, nonatomic) IBOutlet MKMapView *mapView;
 @property (nonatomic, strong) CLLocationManager * locationManager;
 @property (nonatomic,strong) CLLocation * currentLocathion;
 
