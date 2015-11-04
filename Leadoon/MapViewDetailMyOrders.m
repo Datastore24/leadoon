@@ -12,6 +12,8 @@
 #import "ParserOrder.h"
 #import "AnnotationMap.h"
 #import "UIView+MKAnnotationView.h"
+#import "APIPostClass.h"
+#import "MyOrdersView.h"
 
 @interface MapViewDetailMyOrders () <CLLocationManagerDelegate, MKMapViewDelegate>
 
@@ -36,11 +38,11 @@
     
     ParserOrder * parser = [self.parseItems objectAtIndex:0];
     
-        NSLog(@"orderLat %@", parser.orderLat);
-        NSLog(@"orderLong %@", parser.orderLong);
-        NSLog(@"address %@", parser.address);
-        NSLog(@"metro_id %@", parser.metro_id);
-        NSLog(@"getting_type %@", parser.getting_type);
+//        NSLog(@"orderLat %@", parser.orderLat);
+//        NSLog(@"orderLong %@", parser.orderLong);
+//        NSLog(@"address %@", parser.address);
+//        NSLog(@"metro_id %@", parser.metro_id);
+//        NSLog(@"getting_type %@", parser.getting_type);
     
     AnnotationMap* annotation = [[AnnotationMap alloc] init];
     
@@ -154,7 +156,26 @@
 //Подтвержение заказа---------------------------------------------------------------------------
 - (void)alertButtonYes
 {
-    //Тут метод Кирилла, по подверждению
+    //Передаваемые параметры
+    NSDictionary* params = [[NSDictionary alloc] initWithObjectsAndKeys:
+                            self.orderID, @"order_id",
+                            nil];
+    
+    APIPostClass* api = [APIPostClass new]; //создаем API
+    [api postDataToServerWithParams:params
+                             method:@"action=order_cancel"
+                    complitionBlock:^(id response) {
+                        NSDictionary* dict = (NSDictionary*)response;
+                        
+                        if ([[dict objectForKey:@"error"] integerValue] == 0) {
+                            
+                            MyOrdersView* myOrdersView = [self.storyboard instantiateViewControllerWithIdentifier:@"scoreboardMyOrders"];
+                            [self.navigationController pushViewController:myOrdersView animated:YES];
+                        }
+                        else {
+                            [self showAlertViewWithMessage:@"Ошибка"];
+                        }
+                    }];
 }
 //Отмена заказа---------------------------------------------------------------------------------
 - (void)alertButtonNo
@@ -362,6 +383,8 @@
     }];
     
 }
+
+
 
 
 //Имя станции метро--------------------------------------
@@ -910,6 +933,15 @@
     }
     
     return stationName;
+}
+
+//Создание AlertView---------------------------------------------------------
+
+- (void)showAlertViewWithMessage:(NSString*)message
+{
+    SCLAlertView* alert = [[SCLAlertView alloc] init];
+    
+    [alert showNotice:self title:@"Внимание!!!" subTitle:message closeButtonTitle:@"Ок" duration:0.f];
 }
 
 @end

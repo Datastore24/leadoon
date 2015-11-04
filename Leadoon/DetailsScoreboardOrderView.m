@@ -1099,6 +1099,8 @@
     [Animation move_Label_Text_View_Right:self.buttonOnMap Points:0.f alpha:1.f];
     MapViewOrder* detail = [self.storyboard instantiateViewControllerWithIdentifier:@"MapOrder"];
     detail.parseItems = self.arrayResponse;
+    detail.orderID = self.orderID;
+    detail.getting_type = self.getting_type;
     
     [self.navigationController pushViewController:detail animated:YES];
 }

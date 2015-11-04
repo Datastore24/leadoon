@@ -1264,7 +1264,6 @@
 {
 
 
-
     [Animation move_Label_Text_View_Right:self.buttonMade Points:0.f alpha:1.f];
 }
 
@@ -1273,6 +1272,7 @@
 {
     MapViewDetailMyOrders * detail = [self.storyboard instantiateViewControllerWithIdentifier:@"mapViewMyOrderDetail"];
     detail.parseItems = self.arrayResponse;
+    detail.orderID = self.orderID;
     [self.navigationController pushViewController:detail animated:YES];
 }
 

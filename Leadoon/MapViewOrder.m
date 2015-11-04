@@ -10,6 +10,11 @@
 #import "SettingsView.h"
 #import <SCLAlertView-Objective-C/SCLAlertView.h>
 #import "ParserOrder.h"
+#import "ParserCourier.h"
+#import "SingleTone.h"
+#import "APIPostClass.h"
+#import "MyOrdersView.h"
+#import "ScoreboardOrdersView.h"
 
 @interface MapViewOrder () <CLLocationManagerDelegate, MKMapViewDelegate>
 
@@ -159,7 +164,35 @@
 //Подтвержение заказа---------------------------------------------------------------------------
 - (void)alertButtonYes
 {
-   //Тут метод Кирилла, по подверждению
+    NSString * status;
+    if([self.getting_type integerValue] == 0){
+        status = [NSString stringWithFormat:@"%i",60];
+    }else if ([self.getting_type integerValue] == 2) {
+        status = [NSString stringWithFormat:@"%i",130];
+    }
+    //Передаваемые параметры
+    NSMutableArray* arrayCourier = [[SingleTone sharedManager] parsingArray];
+    ParserCourier* parse = [arrayCourier objectAtIndex:0];
+    
+    NSDictionary* params = [[NSDictionary alloc] initWithObjectsAndKeys:
+                            parse.courierId, @"courier_id",
+                            self.orderID, @"order_id",
+                            status,@"status",
+                            nil];
+    
+    APIPostClass* api = [APIPostClass new]; //создаем API
+    [api postDataToServerWithParams:params
+                             method:@"action=take_order"
+                    complitionBlock:^(id response) {
+                        NSDictionary* dict = (NSDictionary*)response;
+                        if ([[dict objectForKey:@"error"] integerValue] == 0) {
+                            ScoreboardOrdersView* myOrderView = [self.storyboard instantiateViewControllerWithIdentifier:@"scoreboardMyOrders"];
+                            [self.navigationController pushViewController:myOrderView animated:YES];
+                        }
+                        else {
+                            [self showAlertViewWithMessage:@"Ошибка присвоения заказа, обратитесь к оператору"];
+                        }
+                    }];
 }
 //Отмена заказа---------------------------------------------------------------------------------
 - (void)alertButtonNo
@@ -365,6 +398,8 @@
     }];
     
 }
+
+
 
 
 //Имя станции метро--------------------------------------
@@ -913,6 +948,16 @@
     }
     
     return stationName;
+}
+
+
+//Создание AlertView---------------------------------------------------------
+
+- (void)showAlertViewWithMessage:(NSString*)message
+{
+    SCLAlertView* alert = [[SCLAlertView alloc] init];
+    
+    [alert showNotice:self title:@"Внимание!!!" subTitle:message closeButtonTitle:@"Ок" duration:0.f];
 }
 
 
