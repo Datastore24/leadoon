@@ -20,4 +20,7 @@
 
 @property (strong, nonatomic) NSArray * parseItems; //Массив с заказами
 
+@property (strong,nonatomic) NSString * orderID;
+@property (strong,nonatomic) NSString * getting_type;
+
 @end

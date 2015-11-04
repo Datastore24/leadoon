@@ -17,5 +17,6 @@
 @property (nonatomic,strong) CLLocation * currentLocathion;
 
 @property (strong, nonatomic) NSArray * parseItems; //Массив с заказами
+@property (strong,nonatomic) NSString * orderID;
 
 @end
