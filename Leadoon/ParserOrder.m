@@ -43,6 +43,11 @@
     @"amount" : mts_key(amount),
     @"telephony" : mts_key(telephony),
     @"order_summ" : mts_key(order_summ),
+    @"supplier_getting_id" : mts_key(supplier_getting_id),
+    @"letter" : mts_key(letter),
+    @"getting_payment_type" : mts_key(getting_payment_type),
+    @"getting_payment" : mts_key(getting_payment),
+    
 
   };
 }

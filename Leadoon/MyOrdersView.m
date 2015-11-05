@@ -309,6 +309,7 @@
     MyOrdersViewDetail* detail = [self.storyboard instantiateViewControllerWithIdentifier:@"myOrdersViewDetail"];
     ParserOrders * parser =[self.arrayOrders objectAtIndex:indexPath.row];
     detail.orderID =parser.order_id;
+    detail.getting_type=parser.getting_type;
     [self.navigationController pushViewController:detail animated:YES];
 }
 
