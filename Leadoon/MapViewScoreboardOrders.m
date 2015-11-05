@@ -13,6 +13,7 @@
 #import "APIClass.h"
 #import "APIPostClass.h"
 #import "ParserOrders.h"
+#import "ParserOrder.h"
 #import "HeightForText.h"
 
 #import "MyOrdersView.h"
@@ -20,6 +21,9 @@
 #import "ParserResponseOrders.h"
 #import "AnnotationMap.h"
 #import "UIView+MKAnnotationView.h"
+
+#import "DetailsScoreboardOrderView.h"
+#import "ParserResponseOrder.h"
 
 @interface MapViewScoreboardOrders () <CLLocationManagerDelegate, MKMapViewDelegate>
 
@@ -34,6 +38,8 @@
 @property (weak, nonatomic) IBOutlet UILabel* labelButtomZoomOut;
 
 @property (strong, nonatomic) MKDirections* direction;
+
+@property (strong, nonatomic) NSArray* arrayResponse; //Тестовый массив списка товаров
 
 @end
 
@@ -70,11 +76,14 @@
             CLLocationCoordinate2D coord;
             coord.latitude = [parser.olat floatValue];
             coord.longitude = [parser.olong floatValue];
+            
 
             annotation.coordinate = coord;
             annotation.title = parser.address;
             annotation.subtitle = [self metroStationNameByID:parser.metro_id];
             annotation.type = parser.getting_type;
+            annotation.orderID = parser.order_id;
+            
 
             [self.mapView addAnnotation:annotation];
         }
@@ -208,6 +217,8 @@
         UIButton* buttonDetailMapAnnotation = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
         
         [buttonDetailMapAnnotation addTarget:self action:@selector(actionButtonDetailMapAnnotation:) forControlEvents:UIControlEventTouchUpInside];
+        AnnotationMap* annotationMap = annotation;
+        buttonDetailMapAnnotation.tag = [annotationMap.orderID intValue];
 
         //Создание кнопки построение маршрута-----------------------------------------------------
         UIImageView * buttonImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"nav.png"]];
@@ -289,16 +300,52 @@
     return nil;
 }
 
+//Тащим заказы с сервера
+- (void)getApiOrder:(NSString *) orderID block:(void (^)(void))block
+{
+    //Передаваемые параметры
+    
+    NSDictionary* params = [[NSDictionary alloc] initWithObjectsAndKeys:
+                            orderID, @"id",
+                            nil];
+    
+    APIClass* api = [APIClass new]; //создаем API
+    [api getDataFromServerWithParams:params
+                              method:@"action=load_order"
+                     complitionBlock:^(id response) {
+                         
+                         ParserResponseOrder* parsingResponce = [[ParserResponseOrder alloc] init];
+                         //                         NSLog(@"%@",response);
+                         self.arrayResponse = [parsingResponce parsing:response];
+                         
+                         block();
+                     }];
+}
+
 //Действие кнопки actionButtonDetailMapAnnotation--------
 - (void)actionButtonDetailMapAnnotation:(UIButton*)sender
 {
     //Выбирем наше вью-----------------------------------------------
     MKAnnotationView* annotationView = [sender superAnnotationView];
     if (!annotationView) {
-
+        
         return;
     }
-
+    NSLog(@"TEST %i",sender.tag);
+    [self getApiOrder:[NSString stringWithFormat:@"%i",sender.tag] block:^{
+        
+        ParserOrder* parser = [self.arrayResponse objectAtIndex:0];
+        
+        DetailsScoreboardOrderView* detail = [self.storyboard instantiateViewControllerWithIdentifier:@"DetailsScoreboardOrder"];
+        [self.navigationController pushViewController:detail animated:YES];
+        detail.orderID=[NSString stringWithFormat:@"%i",sender.tag];
+        detail.getting_type=parser.getting_type;
+        
+        
+    }];
+    
+    
+    
     CLLocationCoordinate2D location = annotationView.annotation.coordinate;
 
     NSLog(@"location.latitude %f, location.longitude %f", location.latitude, location.longitude);

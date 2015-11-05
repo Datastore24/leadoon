@@ -180,6 +180,86 @@
         LabelFieldComments.backgroundColor = [UIColor clearColor];
         [self.scrollViewMyOrdersDetail addSubview:LabelFieldComments];
 
+        
+        //Требование для забора
+        if([self.getting_type integerValue] == 1){
+            
+            
+            
+            UILabel* labelHeaderDemand = [[UILabel alloc] initWithFrame:CGRectMake(100, 190 + self.textFieldCommentsHeight, 160, 20)];
+            labelHeaderDemand.text = @"Требования";
+            labelHeaderDemand.textColor = [UIColor colorWithHexString:@"175e07"];
+            labelHeaderDemand.font = [UIFont fontWithName:@"Helvetica-Bold" size:18];
+            [self.scrollViewMyOrdersDetail addSubview:labelHeaderDemand];
+            
+            UILabel* labelOrderNum = [[UILabel alloc] initWithFrame:CGRectMake(40, 240 + self.textFieldCommentsHeight, 160, 20)];
+            labelOrderNum.text = @"Заказ:";
+            labelOrderNum.font = [UIFont fontWithName:@"HelveticaNeue-Italic" size:12];
+            [self.scrollViewMyOrdersDetail addSubview:labelOrderNum];
+            
+            //Номер заказа
+            UILabel* labelOrderAPINum = [[UILabel alloc] initWithFrame:CGRectMake(120, 240 + self.textFieldCommentsHeight, 160, 20)];
+            labelOrderAPINum.text = [NSString stringWithFormat:@"№ %@",parser.supplier_getting_id];
+            labelOrderAPINum.font = [UIFont fontWithName:@"Helvetica-Bold" size:12];
+            
+            [self.scrollViewMyOrdersDetail addSubview:labelOrderAPINum];
+            
+            //
+            
+            
+            UILabel* labelPayment= [[UILabel alloc] initWithFrame:CGRectMake(40, 260 + self.textFieldCommentsHeight, 160, 20)];
+            labelPayment.text = @"Оплата:";
+            labelPayment.font = [UIFont fontWithName:@"HelveticaNeue-Italic" size:12];
+            [self.scrollViewMyOrdersDetail addSubview:labelPayment];
+            
+            //Оплата заказа
+            UILabel* labelOrderAPIPayment = [[UILabel alloc] initWithFrame:CGRectMake(120, 260 + self.textFieldCommentsHeight, 160, 20)];
+            
+            if([parser.getting_payment_type integerValue] == 1){
+                labelOrderAPIPayment.text = @"Оплачено";
+                
+            }else{
+                labelOrderAPIPayment.text = [NSString stringWithFormat:@"%@ руб.",parser.getting_payment];
+                
+            }
+            
+            labelOrderAPIPayment.font = [UIFont fontWithName:@"Helvetica-Bold" size:12];
+            
+            [self.scrollViewMyOrdersDetail addSubview:labelOrderAPIPayment];
+            
+            //
+            
+            UILabel* labelLetter= [[UILabel alloc] initWithFrame:CGRectMake(40, 280 + self.textFieldCommentsHeight, 160, 20)];
+            labelLetter.text = @"Доверенность:";
+            labelLetter.font = [UIFont fontWithName:@"HelveticaNeue-Italic" size:12];
+            [self.scrollViewMyOrdersDetail addSubview:labelLetter];
+            
+            //Доверенность
+            UILabel* labelOrderAPILetter = [[UILabel alloc] initWithFrame:CGRectMake(140, 280 + self.textFieldCommentsHeight, 160, 20)];
+            
+            if([parser.letter integerValue] == 0){
+                labelOrderAPILetter.text = @"Нет";
+                
+            }else if([parser.letter integerValue] == 1 || [parser.letter integerValue] == 2){
+                labelOrderAPILetter.text = @"Да";
+                
+            }else{
+                labelOrderAPILetter.text = @"Ошибка в базе";
+            }
+            
+            labelOrderAPILetter.font = [UIFont fontWithName:@"Helvetica-Bold" size:12];
+            
+            [self.scrollViewMyOrdersDetail addSubview:labelOrderAPILetter];
+            
+            //
+            
+            self.textFieldCommentsHeight +=150;
+            
+            
+        }
+
+        
+        
         //Заголовок списка товаров----------------------------------------
         UILabel* labelHeaderItems = [[UILabel alloc] initWithFrame:CGRectMake(125, 215 + self.textFieldCommentsHeight, 70, 20)];
         labelHeaderItems.text = @"Товары";
@@ -195,8 +275,22 @@
             //Высота нашего лейбла
             self.labelNameItemsHeight = [heightForText getHeightForText:[dict objectForKey:@"name"] textWith:self.view.frame.size.width withFont:[UIFont systemFontOfSize:18.2f]];
 
-            UILabel* labelNameItems = [[UILabel alloc] initWithFrame:
-                                                           CGRectMake(15, 230 + self.textFieldCommentsHeight + self.labelNameItemsHeight * i, 160, self.labelNameItemsHeight)];
+            UILabel* labelNameItems;
+            
+            if([self.getting_type integerValue] == 0){
+                labelNameItems = [[UILabel alloc] initWithFrame:
+                                  CGRectMake(15, 210 + self.textFieldCommentsHeight + self.labelNameItemsHeight * i , 160, self.labelNameItemsHeight)];
+            }else if([self.getting_type integerValue] == 2 || [self.getting_type integerValue] == 1){
+                labelNameItems = [[UILabel alloc] initWithFrame:
+                                  CGRectMake(50, 210 + self.textFieldCommentsHeight + self.labelNameItemsHeight * i , 160, self.labelNameItemsHeight)];
+                UILabel * labelOrderId = [[UILabel alloc] initWithFrame:  CGRectMake(15, 210 + self.textFieldCommentsHeight + self.labelNameItemsHeight * i , 40, self.labelNameItemsHeight)];
+                labelOrderId.numberOfLines = 0;
+                labelOrderId.lineBreakMode = NSLineBreakByWordWrapping;
+                labelOrderId.text = [dict objectForKey:@"order_id"];
+                labelOrderId.font = [UIFont fontWithName:@"HelveticaNeue" size:12];
+                [self.scrollViewMyOrdersDetail addSubview:labelOrderId];
+            }
+            
             labelNameItems.numberOfLines = 0;
             labelNameItems.lineBreakMode = NSLineBreakByWordWrapping;
             labelNameItems.text = [dict objectForKey:@"name"];
@@ -542,7 +636,8 @@
     //Передаваемые параметры
 
     NSDictionary* params = [[NSDictionary alloc] initWithObjectsAndKeys:
-                                                     self.orderID, @"id",
+                            self.orderID, @"id",
+                            self.getting_type, @"getting_type",
                                                  nil];
 
     APIClass* api = [APIClass new]; //создаем API

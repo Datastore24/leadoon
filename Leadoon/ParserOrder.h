@@ -46,6 +46,13 @@
 @property (strong,nonatomic) NSString * order_summ;
 @property (strong,nonatomic) NSString * amount;
 @property (strong,nonatomic) NSString * telephony;
+//Все для закупки
+@property (strong,nonatomic) NSString * supplier_getting_id;
+@property (strong,nonatomic) NSString * letter;
+@property (strong,nonatomic) NSString * getting_payment_type;
+@property (strong,nonatomic) NSString * getting_payment;
+
+//
 
 
 
