@@ -51,7 +51,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    NSLog(@"GETTING %@",self.getting_type);
     self.arrayResponse = [NSArray array];
     
     self.mainScrollViewOrder.backgroundColor = [UIColor groupTableViewBackgroundColor];
