@@ -186,7 +186,7 @@
             
             
             
-            UILabel* labelHeaderDemand = [[UILabel alloc] initWithFrame:CGRectMake(100, 190 + self.textFieldCommentsHeight, 160, 20)];
+            UILabel* labelHeaderDemand = [[UILabel alloc] initWithFrame:CGRectMake(100, 210 + self.textFieldCommentsHeight, 180, 20)];
             labelHeaderDemand.text = @"Требования";
             labelHeaderDemand.textColor = [UIColor colorWithHexString:@"175e07"];
             labelHeaderDemand.font = [UIFont fontWithName:@"Helvetica-Bold" size:18];
@@ -279,11 +279,12 @@
             
             if([self.getting_type integerValue] == 0){
                 labelNameItems = [[UILabel alloc] initWithFrame:
-                                  CGRectMake(15, 210 + self.textFieldCommentsHeight + self.labelNameItemsHeight * i , 160, self.labelNameItemsHeight)];
+                                  CGRectMake(15, 240 + self.textFieldCommentsHeight + self.labelNameItemsHeight * i , 160, self.labelNameItemsHeight)];
             }else if([self.getting_type integerValue] == 2 || [self.getting_type integerValue] == 1){
+                
                 labelNameItems = [[UILabel alloc] initWithFrame:
-                                  CGRectMake(50, 210 + self.textFieldCommentsHeight + self.labelNameItemsHeight * i , 160, self.labelNameItemsHeight)];
-                UILabel * labelOrderId = [[UILabel alloc] initWithFrame:  CGRectMake(15, 210 + self.textFieldCommentsHeight + self.labelNameItemsHeight * i , 40, self.labelNameItemsHeight)];
+                                  CGRectMake(50, 240 + self.textFieldCommentsHeight + self.labelNameItemsHeight * i , 160, self.labelNameItemsHeight)];
+                UILabel * labelOrderId = [[UILabel alloc] initWithFrame:  CGRectMake(15, 240 + self.textFieldCommentsHeight + self.labelNameItemsHeight * i , 40, self.labelNameItemsHeight)];
                 labelOrderId.numberOfLines = 0;
                 labelOrderId.lineBreakMode = NSLineBreakByWordWrapping;
                 labelOrderId.text = [dict objectForKey:@"order_id"];
@@ -298,14 +299,14 @@
             [self.scrollViewMyOrdersDetail addSubview:labelNameItems];
 
             UILabel* labelNumberItems = [[UILabel alloc] initWithFrame:
-                                                             CGRectMake(200, 225 + self.textFieldCommentsHeight + self.labelNameItemsHeight * i, 150, self.labelNameItemsHeight)];
+                                                             CGRectMake(200, 240 + self.textFieldCommentsHeight + self.labelNameItemsHeight * i, 150, self.labelNameItemsHeight)];
             NSString* resultCount = [NSString stringWithFormat:@"%@ шт.", [dict objectForKey:@"count"]];
             labelNumberItems.text = resultCount;
             labelNumberItems.font = [UIFont fontWithName:@"HelveticaNeue" size:12];
             [self.scrollViewMyOrdersDetail addSubview:labelNumberItems];
 
             UILabel* labelCostItems = [[UILabel alloc] initWithFrame:
-                                                           CGRectMake(240, 225 + self.textFieldCommentsHeight + self.labelNameItemsHeight * i, 150, self.labelNameItemsHeight)];
+                                                           CGRectMake(240, 240 + self.textFieldCommentsHeight + self.labelNameItemsHeight * i, 150, self.labelNameItemsHeight)];
             NSString* resultPrice = [NSString stringWithFormat:@"%@ руб.", [dict objectForKey:@"price"]];
             labelCostItems.text = resultPrice;
             labelCostItems.font = [UIFont fontWithName:@"HelveticaNeue" size:12];
@@ -451,6 +452,12 @@
         self.buttonFailure.layer.borderWidth = 1.f;
         self.buttonFailure.layer.cornerRadius = 9.f;
         [self.scrollViewMyOrdersDetail addSubview:self.buttonFailure];
+        
+        if ([self.getting_type integerValue] == 2 || [self.getting_type integerValue] == 1) {
+            
+            self.buttonFailure.userInteractionEnabled = NO;
+            self.buttonFailure.alpha = 0.f;
+        }
 
         //Создание кнопки Отмена--------------------------------------
         
@@ -522,6 +529,12 @@
         self.buttonPartialSale.layer.borderWidth = 1.f;
         self.buttonPartialSale.layer.cornerRadius = 9.f;
         [self.scrollViewMyOrdersDetail addSubview:self.buttonPartialSale];
+        
+        if ([self.getting_type integerValue] == 2 || [self.getting_type integerValue] == 1) {
+            
+            self.buttonPartialSale.userInteractionEnabled = NO;
+            self.buttonPartialSale.alpha = 0.f;
+        }
         
         
 

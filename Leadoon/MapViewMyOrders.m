@@ -8,9 +8,13 @@
 
 #import "MapViewMyOrders.h"
 #import "ParserOrders.h"
+#import "ParserOrder.h"
 #import "AnnotationMap.h"
 #import "SettingsView.h"
 #import "UIView+MKAnnotationView.h"
+#import "APIClass.h"
+#import "ParserResponseOrder.h"
+#import "MyOrdersViewDetail.h"
 
 @interface MapViewMyOrders () <CLLocationManagerDelegate, MKMapViewDelegate>
 
@@ -22,6 +26,8 @@
 @property (weak, nonatomic) IBOutlet UIButton *buttonZoomOutMapViewMyOrders; //Кнопка уменьшения
 
 @property (strong, nonatomic) MKDirections* direction;
+
+@property (strong, nonatomic) NSArray* arrayResponse; //Тестовый массив списка товаров
 
 
 @end
@@ -64,6 +70,7 @@
             annotation.title = parser.address;
             annotation.subtitle = [self metroStationNameByID:parser.metro_id];
             annotation.type = parser.getting_type;
+            annotation.orderID = parser.order_id;
             
             [self.mapView addAnnotation:annotation];
         }
@@ -264,6 +271,28 @@
     return nil;
 }
 
+//Тащим заказы с сервера
+- (void)getApiOrder:(NSString *) orderID block:(void (^)(void))block
+{
+    //Передаваемые параметры
+    
+    NSDictionary* params = [[NSDictionary alloc] initWithObjectsAndKeys:
+                            orderID, @"id",
+                            nil];
+    
+    APIClass* api = [APIClass new]; //создаем API
+    [api getDataFromServerWithParams:params
+                              method:@"action=load_order"
+                     complitionBlock:^(id response) {
+                         
+                         ParserResponseOrder* parsingResponce = [[ParserResponseOrder alloc] init];
+                         //                         NSLog(@"%@",response);
+                         self.arrayResponse = [parsingResponce parsing:response];
+                         
+                         block();
+                     }];
+}
+
 //Действие кнопки actionButtonDetailMapAnnotation--------
 - (void)actionButtonDetailMapAnnotation:(UIButton*)sender
 {
@@ -273,10 +302,18 @@
         
         return;
     }
-    
-    CLLocationCoordinate2D location = annotationView.annotation.coordinate;
-    
-    NSLog(@"location.latitude %f, location.longitude %f", location.latitude, location.longitude);
+    NSLog(@"TEST %i",sender.tag);
+    [self getApiOrder:[NSString stringWithFormat:@"%i",sender.tag] block:^{
+        
+        ParserOrder* parser = [self.arrayResponse objectAtIndex:0];
+        
+        MyOrdersViewDetail* detail = [self.storyboard instantiateViewControllerWithIdentifier:@"myOrdersViewDetail"];
+        [self.navigationController pushViewController:detail animated:YES];
+        detail.orderID=[NSString stringWithFormat:@"%i",sender.tag];
+        detail.getting_type=parser.getting_type;
+        
+        
+    }];
 }
 
 //Действие кнопки actionButtonDirection-----------------
