@@ -617,8 +617,16 @@
 - (void)alertButtonYes
 {
     //Передаваемые параметры
+    NSString * status;
+    if([self.getting_type integerValue] == 0){
+        status = [NSString stringWithFormat:@"%i",50];
+    }else if ([self.getting_type integerValue] == 2 || [self.getting_type integerValue] == 1) {
+        status = [NSString stringWithFormat:@"%i",120];
+    }
+    
     NSDictionary* params = [[NSDictionary alloc] initWithObjectsAndKeys:
                             self.orderID, @"order_id",
+                            status, @"status",
                             nil];
     
     APIPostClass* api = [APIPostClass new]; //создаем API

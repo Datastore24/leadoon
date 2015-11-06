@@ -192,6 +192,9 @@
         UIButton* buttonDetailMapAnnotation = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
         [buttonDetailMapAnnotation addTarget:self action:@selector(actionButtonDetailMapAnnotation:) forControlEvents:UIControlEventTouchUpInside];
         
+        AnnotationMap* annotationMap = annotation;
+        buttonDetailMapAnnotation.tag = [annotationMap.orderID intValue];
+        
         //Создание кнопки построение маршрута-----------------------------------------------------
         UIImageView * buttonImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"nav.png"]];
         buttonImage.frame = buttonDetailMapAnnotation.frame;

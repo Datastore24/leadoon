@@ -167,7 +167,7 @@
     NSString * status;
     if([self.getting_type integerValue] == 0){
         status = [NSString stringWithFormat:@"%i",60];
-    }else if ([self.getting_type integerValue] == 2) {
+    }else if ([self.getting_type integerValue] == 2 || [self.getting_type integerValue] == 1) {
         status = [NSString stringWithFormat:@"%i",130];
     }
     //Передаваемые параметры
