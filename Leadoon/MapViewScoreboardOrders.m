@@ -331,7 +331,7 @@
         
         return;
     }
-    NSLog(@"TEST %i",sender.tag);
+    
     [self getApiOrder:[NSString stringWithFormat:@"%i",sender.tag] block:^{
         
         ParserOrder* parser = [self.arrayResponse objectAtIndex:0];
@@ -348,7 +348,6 @@
     
     CLLocationCoordinate2D location = annotationView.annotation.coordinate;
 
-    NSLog(@"location.latitude %f, location.longitude %f", location.latitude, location.longitude);
 }
 
 //Действие кнопки actionButtonDirection-----------------
