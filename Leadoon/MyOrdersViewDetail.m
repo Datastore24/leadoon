@@ -393,6 +393,13 @@
         [self.scrollViewMyOrdersDetail addSubview:self.buttonMade];
         [self.buttonMade addTarget:self action:@selector(tapButtonAssigned) forControlEvents:UIControlEventTouchDown];
         [self.buttonMade addTarget:self action:@selector(actionButtonAssigned) forControlEvents:UIControlEventTouchUpInside];
+        
+        if ([self.getting_type integerValue] == 2 || [self.getting_type integerValue] == 1) {            
+            CGRect rect;
+            rect = self.buttonMade.frame;
+            rect.origin.y = rect.origin.y + 30.f;
+            self.buttonMade.frame = rect;
+        }
 
         //Создание кнопки обратный звонок--------------------------------------
 

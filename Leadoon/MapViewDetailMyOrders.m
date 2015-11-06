@@ -38,6 +38,8 @@
     
     ParserOrder * parser = [self.parseItems objectAtIndex:0];
     
+    self.labelTopBarMapViewDetailMyOrders.text = [NSString stringWithFormat:@"№ 000%@", parser.order_id];
+    
 //        NSLog(@"orderLat %@", parser.orderLat);
 //        NSLog(@"orderLong %@", parser.orderLong);
 //        NSLog(@"address %@", parser.address);

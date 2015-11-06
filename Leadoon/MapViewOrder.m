@@ -24,6 +24,7 @@
 @property (weak, nonatomic) IBOutlet UIButton* buttomZoomIn; //Кнопка увеличения
 @property (weak, nonatomic) IBOutlet UIButton* ButtonZoomOut; //Кнопка уменьшения
 @property (weak, nonatomic) IBOutlet UIButton *buttonAssigned; //Кнопка присвоить
+@property (weak, nonatomic) IBOutlet UILabel *labelTopBarMapViewOrder;
 
 @property (strong, nonatomic) MKDirections* direction;
 
@@ -36,6 +37,10 @@
     [super viewDidLoad];
     
     ParserOrder * parser = [self.parseItems objectAtIndex:0];
+    
+    self.labelTopBarMapViewOrder.text = [NSString stringWithFormat:@"№ 000%@", parser.order_id];
+    
+    
     
 //    NSLog(@"orderLat %@", parser.orderLat);
 //    NSLog(@"orderLong %@", parser.orderLong);
@@ -63,11 +68,6 @@
         
         [self.mapView addAnnotation:annotation];
     }
-    
-    
-
-    
-    
     
     CLLocationCoordinate2D cord;
     cord.latitude = [parser.orderLat floatValue];
