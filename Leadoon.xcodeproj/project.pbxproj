@@ -42,6 +42,7 @@
 		77E8F4211BD2B97F00D2509E /* locationImage.png in Resources */ = {isa = PBXBuildFile; fileRef = 77E8F41D1BD2B97F00D2509E /* locationImage.png */; settings = {ASSET_TAGS = (); }; };
 		77E8F4241BD2C3EB00D2509E /* MapViewOrder.m in Sources */ = {isa = PBXBuildFile; fileRef = 77E8F4231BD2C3EB00D2509E /* MapViewOrder.m */; settings = {ASSET_TAGS = (); }; };
 		77E8F4271BD2D0B500D2509E /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77E8F4261BD2D0B500D2509E /* MapKit.framework */; };
+		77ED7D141BECDF26001A2F8E /* PartialSaleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 77ED7D131BECDF26001A2F8E /* PartialSaleView.m */; settings = {ASSET_TAGS = (); }; };
 		77FAA9B41BCF9A3A00349A05 /* LabelsTableViewCall.m in Sources */ = {isa = PBXBuildFile; fileRef = 77FAA9B31BCF9A3A00349A05 /* LabelsTableViewCall.m */; settings = {ASSET_TAGS = (); }; };
 		77FAA9B81BCFA9C600349A05 /* UIColor+HexColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 77FAA9B71BCFA9C600349A05 /* UIColor+HexColor.m */; settings = {ASSET_TAGS = (); }; };
 		77FAA9BB1BCFB42900349A05 /* imageMetro1.png in Resources */ = {isa = PBXBuildFile; fileRef = 77FAA9B91BCFB42900349A05 /* imageMetro1.png */; settings = {ASSET_TAGS = (); }; };
@@ -141,6 +142,8 @@
 		77E8F4221BD2C3EB00D2509E /* MapViewOrder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapViewOrder.h; sourceTree = "<group>"; };
 		77E8F4231BD2C3EB00D2509E /* MapViewOrder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapViewOrder.m; sourceTree = "<group>"; };
 		77E8F4261BD2D0B500D2509E /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		77ED7D121BECDF26001A2F8E /* PartialSaleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PartialSaleView.h; sourceTree = "<group>"; };
+		77ED7D131BECDF26001A2F8E /* PartialSaleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PartialSaleView.m; sourceTree = "<group>"; };
 		77FAA9B21BCF9A3A00349A05 /* LabelsTableViewCall.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LabelsTableViewCall.h; sourceTree = "<group>"; };
 		77FAA9B31BCF9A3A00349A05 /* LabelsTableViewCall.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LabelsTableViewCall.m; sourceTree = "<group>"; };
 		77FAA9B61BCFA9C600349A05 /* UIColor+HexColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+HexColor.h"; sourceTree = "<group>"; };
@@ -402,6 +405,8 @@
 		77C903711BD6ABF800B54E6A /* MyOrdersViewDetail */ = {
 			isa = PBXGroup;
 			children = (
+				77ED7D121BECDF26001A2F8E /* PartialSaleView.h */,
+				77ED7D131BECDF26001A2F8E /* PartialSaleView.m */,
 				7777DCB01BD7C6120068922D /* MapViewDetailMyOrders */,
 				77C903721BD6AC4200B54E6A /* MyOrdersViewDetail.h */,
 				77C903731BD6AC4200B54E6A /* MyOrdersViewDetail.m */,
@@ -716,6 +721,7 @@
 				776F17291BD19B3D0085891A /* DetailsScoreboardOrderView.m in Sources */,
 				AD2A24981BD0CFBD00E0BC31 /* ParserResponseOrders.m in Sources */,
 				AD2A24A41BD1327A00E0BC31 /* MyOrdersView.m in Sources */,
+				77ED7D141BECDF26001A2F8E /* PartialSaleView.m in Sources */,
 				ADD823021BD7C34E00DD4C7B /* ECPhoneNumberFormatter.m in Sources */,
 				77501CE21BD5973300596DA8 /* ZSAnnotation.m in Sources */,
 				AD2A249B1BD0D4F100E0BC31 /* ParseDate.m in Sources */,
