@@ -452,6 +452,12 @@
         self.buttonFailure.layer.borderWidth = 1.f;
         self.buttonFailure.layer.cornerRadius = 9.f;
         [self.scrollViewMyOrdersDetail addSubview:self.buttonFailure];
+        
+        if ([self.getting_type integerValue] == 2 || [self.getting_type integerValue] == 1) {
+            
+            self.buttonFailure.userInteractionEnabled = NO;
+            self.buttonFailure.alpha = 0.f;
+        }
 
         //Создание кнопки Отмена--------------------------------------
         
@@ -523,6 +529,12 @@
         self.buttonPartialSale.layer.borderWidth = 1.f;
         self.buttonPartialSale.layer.cornerRadius = 9.f;
         [self.scrollViewMyOrdersDetail addSubview:self.buttonPartialSale];
+        
+        if ([self.getting_type integerValue] == 2 || [self.getting_type integerValue] == 1) {
+            
+            self.buttonPartialSale.userInteractionEnabled = NO;
+            self.buttonPartialSale.alpha = 0.f;
+        }
         
         
 
