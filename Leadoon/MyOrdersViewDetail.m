@@ -263,51 +263,53 @@
 
         for (int i = 0; i < self.parseItems.count; i++) {
             NSDictionary* dict = [self.parseItems objectAtIndex:i];
-
+            
             //Высота нашего лейбла
-            self.labelNameItemsHeight = [heightForText getHeightForText:[dict objectForKey:@"name"] textWith:self.view.frame.size.width withFont:[UIFont systemFontOfSize:18.2f]];
-
+            self.labelNameItemsHeight = [heightForText getHeightForText:[dict objectForKey:@"name"] textWith:self.view.frame.size.width withFont:[UIFont systemFontOfSize:14]];
             UILabel* labelNameItems;
-
-            if ([self.getting_type integerValue] == 0) {
+            if([self.getting_type integerValue] == 0){
+                
                 labelNameItems = [[UILabel alloc] initWithFrame:
-                                                      CGRectMake(15, 240 + self.textFieldCommentsHeight + self.labelNameItemsHeight * i, 160, self.labelNameItemsHeight)];
-            }
-            else if ([self.getting_type integerValue] == 2 || [self.getting_type integerValue] == 1) {
-
+                                  CGRectMake(15, 230 + self.textFieldCommentsHeight + 10 + 60 * i , 160, self.labelNameItemsHeight + 15)];
+                
+                
+            }else if([self.getting_type integerValue] == 2 || [self.getting_type integerValue] == 1){
                 labelNameItems = [[UILabel alloc] initWithFrame:
-                                                      CGRectMake(50, 240 + self.textFieldCommentsHeight + self.labelNameItemsHeight * i, 160, self.labelNameItemsHeight)];
-                UILabel* labelOrderId = [[UILabel alloc] initWithFrame:CGRectMake(15, 240 + self.textFieldCommentsHeight + self.labelNameItemsHeight * i, 40, self.labelNameItemsHeight)];
+                                  CGRectMake(40, 230 + self.textFieldCommentsHeight + 10 + 60 * i , 160, self.labelNameItemsHeight + 10)];
+                UILabel * labelOrderId = [[UILabel alloc] initWithFrame:  CGRectMake(10, 230 + self.textFieldCommentsHeight + 10 + 60 * i , 40, self.labelNameItemsHeight + 10)];
                 labelOrderId.numberOfLines = 0;
                 labelOrderId.lineBreakMode = NSLineBreakByWordWrapping;
                 labelOrderId.text = [dict objectForKey:@"order_id"];
                 labelOrderId.font = [UIFont fontWithName:@"HelveticaNeue" size:12];
                 [self.scrollViewMyOrdersDetail addSubview:labelOrderId];
+                
             }
-
+            
             labelNameItems.numberOfLines = 0;
             labelNameItems.lineBreakMode = NSLineBreakByWordWrapping;
             labelNameItems.text = [dict objectForKey:@"name"];
             labelNameItems.font = [UIFont fontWithName:@"HelveticaNeue" size:12];
+            
             [self.scrollViewMyOrdersDetail addSubview:labelNameItems];
-
+            
+            
             UILabel* labelNumberItems = [[UILabel alloc] initWithFrame:
-                                                             CGRectMake(200, 240 + self.textFieldCommentsHeight + self.labelNameItemsHeight * i, 150, self.labelNameItemsHeight)];
+                                         CGRectMake(200, 230 + self.textFieldCommentsHeight + 10 + 60 * i, 150, self.labelNameItemsHeight + 10 )];
             NSString* resultCount = [NSString stringWithFormat:@"%@ шт.", [dict objectForKey:@"count"]];
             labelNumberItems.text = resultCount;
             labelNumberItems.font = [UIFont fontWithName:@"HelveticaNeue" size:12];
             [self.scrollViewMyOrdersDetail addSubview:labelNumberItems];
-
+            
             UILabel* labelCostItems = [[UILabel alloc] initWithFrame:
-                                                           CGRectMake(240, 240 + self.textFieldCommentsHeight + self.labelNameItemsHeight * i, 150, self.labelNameItemsHeight)];
+                                       CGRectMake(240, 230 + 10 + self.textFieldCommentsHeight + 60 * i, 150, self.labelNameItemsHeight + 10)];
             NSString* resultPrice = [NSString stringWithFormat:@"%@ руб.", [dict objectForKey:@"price"]];
             labelCostItems.text = resultPrice;
             labelCostItems.font = [UIFont fontWithName:@"HelveticaNeue" size:12];
             [self.scrollViewMyOrdersDetail addSubview:labelCostItems];
         }
-
+        
         //Высота всех товаров--------------------------------------------------------------------
-        self.heightAllItems = 230 + self.textFieldCommentsHeight + self.labelNameItemsHeight * self.parseItems.count;
+        self.heightAllItems = 230 + self.textFieldCommentsHeight + 60 * self.parseItems.count;
 
         //Параметры mainScrollViewOrder----------------------------------------------------------
         NSInteger number = 340 + self.heightAllItems;
@@ -1392,6 +1394,7 @@
 - (void)actionButtonPartialSale
 {
     PartialSaleView * detail = [self.storyboard instantiateViewControllerWithIdentifier:@"partialSaleView"];
+    detail.parseItems = self.arrayResponse;
     [self.navigationController pushViewController:detail animated:YES];
 }
 

@@ -9,20 +9,18 @@
 #import "PartialSaleView.h"
 #import "SettingsView.h"
 #import "UIColor+HexColor.h"
+#import "ParserOrder.h"
+#import "HeightForText.h"
 
 @interface PartialSaleView () <UIPickerViewDataSource, UIPickerViewDelegate>
-@property (weak, nonatomic) IBOutlet UIView *topBarPartialSaleView;
-@property (weak, nonatomic) IBOutlet UIButton *buttonBackPartialSaleView;
-@property (weak, nonatomic) IBOutlet UIButton *buttonSettingsPartialSaleView;
-@property (weak, nonatomic) IBOutlet UIButton *buttonApply;
-@property (weak, nonatomic) IBOutlet UIPickerView *pickerNumber1;
-@property (weak, nonatomic) IBOutlet UIPickerView *pickerNumber2;
-@property (weak, nonatomic) IBOutlet UIPickerView *pickerNumber3;
-@property (weak, nonatomic) IBOutlet UIPickerView *pickerNumber4;
-
-@property (strong, nonatomic) NSMutableArray * arrayPicker1;
-@property (strong, nonatomic) NSMutableArray * arrayPicker2;
-
+@property (weak, nonatomic) IBOutlet UIView* topBarPartialSaleView; //Верхний бар
+@property (weak, nonatomic) IBOutlet UIButton* buttonBackPartialSaleView; //Кнопка назад
+@property (weak, nonatomic) IBOutlet UIButton* buttonSettingsPartialSaleView; //Копка настроек
+@property (weak, nonatomic) IBOutlet UIScrollView* scrollViewPartialSaleView; //Основной скрол вью
+@property (assign, nonatomic) CGFloat labelNameItemsHeight; //ВЫсота наименования товара
+@property (strong, nonatomic) NSArray* items; //Список товаров
+@property (strong, nonatomic) NSMutableArray* mArrayPickerNumber; //Список элементов пикера колличества
+@property (assign, nonatomic) CGFloat heightAllItems; //Высота всех товаров
 
 @end
 
@@ -32,145 +30,247 @@
 
 {
     [super viewDidLoad];
-    
-    //Первый пикер---------------------------------------------------------------------------
-    
-    self.arrayPicker1 = [NSMutableArray new];
-    for (int i = 0; i < 1000; i++) {
-        NSString * string = [[NSNumber numberWithInt:i] stringValue];
-        [self.arrayPicker1 addObject:string];
-    }
-    
-    self.pickerNumber1.dataSource = self;
-    self.pickerNumber1.delegate = self;
-    self.pickerNumber1.backgroundColor = [UIColor clearColor];
-    self.pickerNumber3.dataSource = self;
-    self.pickerNumber3.delegate = self;
-    self.pickerNumber3.backgroundColor = [UIColor clearColor];
-    
-    //Второй пикер---------------------------------------------------------------------------
-    self.arrayPicker2 = [NSMutableArray new];
-    for (int i = 0; i < 1000; i += 10) {
-        NSString * string = [[NSNumber numberWithInt:i] stringValue];
-        [self.arrayPicker2 addObject:string];
-    }
-    
-    self.pickerNumber2.delegate = self;
-    self.pickerNumber2.dataSource = self;
-    self.pickerNumber4.delegate = self;
-    self.pickerNumber4.dataSource = self;
-    
-    
-    //Параметры основного view---------------------------------------------------------------
-    self.view.backgroundColor = [UIColor groupTableViewBackgroundColor];
-    
+
+    self.mArrayPickerNumber = [NSMutableArray new];
+
+    ParserOrder* parser = [self.parseItems objectAtIndex:0];
+    self.items = parser.items;
+
+    self.scrollViewPartialSaleView.backgroundColor = [UIColor groupTableViewBackgroundColor];
+
     //Параметра верхнего Бара topBarPartialSaleView--------------------------------------
     self.topBarPartialSaleView.backgroundColor = [UIColor whiteColor];
     self.topBarPartialSaleView.layer.borderColor = [UIColor lightGrayColor].CGColor;
     self.topBarPartialSaleView.layer.borderWidth = 1.f;
-    
+
     //Параметры buttonSettingsPartialSaleView----------------------------------
     self.buttonSettingsPartialSaleView.backgroundColor = [UIColor clearColor];
-    [self.buttonSettingsPartialSaleView addTarget:self action:@selector(actionButtonSettingsScoreboardOrdersView)
-                                      forControlEvents:UIControlEventTouchUpInside];
-    
+    [self.buttonSettingsPartialSaleView addTarget:self
+                                           action:@selector(actionButtonSettingsScoreboardOrdersView)
+
+                                 forControlEvents:UIControlEventTouchUpInside];
+
     //Параметры buttonBackPartialSaleView---------------------------------------
     self.buttonBackPartialSaleView.backgroundColor = [UIColor clearColor];
-    [self.buttonBackPartialSaleView addTarget:self action:@selector(actionButtonBackScoreboardOrdersView)
-                                  forControlEvents:UIControlEventTouchUpInside];
+    [self.buttonBackPartialSaleView addTarget:self
+                                       action:@selector(actionButtonBackScoreboardOrdersView)
+
+                             forControlEvents:UIControlEventTouchUpInside];
+
+    //Заголовок Товары----------------------------------------------------------
+    UILabel* labelGoods = [[UILabel alloc] initWithFrame:CGRectMake(130, 70, 70, 20)];
+    labelGoods.text = @"Товары";
+    labelGoods.font = [UIFont fontWithName:@"Helvetica-Bold" size:18];
+    labelGoods.textAlignment = NSTextAlignmentCenter;
+    labelGoods.textColor = [UIColor colorWithHexString:@"0c8927"];
+    [self.scrollViewPartialSaleView addSubview:labelGoods];
+
+    HeightForText* heightForText = [HeightForText new];
+
+    for (int i = 0; i < self.items.count; i++) {
+        NSDictionary* dict = [self.items objectAtIndex:i];
+        //Высота нашего лейбла
+        self.labelNameItemsHeight = [heightForText getHeightForText:[dict objectForKey:@"name"] textWith:self.view.frame.size.width withFont:[UIFont systemFontOfSize:14]];
+
+        UILabel* labelNameItems;
+        labelNameItems = [[UILabel alloc] initWithFrame:
+                                              CGRectMake(30, 130 + 60 * i, 200, self.labelNameItemsHeight + 15)];
+        labelNameItems.numberOfLines = 0;
+        labelNameItems.lineBreakMode = NSLineBreakByWordWrapping;
+        labelNameItems.text = [dict objectForKey:@"name"];
+        labelNameItems.font = [UIFont fontWithName:@"HelveticaNeue" size:12];
+        [self.scrollViewPartialSaleView addSubview:labelNameItems];
+
+        UILabel* labelOrderId = [[UILabel alloc] initWithFrame:CGRectMake(10, 132.5 + 60 * i, 40, self.labelNameItemsHeight + 10)];
+        labelOrderId.numberOfLines = 0;
+        labelOrderId.lineBreakMode = NSLineBreakByWordWrapping;
+        labelOrderId.text = [dict objectForKey:@"order_id"];
+        labelOrderId.font = [UIFont fontWithName:@"HelveticaNeue" size:12];
+        [self.scrollViewPartialSaleView addSubview:labelOrderId];
+
+        
+        
+        UIPickerView* pickerViewNumber = [[UIPickerView alloc] initWithFrame:CGRectMake(230, 122.5 + 60 * i, 30, 50)];
+        pickerViewNumber.dataSource = self;
+        pickerViewNumber.delegate = self;
+        pickerViewNumber.tag = i + 1;
+        for (int j = 0; j < 100; j++) {
+            NSString* string = [[NSNumber numberWithInt:j] stringValue];
+            [self.mArrayPickerNumber addObject:string];
+        }
+
+        [self.scrollViewPartialSaleView addSubview:pickerViewNumber];
+        
+        NSInteger intCount = [[dict objectForKey:@"count"]integerValue];
+        [pickerViewNumber selectRow:intCount inComponent:0 animated:YES];
+
+        UILabel* labelPrice = [[UILabel alloc] initWithFrame:CGRectMake(270, 125 + 60 * i, 80, 40)];
+        labelPrice.text = [dict objectForKey:@"price"];
+        labelPrice.font = [UIFont fontWithName:@"HelveticaNeue" size:12];
+        [self.scrollViewPartialSaleView addSubview:labelPrice];
+    }
+
+    //Высота всех товаров--------------------------------------------------------------------
+    self.heightAllItems = 130 + 60 * self.items.count;
+    //Высота ScrollView----------------------------------------------------------------------
+    self.scrollViewPartialSaleView.contentSize = CGSizeMake(320, self.heightAllItems + 300);
+
+    //Label товаров на сумму-----------------------------------------------------------------
+    UILabel* labelWorthOfGoods = [[UILabel alloc] initWithFrame:CGRectMake(25, self.heightAllItems + 50, 120, 15)];
+    labelWorthOfGoods.text = @"Товаров на сумму :";
+    labelWorthOfGoods.font = [UIFont fontWithName:@"HelveticaNeue" size:12];
+    labelWorthOfGoods.alpha = 0.5f;
+    [self.scrollViewPartialSaleView addSubview:labelWorthOfGoods];
+
+    NSString * sumString = parser.order_summ;
+    NSString* string = [NSString stringWithFormat:@"%@ руб.", sumString];
+
+    //Label товаров на сумму цена-----------------------------------------------------------
+    UILabel* labelWorthOfGoodsCount = [[UILabel alloc] initWithFrame:CGRectMake(150, self.heightAllItems + 50, 100, 15)];
+    labelWorthOfGoodsCount.text = string;
+    labelWorthOfGoodsCount.font = [UIFont fontWithName:@"Helvetica-Bold" size:14];
+    labelWorthOfGoodsCount.textColor = [UIColor colorWithHexString:@"b838a0"];
+    [self.scrollViewPartialSaleView addSubview:labelWorthOfGoodsCount];
+
+    //Скидка не изменяемый-----------------------------------------------
+    UILabel* labelDiscountNotActive = [[UILabel alloc] initWithFrame:CGRectMake(60, 100 + self.heightAllItems, 70, 15)];
+    labelDiscountNotActive.text = @"Скидка:";
+    labelDiscountNotActive.font = [UIFont fontWithName:@"HelveticaNeue" size:14];
+    labelDiscountNotActive.textAlignment = NSTextAlignmentRight;
+    labelDiscountNotActive.alpha = 0.5f;
+    [self.scrollViewPartialSaleView addSubview:labelDiscountNotActive];
     
-    UILabel * labelSum1 = [[UILabel alloc] initWithFrame:CGRectMake(280, 165, 60, 15)];
-    labelSum1.text = @"600";
-    labelSum1.font = [UIFont fontWithName:@"Helvetica-Bold" size:12];
-    [self.view addSubview:labelSum1];
+    //Скидка изменяемый-----------------------------------------------
+    UILabel* labelDiscount = [[UILabel alloc] initWithFrame:CGRectMake(130, 100 + self.heightAllItems, 70, 15)];
+    labelDiscount.text = parser.discount;
+    labelDiscount.font = [UIFont fontWithName:@"Helvetica-Bold" size:14];
+    labelDiscount.textAlignment = NSTextAlignmentRight;
+    [self.scrollViewPartialSaleView addSubview:labelDiscount];
+
+    //Доставка не изменяемый---------------------------------------------
+    UILabel* labelDeliveryNotActive = [[UILabel alloc] initWithFrame:CGRectMake(60, 122.5 + self.heightAllItems, 70, 15)];
+    labelDeliveryNotActive.text = @"Доставка:";
+    labelDeliveryNotActive.font = [UIFont fontWithName:@"HelveticaNeue" size:14];
+    labelDeliveryNotActive.textAlignment = NSTextAlignmentRight;
+    labelDeliveryNotActive.alpha = 0.5f;
+    [self.scrollViewPartialSaleView addSubview:labelDeliveryNotActive];
     
-    UILabel * labelID1 = [[UILabel alloc] initWithFrame:CGRectMake(10, 165, 50, 15)];
-    labelID1.text = @"326870";
-    labelID1.font = [UIFont fontWithName:@"Helvetica-Bold" size:12];
-    [self.view addSubview:labelID1];
+    //Доставка изменяемый-----------------------------------------------
+    UILabel* labelDelivery = [[UILabel alloc] initWithFrame:CGRectMake(130, 122.5 + self.heightAllItems, 70, 15)];
+    labelDelivery.text = parser.shipping;
+    labelDelivery.font = [UIFont fontWithName:@"Helvetica-Bold" size:14];
+    labelDelivery.textAlignment = NSTextAlignmentRight;
+    [self.scrollViewPartialSaleView addSubview:labelDelivery];
     
-    UILabel * labelName1 = [[UILabel alloc] initWithFrame:CGRectMake(70, 165, 200, 15)];
-    labelName1.text = @"Мышь оптическая USB";
-    labelName1.font = [UIFont fontWithName:@"Helvetica-Bold" size:12];
-    [self.view addSubview:labelName1];
+    //Итого не изменяемый--------------------------------------------------
+    UILabel* labelInTotalNotActive = [[UILabel alloc] initWithFrame:CGRectMake(80, 180 + self.heightAllItems, 80, 20)];
+    labelInTotalNotActive.text = @"Итого:";
+    labelInTotalNotActive.font = [UIFont fontWithName:@"Helvetica-Bold" size:16];
+    labelInTotalNotActive.textAlignment = NSTextAlignmentRight;
+    [self.scrollViewPartialSaleView addSubview:labelInTotalNotActive];
+    
+    //Итого изменяемый-----------------------------------------------------
+    UILabel* labelInTotal = [[UILabel alloc] initWithFrame:CGRectMake(170, 180 + self.heightAllItems, 80, 20)];
+    labelInTotal.text = parser.amount;
+    labelInTotal.font = [UIFont fontWithName:@"Helvetica-Bold" size:16];
+    labelInTotal.textColor = [UIColor colorWithHexString:@"2d5348"];
+    [self.scrollViewPartialSaleView addSubview:labelInTotal];
     
     
-    UILabel * labelSum2 = [[UILabel alloc] initWithFrame:CGRectMake(280, 197, 60, 15)];
-    labelSum2.text = @"250";
-    labelSum2.font = [UIFont fontWithName:@"Helvetica-Bold" size:12];
-    [self.view addSubview:labelSum2];
+    //Кнопка расчета суммы с не полным колличеством товаров--------------------------
+    UIButton *buttonUpdates = [UIButton buttonWithType:UIButtonTypeCustom];
+    [buttonUpdates addTarget:self
+               action:@selector(actionButtonUpdates)
+     forControlEvents:UIControlEventTouchUpInside];
+    buttonUpdates.backgroundColor = [UIColor colorWithHexString:@"608dbd"];
+    buttonUpdates.layer.borderColor = [UIColor blackColor].CGColor;
+    buttonUpdates.layer.borderWidth = 1.5f;
+    buttonUpdates.layer.cornerRadius = 10.f;
+    [buttonUpdates setTitle:@"Расчиать стоимость" forState:UIControlStateNormal];
+    buttonUpdates.frame = CGRectMake(60, self.heightAllItems - 10, 190.0, 30.0);
+    [self.scrollViewPartialSaleView addSubview:buttonUpdates];
     
-    UILabel * labelID2 = [[UILabel alloc] initWithFrame:CGRectMake(10, 197, 50, 15)];
-    labelID2.text = @"058976";
-    labelID2.font = [UIFont fontWithName:@"Helvetica-Bold" size:12];
-    [self.view addSubview:labelID2];
     
-    UILabel * labelName2 = [[UILabel alloc] initWithFrame:CGRectMake(70, 197, 200, 15)];
-    labelName2.text = @"Коврик с подогревом";
-    labelName2.font = [UIFont fontWithName:@"Helvetica-Bold" size:12];
-    [self.view addSubview:labelName2];
-    
-    self.buttonApply.backgroundColor = [UIColor colorWithHexString:@"0db821"];
-    self.buttonApply.layer.borderColor = [UIColor blackColor].CGColor;
-    self.buttonApply.layer.cornerRadius = 10.f;
-    self.buttonApply.layer.borderWidth = 1.5f;
-    
+    //Кнопка выполнить--------------------------
+    UIButton *buttonPerform = [UIButton buttonWithType:UIButtonTypeCustom];
+    [buttonPerform addTarget:self
+                      action:@selector(actionButtonPerform)
+            forControlEvents:UIControlEventTouchUpInside];
+    buttonPerform.backgroundColor = [UIColor colorWithHexString:@"077831"];
+    buttonPerform.layer.borderColor = [UIColor blackColor].CGColor;
+    buttonPerform.layer.borderWidth = 1.5f;
+    buttonPerform.layer.cornerRadius = 7.f;
+    [buttonPerform setTitle:@"Выполнить" forState:UIControlStateNormal];
+    buttonPerform.frame = CGRectMake(100, 250 + self.heightAllItems, 100.0, 30.0);
+    [self.scrollViewPartialSaleView addSubview:buttonPerform];
+
 }
 
 //Действи кнопки ButtonBackScoreboardOrdersView---------------------------------------
-- (void) actionButtonBackScoreboardOrdersView
+- (void)actionButtonBackScoreboardOrdersView
 {
     [self.navigationController popViewControllerAnimated:YES];
 }
 
 //Действи кнопки ButtonSettingsScoreboardOrdersView---------------------------------------
-- (void) actionButtonSettingsScoreboardOrdersView
+- (void)actionButtonSettingsScoreboardOrdersView
 {
-    SettingsView * detail = [self.storyboard instantiateViewControllerWithIdentifier:@"settingsView"];
+    SettingsView* detail = [self.storyboard instantiateViewControllerWithIdentifier:@"settingsView"];
     [self.navigationController pushViewController:detail animated:YES];
 }
 
+- (void) actionButtonUpdates
+{
+    NSLog(@"Пост данных на изменение суммы доставки и скидки");
+}
+
+- (void) actionButtonPerform
+{
+    NSLog(@"Реализация кнопки выполнить");
+}
+
 #pragma mark - UIPickerViewDataSource
-- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView {
+
+- (NSInteger)numberOfComponentsInPickerView:(UIPickerView*)pickerView
+{
     return 1;
 }
 
+- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component
+{
 
-- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {
-    if ([pickerView isEqual:self.pickerNumber1] || [pickerView isEqual:self.pickerNumber3]) {
-        return self.arrayPicker1.count;
-    }
-    else if ([pickerView isEqual:self.pickerNumber2] || [pickerView isEqual:self.pickerNumber4]) {
-        return self.arrayPicker2.count;
-    }
-    return 1;
+
+        UIPickerView* picerView = (UIPickerView*)pickerView;
+        for (int i = 0; i < self.mArrayPickerNumber.count; i++) {
+            NSDictionary* dict = [self.items objectAtIndex:i];
+
+            if (picerView.tag == i + 1) {
+
+                return [[dict objectForKey:@"count"] integerValue] + 1;
+            }
+        }
+    return 0;
 }
 
-- (nullable NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component {
-    if ([pickerView isEqual:self.pickerNumber1] || [pickerView isEqual:self.pickerNumber3]) {
-        return self.arrayPicker1[row];
-    }
-    else if ([pickerView isEqual:self.pickerNumber2] || [pickerView isEqual:self.pickerNumber4]) {
-        return self.arrayPicker2[row];
-    }
-    return nil;
-    
-}
+- (NSString*)pickerView:(UIPickerView*)thePickerView
+            titleForRow:(NSInteger)row
+           forComponent:(NSInteger)component
+{
 
-#pragma mark - UIPickerViewDelegate
 
-- (UIView *)pickerView:(UIPickerView *)pickerView viewForRow:(NSInteger)row forComponent:(NSInteger)component reusingView:(nullable UIView *)view {
-    
-    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, pickerView.frame.size.width, 20)];
+        return [self.mArrayPickerNumber objectAtIndex:row];
+    }
+
+
+- (UIView*)pickerView:(UIPickerView*)pickerView viewForRow:(NSInteger)row forComponent:(NSInteger)component reusingView:(nullable UIView*)view
+{
+
+    UILabel* label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, pickerView.frame.size.width, 20)];
+
     label.backgroundColor = [UIColor whiteColor];
     label.textColor = [UIColor blackColor];
     label.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:12];
-    if ([pickerView isEqual:self.pickerNumber1] || [pickerView isEqual:self.pickerNumber3]) {
-        label.text = [NSString stringWithFormat:@" %@", self.arrayPicker1[row]];
-    }
-    else if ([pickerView isEqual:self.pickerNumber2] || [pickerView isEqual:self.pickerNumber4]) {
-        label.text = [NSString stringWithFormat:@" %@", self.arrayPicker2[row]];
-    }
+    label.text = [NSString stringWithFormat:@" %@", self.mArrayPickerNumber[row]];
     label.layer.borderColor = [UIColor blackColor].CGColor;
     label.layer.borderWidth = 1.5f;
     label.layer.cornerRadius = 5.f;

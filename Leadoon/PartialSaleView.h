@@ -10,4 +10,6 @@
 
 @interface PartialSaleView : UIViewController
 
+@property (strong, nonatomic) NSArray * parseItems; //Массив с заказами
+
 @end
