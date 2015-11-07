@@ -336,7 +336,7 @@
     
     
     
-    CLLocationCoordinate2D location = annotationView.annotation.coordinate;
+//    CLLocationCoordinate2D location = annotationView.annotation.coordinate;
 
 }
 
