@@ -21,6 +21,8 @@
 @property (strong, nonatomic) NSArray* items; //Список товаров
 @property (strong, nonatomic) NSMutableArray* mArrayPickerNumber; //Список элементов пикера колличества
 @property (assign, nonatomic) CGFloat heightAllItems; //Высота всех товаров
+@property (strong, nonatomic) UIPickerView * discountPicker; //Пикер скидок
+@property (strong, nonatomic) NSMutableArray * mArrayDiscount; //Массива элементов дикера скидок
 
 @end
 
@@ -32,6 +34,7 @@
     [super viewDidLoad];
 
     self.mArrayPickerNumber = [NSMutableArray new];
+    self.mArrayDiscount = [NSMutableArray new];
 
     ParserOrder* parser = [self.parseItems objectAtIndex:0];
     self.items = parser.items;
@@ -110,12 +113,12 @@
         [self.scrollViewPartialSaleView addSubview:labelPrice];
     }
 
-    //Высота всех товаров--------------------------------------------------------------------
+    //Высота всех товаров----------------------------------------------------------
     self.heightAllItems = 130 + 60 * self.items.count;
-    //Высота ScrollView----------------------------------------------------------------------
+    //Высота ScrollView-----------------------------------------------------------
     self.scrollViewPartialSaleView.contentSize = CGSizeMake(320, self.heightAllItems + 300);
 
-    //Label товаров на сумму-----------------------------------------------------------------
+    //Label товаров на сумму----------------------------------------------------
     UILabel* labelWorthOfGoods = [[UILabel alloc] initWithFrame:CGRectMake(25, self.heightAllItems + 50, 120, 15)];
     labelWorthOfGoods.text = @"Товаров на сумму :";
     labelWorthOfGoods.font = [UIFont fontWithName:@"HelveticaNeue" size:12];
@@ -125,14 +128,14 @@
     NSString * sumString = parser.order_summ;
     NSString* string = [NSString stringWithFormat:@"%@ руб.", sumString];
 
-    //Label товаров на сумму цена-----------------------------------------------------------
+    //Label товаров на сумму цена-----------------------------------------------
     UILabel* labelWorthOfGoodsCount = [[UILabel alloc] initWithFrame:CGRectMake(150, self.heightAllItems + 50, 100, 15)];
     labelWorthOfGoodsCount.text = string;
     labelWorthOfGoodsCount.font = [UIFont fontWithName:@"Helvetica-Bold" size:14];
     labelWorthOfGoodsCount.textColor = [UIColor colorWithHexString:@"b838a0"];
     [self.scrollViewPartialSaleView addSubview:labelWorthOfGoodsCount];
 
-    //Скидка не изменяемый-----------------------------------------------
+    //Скидка не изменяемый-----------------------------------------------------
     UILabel* labelDiscountNotActive = [[UILabel alloc] initWithFrame:CGRectMake(60, 100 + self.heightAllItems, 70, 15)];
     labelDiscountNotActive.text = @"Скидка:";
     labelDiscountNotActive.font = [UIFont fontWithName:@"HelveticaNeue" size:14];
@@ -140,14 +143,34 @@
     labelDiscountNotActive.alpha = 0.5f;
     [self.scrollViewPartialSaleView addSubview:labelDiscountNotActive];
     
-    //Скидка изменяемый-----------------------------------------------
-    UILabel* labelDiscount = [[UILabel alloc] initWithFrame:CGRectMake(130, 100 + self.heightAllItems, 70, 15)];
-    labelDiscount.text = parser.discount;
-    labelDiscount.font = [UIFont fontWithName:@"Helvetica-Bold" size:14];
-    labelDiscount.textAlignment = NSTextAlignmentRight;
-    [self.scrollViewPartialSaleView addSubview:labelDiscount];
+    //Скидка изменяемый-------------------------------------------------------
+    
+    if ([parser.discount integerValue] == 0) {
+        UILabel* labelDiscount = [[UILabel alloc] initWithFrame:CGRectMake(130, 100 + self.heightAllItems, 70, 15)];
+        labelDiscount.text = @"0";
+        labelDiscount.font = [UIFont fontWithName:@"Helvetica-Bold" size:14];
+        labelDiscount.textAlignment = NSTextAlignmentRight;
+        [self.scrollViewPartialSaleView addSubview:labelDiscount];
+    } else if ([parser.discount integerValue] != 0) {
+        
+        self.discountPicker = [[UIPickerView alloc] initWithFrame:CGRectMake(157.5, 87.5 + self.heightAllItems, 50, 40)];
+        self.discountPicker.dataSource = self;
+        self.discountPicker.delegate = self;
+        for (int i = 0; i <= [parser.discount integerValue]; i ++) {
+            
+            NSString * discountString = [[NSNumber numberWithInt:i] stringValue];
+            [self.mArrayDiscount addObject:discountString];
+        }
+        
+        [self.scrollViewPartialSaleView addSubview:self.discountPicker];
+        
+        [self.discountPicker selectRow:self.mArrayDiscount.count - 1 inComponent:0 animated:YES];
+        
 
-    //Доставка не изменяемый---------------------------------------------
+        
+    }
+    
+    //Доставка не изменяемый-----------------------------------------------------
     UILabel* labelDeliveryNotActive = [[UILabel alloc] initWithFrame:CGRectMake(60, 122.5 + self.heightAllItems, 70, 15)];
     labelDeliveryNotActive.text = @"Доставка:";
     labelDeliveryNotActive.font = [UIFont fontWithName:@"HelveticaNeue" size:14];
@@ -155,21 +178,21 @@
     labelDeliveryNotActive.alpha = 0.5f;
     [self.scrollViewPartialSaleView addSubview:labelDeliveryNotActive];
     
-    //Доставка изменяемый-----------------------------------------------
+    //Доставка изменяемый---------------------------------------------------------
     UILabel* labelDelivery = [[UILabel alloc] initWithFrame:CGRectMake(130, 122.5 + self.heightAllItems, 70, 15)];
     labelDelivery.text = parser.shipping;
     labelDelivery.font = [UIFont fontWithName:@"Helvetica-Bold" size:14];
     labelDelivery.textAlignment = NSTextAlignmentRight;
     [self.scrollViewPartialSaleView addSubview:labelDelivery];
     
-    //Итого не изменяемый--------------------------------------------------
+    //Итого не изменяемый-----------------------------------------------------------
     UILabel* labelInTotalNotActive = [[UILabel alloc] initWithFrame:CGRectMake(80, 180 + self.heightAllItems, 80, 20)];
     labelInTotalNotActive.text = @"Итого:";
     labelInTotalNotActive.font = [UIFont fontWithName:@"Helvetica-Bold" size:16];
     labelInTotalNotActive.textAlignment = NSTextAlignmentRight;
     [self.scrollViewPartialSaleView addSubview:labelInTotalNotActive];
     
-    //Итого изменяемый-----------------------------------------------------
+    //Итого изменяемый--------------------------------------------------------------
     UILabel* labelInTotal = [[UILabel alloc] initWithFrame:CGRectMake(170, 180 + self.heightAllItems, 80, 20)];
     labelInTotal.text = parser.amount;
     labelInTotal.font = [UIFont fontWithName:@"Helvetica-Bold" size:16];
@@ -191,7 +214,7 @@
     [self.scrollViewPartialSaleView addSubview:buttonUpdates];
     
     
-    //Кнопка выполнить--------------------------
+    //Кнопка выполнить----------------------------------------------------------------
     UIButton *buttonPerform = [UIButton buttonWithType:UIButtonTypeCustom];
     [buttonPerform addTarget:self
                       action:@selector(actionButtonPerform)
@@ -238,6 +261,12 @@
 
 - (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component
 {
+    if ([pickerView isEqual:self.discountPicker]) {
+        
+        return self.mArrayDiscount.count;
+    }
+    
+    else {
 
 
         UIPickerView* picerView = (UIPickerView*)pickerView;
@@ -249,6 +278,7 @@
                 return [[dict objectForKey:@"count"] integerValue] + 1;
             }
         }
+    }
     return 0;
 }
 
@@ -256,9 +286,15 @@
             titleForRow:(NSInteger)row
            forComponent:(NSInteger)component
 {
+    if ([thePickerView isEqual:self.discountPicker]) {
+        
+        return self.mArrayDiscount[row];
+    }
+    else {
 
 
         return [self.mArrayPickerNumber objectAtIndex:row];
+    }
     }
 
 
@@ -270,7 +306,12 @@
     label.backgroundColor = [UIColor whiteColor];
     label.textColor = [UIColor blackColor];
     label.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:12];
-    label.text = [NSString stringWithFormat:@" %@", self.mArrayPickerNumber[row]];
+    if ([pickerView isEqual:self.discountPicker]) {
+        label.text = [NSString stringWithFormat:@" %@", self.mArrayDiscount[row]];
+    }
+    else {
+        label.text = [NSString stringWithFormat:@" %@", self.mArrayPickerNumber[row]];
+    }
     label.layer.borderColor = [UIColor blackColor].CGColor;
     label.layer.borderWidth = 1.5f;
     label.layer.cornerRadius = 5.f;
