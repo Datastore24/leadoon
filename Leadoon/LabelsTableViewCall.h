@@ -42,4 +42,20 @@
 //Формирование заказа----------------------------------------------
 - (UILabel*)labelFormation:(NSString*)stringFormation;
 
+
+//Дата выполнения заказа----------------------------------------------
+- (UILabel*)labelDataFinish:(NSString*)stringFinish;
+
+//Тип оплаты----------------------------------------------------------
+- (UILabel*)labelPaymentType:(NSString*)stringPaymentType;
+
+//Сумма---------------------------------------------------------------
+- (UILabel*)labelSum:(NSString*)strigSum;
+
+//Заработок не изменяемый label-------------------------------------
+- (UILabel*)labelEarnings;
+
+//Сумма заработка--------------------------------------------------
+- (UILabel*)labelEarningsSum:(NSString*)earningsSumString;
+
 @end

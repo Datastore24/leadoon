@@ -712,7 +712,7 @@
 //Дней осталось---------------------------------------------------
 - (UILabel*)labelDaysLeft:(NSString*)stringDays
 {
-    UILabel* labelDays = [[UILabel alloc] initWithFrame:CGRectMake(130, 5, 78, 15)];
+    UILabel* labelDays = [[UILabel alloc] initWithFrame:CGRectMake(130, 5, 100, 15)];
     labelDays.text = stringDays;
     labelDays.font = [UIFont fontWithName:@"Helvetica-Bold" size:15];
     labelDays.textColor = [UIColor colorWithHexString:@"5b038d"];
@@ -763,6 +763,63 @@
     labelWithFormation.textColor = [UIColor colorWithHexString:@"2c6530"];
 
     return labelWithFormation;
+}
+
+//Дата выполнения заказа----------------------------------------------
+- (UILabel*)labelDataFinish:(NSString*)stringFinish
+{
+    
+    UILabel* labelDataFinish = [[UILabel alloc] initWithFrame:CGRectMake(10, 35, 120, 14)];
+    labelDataFinish.text = stringFinish;
+    labelDataFinish.font = [UIFont fontWithName:@"HelveticaNeue" size:12];
+    labelDataFinish.alpha = 0.5f;
+    
+    return labelDataFinish;
+}
+
+//Тип оплаты----------------------------------------------------------
+- (UILabel*)labelPaymentType:(NSString*)stringPaymentType
+{
+    UILabel* labelPaymentType = [[UILabel alloc] initWithFrame:CGRectMake(110, 5, 100, 15)];
+    labelPaymentType.text = stringPaymentType;
+    labelPaymentType.font = [UIFont fontWithName:@"Helvetica-Bold" size:15];
+    labelPaymentType.textColor = [UIColor colorWithHexString:@"5b038d"];
+    labelPaymentType.textAlignment = UITextAlignmentRight;
+    
+    return labelPaymentType;
+}
+
+//Сумма---------------------------------------------------------------
+- (UILabel*)labelSum:(NSString*)strigSum
+{
+    UILabel* labelSum = [[UILabel alloc] initWithFrame:CGRectMake(220, 5, 100, 15)];
+    labelSum.text = strigSum;
+    labelSum.font = [UIFont fontWithName:@"Helvetica-Bold" size:15];
+    labelSum.textColor = [UIColor colorWithHexString:@"5b038d"];
+    
+    return labelSum;
+}
+
+//Заработок не изменяемый label-------------------------------------
+- (UILabel*)labelEarnings
+{
+    UILabel* labelEarnings = [[UILabel alloc] initWithFrame:CGRectMake(110, 35, 80, 12)];
+    labelEarnings.text = @"Заработок:";
+    labelEarnings.font = [UIFont fontWithName:@"HelveticaNeue" size:12];
+    labelEarnings.alpha = 0.5f;
+    
+    return labelEarnings;
+}
+
+//Сумма заработка--------------------------------------------------
+- (UILabel*)labelEarningsSum:(NSString*)earningsSumString
+{
+    UILabel* labelEarningsSum = [[UILabel alloc] initWithFrame:CGRectMake(190, 35, 100, 12)];
+    labelEarningsSum.text = earningsSumString;
+    labelEarningsSum.font = [UIFont fontWithName:@"HelveticaNeue" size:12];
+    labelEarningsSum.alpha = 0.5f;
+    
+    return labelEarningsSum;
 }
 
 @end

@@ -36,6 +36,8 @@
 		77C903791BD6CB5F00B54E6A /* HeightForText.m in Sources */ = {isa = PBXBuildFile; fileRef = 77C903781BD6CB5F00B54E6A /* HeightForText.m */; settings = {ASSET_TAGS = (); }; };
 		77E01C0F1BE8ADF600339E2A /* MapViewMyOrders.m in Sources */ = {isa = PBXBuildFile; fileRef = 77E01C0E1BE8ADF600339E2A /* MapViewMyOrders.m */; settings = {ASSET_TAGS = (); }; };
 		77E01C111BE8CE2B00339E2A /* nav.png in Resources */ = {isa = PBXBuildFile; fileRef = 77E01C101BE8CE2B00339E2A /* nav.png */; settings = {ASSET_TAGS = (); }; };
+		77E36FC51BF384270094FD29 /* WorksCompletedView.m in Sources */ = {isa = PBXBuildFile; fileRef = 77E36FC41BF384270094FD29 /* WorksCompletedView.m */; settings = {ASSET_TAGS = (); }; };
+		77E36FC81BF3BAFF0094FD29 /* WorksCompletedViewDetail.m in Sources */ = {isa = PBXBuildFile; fileRef = 77E36FC71BF3BAFF0094FD29 /* WorksCompletedViewDetail.m */; settings = {ASSET_TAGS = (); }; };
 		77E8F41E1BD2B97F00D2509E /* customerImage.png in Resources */ = {isa = PBXBuildFile; fileRef = 77E8F41A1BD2B97F00D2509E /* customerImage.png */; settings = {ASSET_TAGS = (); }; };
 		77E8F41F1BD2B97F00D2509E /* homeImage.png in Resources */ = {isa = PBXBuildFile; fileRef = 77E8F41B1BD2B97F00D2509E /* homeImage.png */; settings = {ASSET_TAGS = (); }; };
 		77E8F4201BD2B97F00D2509E /* timeImage.png in Resources */ = {isa = PBXBuildFile; fileRef = 77E8F41C1BD2B97F00D2509E /* timeImage.png */; settings = {ASSET_TAGS = (); }; };
@@ -135,6 +137,10 @@
 		77E01C0D1BE8ADF600339E2A /* MapViewMyOrders.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapViewMyOrders.h; sourceTree = "<group>"; };
 		77E01C0E1BE8ADF600339E2A /* MapViewMyOrders.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapViewMyOrders.m; sourceTree = "<group>"; };
 		77E01C101BE8CE2B00339E2A /* nav.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = nav.png; sourceTree = "<group>"; };
+		77E36FC31BF384270094FD29 /* WorksCompletedView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WorksCompletedView.h; sourceTree = "<group>"; };
+		77E36FC41BF384270094FD29 /* WorksCompletedView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WorksCompletedView.m; sourceTree = "<group>"; };
+		77E36FC61BF3BAFF0094FD29 /* WorksCompletedViewDetail.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WorksCompletedViewDetail.h; sourceTree = "<group>"; };
+		77E36FC71BF3BAFF0094FD29 /* WorksCompletedViewDetail.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WorksCompletedViewDetail.m; sourceTree = "<group>"; };
 		77E8F41A1BD2B97F00D2509E /* customerImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = customerImage.png; sourceTree = "<group>"; };
 		77E8F41B1BD2B97F00D2509E /* homeImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = homeImage.png; sourceTree = "<group>"; };
 		77E8F41C1BD2B97F00D2509E /* timeImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = timeImage.png; sourceTree = "<group>"; };
@@ -382,6 +388,7 @@
 		779C5AD91BCB061A00F4F31D /* MainView */ = {
 			isa = PBXGroup;
 			children = (
+				77E36FC21BF383B10094FD29 /* WorksCompleted */,
 				77C3C1C21BD653BD00BD8299 /* MyOrdersView */,
 				778D88AA1BCEEC68007E1F51 /* ScoreboardOrders */,
 				779C5AD61BCB061300F4F31D /* MainView.h */,
@@ -412,6 +419,17 @@
 				77C903731BD6AC4200B54E6A /* MyOrdersViewDetail.m */,
 			);
 			name = MyOrdersViewDetail;
+			sourceTree = "<group>";
+		};
+		77E36FC21BF383B10094FD29 /* WorksCompleted */ = {
+			isa = PBXGroup;
+			children = (
+				77E36FC31BF384270094FD29 /* WorksCompletedView.h */,
+				77E36FC41BF384270094FD29 /* WorksCompletedView.m */,
+				77E36FC61BF3BAFF0094FD29 /* WorksCompletedViewDetail.h */,
+				77E36FC71BF3BAFF0094FD29 /* WorksCompletedViewDetail.m */,
+			);
+			name = WorksCompleted;
 			sourceTree = "<group>";
 		};
 		77E8F4251BD2C3F500D2509E /* images */ = {
@@ -719,7 +737,9 @@
 				AD87E9AF1BCCF59800AF5C11 /* CouriersDbClass.m in Sources */,
 				779C5AA51BCAFD4600F4F31D /* main.m in Sources */,
 				776F17291BD19B3D0085891A /* DetailsScoreboardOrderView.m in Sources */,
+				77E36FC51BF384270094FD29 /* WorksCompletedView.m in Sources */,
 				AD2A24981BD0CFBD00E0BC31 /* ParserResponseOrders.m in Sources */,
+				77E36FC81BF3BAFF0094FD29 /* WorksCompletedViewDetail.m in Sources */,
 				AD2A24A41BD1327A00E0BC31 /* MyOrdersView.m in Sources */,
 				77ED7D141BECDF26001A2F8E /* PartialSaleView.m in Sources */,
 				ADD823021BD7C34E00DD4C7B /* ECPhoneNumberFormatter.m in Sources */,

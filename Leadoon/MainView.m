@@ -10,6 +10,7 @@
 #import "Animation.h"
 #import "SettingsView.h"
 #import "ScoreboardOrdersView.h"
+#import "WorksCompletedView.h"
 
 @interface MainView ()
 @property (weak, nonatomic) IBOutlet UIView* topBarMainView; //Верхний Бар;
@@ -47,6 +48,8 @@
 
     //Параметры buttonCompletedOrdersMainView------------------------------
     [self drawButtonsView:self.buttonCompletedOrdersMainView];
+    [self.buttonCompletedOrdersMainView addTarget:self action:@selector(actionButtonCompletedOrdersMainView)
+                                             forControlEvents:UIControlEventTouchUpInside];
 
     //Параметры buttonFinancesMainView-------------------------------------
     [self drawButtonsView:self.buttonFinancesMainView];
@@ -106,6 +109,13 @@
 - (void) actionButtonScoreboardMyOrdersMainView
 {
     ScoreboardOrdersView * detail = [self.storyboard instantiateViewControllerWithIdentifier:@"scoreboardMyOrders"];
+    [self.navigationController pushViewController:detail animated:YES];
+}
+
+//Действие кнопки ButtonCompletedOrdersMainView-----------------------------
+- (void) actionButtonCompletedOrdersMainView
+{
+    WorksCompletedView * detail = [self.storyboard instantiateViewControllerWithIdentifier:@"worksCompletedView"];
     [self.navigationController pushViewController:detail animated:YES];
 }
 
