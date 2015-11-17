@@ -14,16 +14,21 @@
 #import <SVPullToRefresh/SVPullToRefresh.h>
 #import "WorksCompletedViewDetail.h"
 
+#import "ParserCourier.h"
+#import "APIClass.h"
+#import "ParserResponseOrders.h"
+#import "ParserOrders.h"
+
 @interface WorksCompletedView () <UITableViewDataSource, UITableViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UIView* topBarWorksCompletedView; //Верхний бар
 @property (weak, nonatomic) IBOutlet UIButton* buttonBackWorksCompletedView; //Кнопка назад
 @property (weak, nonatomic) IBOutlet UIButton* buttonSettingWorksCompletedView; //Кнопка настроек
+@property (weak, nonatomic) IBOutlet UITableView *tableViewWorksCompleted;
 
 @property (strong, nonatomic) NSMutableArray* arrayResponce; //Массив с данными API
 @property (strong, nonatomic) NSMutableArray* arrayOrders; //Массив с заказами
 
-@property (strong, nonatomic) NSMutableArray* testArray;
 
 @end
 
@@ -33,40 +38,6 @@
 {
     [super viewDidLoad];
 
-    self.testArray = [NSMutableArray new];
-
-    //Основной тип
-    NSArray* gettingType = [NSArray arrayWithObjects:@"0", @"1", @"2", @"0", @"2", @"1", @"0", nil];
-    //Тип заказа
-    NSArray* orderType = [NSArray arrayWithObjects:@"0", @"0", @"2", @"0", @"2", @"2", @"0", nil];
-    //Цвет метро
-    NSArray* lineMetro = [NSArray arrayWithObjects:@"5", @"7", @"2", @"3", @"8", @"5", @"3", nil];
-    //Цвет метро
-    NSArray* iDMetro = [NSArray arrayWithObjects:@"47", @"56", @"38", @"21", @"11", @"7", @"3", nil];
-    //Дата выполнения заказа
-    NSArray* arrayData = [NSArray arrayWithObjects:@"01.02.2015", @"12.08.2015", @"23.11.2015", @"04.03.2015",
-                                  @"02.03.2015", @"27.03.2015", @"16.01.2015", nil];
-    //Вес
-    NSArray* arrayWeight = [NSArray arrayWithObjects:@"3-5 кг", @"2 заказа", @"9-10 кг", @"1-2 кг",
-                                    @"5 заказов", @"3-4 кг", @"8 заказао", nil];
-    //Сумма
-    NSArray* arraySum = [NSArray arrayWithObjects:@"3500 руб", @"2800 руб", @"1500 руб", @"2450 руб",
-                                 @"1870 руб", @"1350 руб", @"2570 руб", nil];
-    //Заработок
-    NSArray* earningsArray = [NSArray arrayWithObjects:@"250 руб", @"250 руб", @"250 руб", @"300 руб",
-                                      @"250 руб", @"300 руб", @"250 руб", nil];
-    for (int i = 0; i < iDMetro.count; i++) {
-        NSDictionary* dict = [NSDictionary dictionaryWithObjectsAndKeys:[gettingType objectAtIndex:i], @"gettingType",
-                                           [orderType objectAtIndex:i], @"orderType",
-                                           [lineMetro objectAtIndex:i], @"lineMetro",
-                                           [iDMetro objectAtIndex:i], @"iDMetro",
-                                           [arrayData objectAtIndex:i], @"arrayData",
-                                           [arrayWeight objectAtIndex:i], @"arrayWeight",
-                                           [arraySum objectAtIndex:i], @"arraySum",
-                                           [earningsArray objectAtIndex:i], @"earningsArray",
-                                           nil];
-        [self.testArray addObject:dict];
-    }
     //Параметры основного view------------------------------------------------------
     self.view.backgroundColor = [UIColor groupTableViewBackgroundColor];
 
@@ -89,6 +60,58 @@
 
     //Параметры таблицы--------------------------------------------------------------
     self.tableViewWorksCompletedView.backgroundColor = [UIColor clearColor];
+    
+    //Массив данных авторизованного пользователя
+    self.arrayResponce = [[SingleTone sharedManager] parsingArray];
+    self.arrayOrders = [NSMutableArray array];
+    //API методы
+    [self getApiOrders];
+    
+    [self.tableViewWorksCompleted addPullToRefreshWithActionHandler:^{
+        [self.arrayOrders removeAllObjects];
+        [self getApiOrders];
+        [self.tableViewWorksCompleted.pullToRefreshView stopAnimating];
+        
+    }];
+}
+
+//Тащим заказы с сервера
+-(void) getApiOrders{
+    //Передаваемые параметры
+    ParserCourier * parse = [self.arrayResponce objectAtIndex:0];
+    NSDictionary * params = [[NSDictionary alloc] initWithObjectsAndKeys:
+                             parse.service_id,@"service_id",
+                             parse.courierId,@"courier_id",
+                             nil];
+    NSLog(@"GO");
+    APIClass * api =[APIClass new]; //создаем API
+    [api getDataFromServerWithParams:params method:@"action=load_my_completed_orders" complitionBlock:^(id response) {
+        //        NSLog(@"%@",response);
+        ParserResponseOrders * parsingResponce =[[ParserResponseOrders alloc] init];
+        NSLog(@"%@",response);
+        [parsingResponce parsing:response andArray:self.arrayOrders andBlock:^{
+            
+            [self reloadTableViewWhenNewEvent];
+        }];
+        
+        
+    }];
+    
+}
+
+//Обновление таблицы
+- (void)reloadTableViewWhenNewEvent {
+    
+    
+    [self.tableViewWorksCompleted
+     reloadSections:[NSIndexSet indexSetWithIndex:0]
+     withRowAnimation:UITableViewRowAnimationFade];
+    
+    self.tableViewWorksCompleted.scrollEnabled = YES;
+    
+    //    Перезагрузка таблицы с
+    //    анимацией
+    
 }
 
 - (void)didReceiveMemoryWarning
@@ -96,19 +119,6 @@
     [super didReceiveMemoryWarning];
 }
 
-//Обновление таблицы
-- (void)reloadTableViewWhenNewEvent
-{
-
-    [self.tableViewWorksCompletedView
-          reloadSections:[NSIndexSet indexSetWithIndex:0]
-        withRowAnimation:UITableViewRowAnimationFade];
-
-    self.tableViewWorksCompletedView.scrollEnabled = YES;
-
-    //    Перезагрузка таблицы с
-    //    анимацией
-}
 
 //Действи кнопки ButtonSettingWorksCompletedView---------------------------------------
 - (void)actionButtonSettingWorksCompletedView
@@ -128,44 +138,47 @@
 - (NSInteger)tableView:(UITableView*)tableView numberOfRowsInSection:(NSInteger)section
 {
 
-    return self.testArray.count;
+    return self.arrayOrders.count;
 }
 
 - (UITableViewCell*)tableView:(UITableView*)tableView cellForRowAtIndexPath:(NSIndexPath*)indexPath
 {
     static NSString* identifier = @"Cell";
     UITableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:identifier forIndexPath:indexPath];
-    NSDictionary* dict = [self.testArray objectAtIndex:indexPath.row];
-
+   
+    ParserOrders * parser =[self.arrayOrders objectAtIndex:indexPath.row];
     cell.backgroundColor = [UIColor groupTableViewBackgroundColor];
 
     LabelsTableViewCall* typeLabel = [[LabelsTableViewCall alloc] init];
 
     //Тип заявки------------------------------------------------------------------------
-    if ([[dict objectForKey:@"gettingType"] integerValue] == 0) {
+    if ([parser.getting_type integerValue] == 0) {
         [cell addSubview:[typeLabel labelTypeTableViewCell:@"Заказ"]];
     }
-    else if ([[dict objectForKey:@"gettingType"] integerValue] == 1) {
+    else if ([parser.getting_type  integerValue] == 1) {
         [cell addSubview:[typeLabel labelTypeTableViewCell:@"Закупка"]];
     }
     else {
         [cell addSubview:[typeLabel labelTypeTableViewCell:@"Забор"]];
     }
     //Тип заказа-------------------------------------------------------------------------
-    [cell addSubview:[typeLabel imageViewTypeTableView:[dict objectForKey:@"orderType"]]];
+    
+    [cell addSubview:[typeLabel imageViewTypeTableView:parser.order_type]];
     //Дата выполнения--------------------------------------------------------------------
-    [cell addSubview:[typeLabel labelDataFinish:[dict objectForKey:@"arrayData"]]];
+    //[cell addSubview:[typeLabel labelDataFinish:[dict objectForKey:@"arrayData"]]];
 
     //метро------------------------------------------------------------------------------
-    [cell addSubview:[typeLabel roundMetroView:[dict objectForKey:@"lineMetro"]]];
-    [cell addSubview:[typeLabel labelMetroStationName:[dict objectForKey:@"iDMetro"]]];
+  
+
+    [cell addSubview:[typeLabel roundMetroView: parser.metro_id]];
+    [cell addSubview:[typeLabel labelMetroStationName:parser.metro_line_id]];
 
     //Отображение корзины----------------------------------------------------------------
     [cell addSubview:[typeLabel imageViewBasketTableView]];
-    [cell addSubview:[typeLabel weightAndNumberOfOrders:[dict objectForKey:@"arrayWeight"]]];
+    //[cell addSubview:[typeLabel weightAndNumberOfOrders:[dict objectForKey:@"arrayWeight"]]];
 
     //Получение или оплата денег----------------------------------------------------------
-    if ([[dict objectForKey:@"gettingType"] integerValue] == 0) {
+    if ([parser.getting_type integerValue] == 0) {
         [cell addSubview:[typeLabel labelPaymentType:@"Принято :"]];
     }
     else {
@@ -173,19 +186,19 @@
     }
 
     //Сумма--------------------------------------------------------------------------------
-    if ([[dict objectForKey:@"gettingType"] integerValue] == 2) {
+    if ([parser.getting_type integerValue] == 2) {
         
         [cell addSubview:[typeLabel labelSum:@"0"]];
     }
     else {
-        [cell addSubview:[typeLabel labelSum:[dict objectForKey:@"arraySum"]]];
+       // [cell addSubview:[typeLabel labelSum:[dict objectForKey:@"arraySum"]]];
     }
 
     //Заработок----------------------------------------------------------------------------
     [cell addSubview:[typeLabel labelEarnings]];
 
     //Заработок сумма----------------------------------------------------------------------
-    [cell addSubview:[typeLabel labelEarningsSum:[dict objectForKey:@"earningsArray"]]];
+    //[cell addSubview:[typeLabel labelEarningsSum:[dict objectForKey:@"earningsArray"]]];
 
     return cell;
 }

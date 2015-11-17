@@ -12,6 +12,8 @@
 #import "ParserOrder.h"
 #import "HeightForText.h"
 
+#import "APIPostClass.h"
+
 @interface PartialSaleView () <UIPickerViewDataSource, UIPickerViewDelegate>
 @property (weak, nonatomic) IBOutlet UIView* topBarPartialSaleView; //Верхний бар
 @property (weak, nonatomic) IBOutlet UIButton* buttonBackPartialSaleView; //Кнопка назад
@@ -87,20 +89,22 @@
         UILabel* labelOrderId = [[UILabel alloc] initWithFrame:CGRectMake(10, 132.5 + 60 * i, 40, self.labelNameItemsHeight + 10)];
         labelOrderId.numberOfLines = 0;
         labelOrderId.lineBreakMode = NSLineBreakByWordWrapping;
-        labelOrderId.text = [dict objectForKey:@"order_id"];
+        labelOrderId.text = [dict objectForKey:@"item_id"];
         labelOrderId.font = [UIFont fontWithName:@"HelveticaNeue" size:12];
         [self.scrollViewPartialSaleView addSubview:labelOrderId];
 
         
-        
+        //Количество товара
         UIPickerView* pickerViewNumber = [[UIPickerView alloc] initWithFrame:CGRectMake(230, 122.5 + 60 * i, 30, 50)];
         pickerViewNumber.dataSource = self;
         pickerViewNumber.delegate = self;
-        pickerViewNumber.tag = i + 1;
+        pickerViewNumber.tag = i+1;
         for (int j = 0; j < 100; j++) {
             NSString* string = [[NSNumber numberWithInt:j] stringValue];
             [self.mArrayPickerNumber addObject:string];
         }
+        
+        
 
         [self.scrollViewPartialSaleView addSubview:pickerViewNumber];
         
@@ -227,6 +231,40 @@
     buttonPerform.frame = CGRectMake(100, 250 + self.heightAllItems, 100.0, 30.0);
     [self.scrollViewPartialSaleView addSubview:buttonPerform];
 
+}
+
+- (void)pickerView:(UIPickerView *)thePickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
+    
+    //Выдергиваем данные из PickerView
+    NSUInteger selectedRow = [thePickerView selectedRowInComponent:0];
+    NSString * title = [[thePickerView delegate] pickerView:thePickerView titleForRow:selectedRow forComponent:0];
+    NSDictionary* dict = [self.items objectAtIndex:thePickerView.tag-1];
+    
+    NSString * item_id=[NSString stringWithFormat:@"%i",[[dict objectForKey:@"item_id"] integerValue]];
+    
+    [self postCountOfItemToTheServer:item_id count:title];
+    //
+    
+
+    
+}
+
+//Отправка данных о количестве на сервер
+-(void) postCountOfItemToTheServer: (NSString *) item_id count: (NSString *) count{
+
+    
+    NSDictionary * params = [[NSDictionary alloc] initWithObjectsAndKeys:
+                             item_id,@"item_id",
+                             count,@"count",
+                             nil];
+    
+    APIPostClass * api =[APIPostClass new]; //создаем API
+    
+    [api postDataToServerWithParams:params method:@"action=update_count_item" complitionBlock:^(id response) {
+        NSLog(@"%@",response);
+    }];
+    
+    
 }
 
 //Действи кнопки ButtonBackScoreboardOrdersView---------------------------------------

@@ -91,7 +91,6 @@
     [self getApiOrders];
     
     [self.tableViewScoreboardOrders addPullToRefreshWithActionHandler:^{
-        NSLog(@"UPDATE");
         [self.arrayOrders removeAllObjects];
         [self getApiOrders];
         [self.tableViewScoreboardOrders.pullToRefreshView stopAnimating];
