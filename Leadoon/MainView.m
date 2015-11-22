@@ -11,6 +11,7 @@
 #import "SettingsView.h"
 #import "ScoreboardOrdersView.h"
 #import "WorksCompletedView.h"
+#import "FinanceView.h"
 
 @interface MainView ()
 @property (weak, nonatomic) IBOutlet UIView* topBarMainView; //Верхний Бар;
@@ -53,6 +54,8 @@
 
     //Параметры buttonFinancesMainView-------------------------------------
     [self drawButtonsView:self.buttonFinancesMainView];
+    [self.buttonFinancesMainView addTarget:self action:@selector(actionButtonFinancesMainView)
+                                      forControlEvents:UIControlEventTouchUpInside];
 
     //Параметры buttonSettingsMainView-------------------------------------
     self.buttonSettingsMainView.backgroundColor = [UIColor clearColor];
@@ -116,6 +119,13 @@
 - (void) actionButtonCompletedOrdersMainView
 {
     WorksCompletedView * detail = [self.storyboard instantiateViewControllerWithIdentifier:@"worksCompletedView"];
+    [self.navigationController pushViewController:detail animated:YES];
+}
+
+//Действие кнопки ButtonFinancesMainView------------------------------------
+- (void)actionButtonFinancesMainView
+{
+    FinanceView * detail = [self.storyboard instantiateViewControllerWithIdentifier:@"financeView"];
     [self.navigationController pushViewController:detail animated:YES];
 }
 
