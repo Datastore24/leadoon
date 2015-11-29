@@ -23,6 +23,7 @@
 		776F17291BD19B3D0085891A /* DetailsScoreboardOrderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 776F17281BD19B3D0085891A /* DetailsScoreboardOrderView.m */; settings = {ASSET_TAGS = (); }; };
 		7777DCB31BD7C63D0068922D /* MapViewDetailMyOrders.m in Sources */ = {isa = PBXBuildFile; fileRef = 7777DCB21BD7C63D0068922D /* MapViewDetailMyOrders.m */; settings = {ASSET_TAGS = (); }; };
 		778D88AD1BCEEC84007E1F51 /* ScoreboardOrdersView.m in Sources */ = {isa = PBXBuildFile; fileRef = 778D88AC1BCEEC84007E1F51 /* ScoreboardOrdersView.m */; settings = {ASSET_TAGS = (); }; };
+		779679F11C0B7E810098CC59 /* deleteButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 779679F01C0B7E810098CC59 /* deleteButton.png */; settings = {ASSET_TAGS = (); }; };
 		779C5AA51BCAFD4600F4F31D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 779C5AA41BCAFD4600F4F31D /* main.m */; };
 		779C5AA81BCAFD4600F4F31D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 779C5AA71BCAFD4600F4F31D /* AppDelegate.m */; };
 		779C5AAB1BCAFD4600F4F31D /* LoginView.m in Sources */ = {isa = PBXBuildFile; fileRef = 779C5AAA1BCAFD4600F4F31D /* LoginView.m */; };
@@ -32,6 +33,8 @@
 		779C5ABE1BCAFD4600F4F31D /* LeadoonTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 779C5ABD1BCAFD4600F4F31D /* LeadoonTests.m */; };
 		779C5AC91BCAFD4600F4F31D /* LeadoonUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 779C5AC81BCAFD4600F4F31D /* LeadoonUITests.m */; };
 		779C5AD81BCB061300F4F31D /* MainView.m in Sources */ = {isa = PBXBuildFile; fileRef = 779C5AD71BCB061300F4F31D /* MainView.m */; settings = {ASSET_TAGS = (); }; };
+		77B2058F1C08D2A100D168FF /* AdditionalExpenses.m in Sources */ = {isa = PBXBuildFile; fileRef = 77B2058E1C08D2A100D168FF /* AdditionalExpenses.m */; settings = {ASSET_TAGS = (); }; };
+		77B205921C08D84700D168FF /* HistoryOfTheMovement.m in Sources */ = {isa = PBXBuildFile; fileRef = 77B205911C08D84700D168FF /* HistoryOfTheMovement.m */; settings = {ASSET_TAGS = (); }; };
 		77C4FD4F1BDFF123009D7C1A /* UIView+MKAnnotationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 77C4FD4E1BDFF123009D7C1A /* UIView+MKAnnotationView.m */; settings = {ASSET_TAGS = (); }; };
 		77C903741BD6AC4300B54E6A /* MyOrdersViewDetail.m in Sources */ = {isa = PBXBuildFile; fileRef = 77C903731BD6AC4200B54E6A /* MyOrdersViewDetail.m */; settings = {ASSET_TAGS = (); }; };
 		77C903791BD6CB5F00B54E6A /* HeightForText.m in Sources */ = {isa = PBXBuildFile; fileRef = 77C903781BD6CB5F00B54E6A /* HeightForText.m */; settings = {ASSET_TAGS = (); }; };
@@ -113,6 +116,7 @@
 		7777DCB21BD7C63D0068922D /* MapViewDetailMyOrders.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapViewDetailMyOrders.m; sourceTree = "<group>"; };
 		778D88AB1BCEEC84007E1F51 /* ScoreboardOrdersView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScoreboardOrdersView.h; sourceTree = "<group>"; };
 		778D88AC1BCEEC84007E1F51 /* ScoreboardOrdersView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScoreboardOrdersView.m; sourceTree = "<group>"; };
+		779679F01C0B7E810098CC59 /* deleteButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = deleteButton.png; sourceTree = "<group>"; };
 		779C5AA01BCAFD4500F4F31D /* Leadoon.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Leadoon.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		779C5AA41BCAFD4600F4F31D /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		779C5AA61BCAFD4600F4F31D /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -131,6 +135,10 @@
 		779C5ACA1BCAFD4600F4F31D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		779C5AD61BCB061300F4F31D /* MainView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainView.h; sourceTree = "<group>"; };
 		779C5AD71BCB061300F4F31D /* MainView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainView.m; sourceTree = "<group>"; };
+		77B2058D1C08D2A100D168FF /* AdditionalExpenses.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AdditionalExpenses.h; sourceTree = "<group>"; };
+		77B2058E1C08D2A100D168FF /* AdditionalExpenses.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AdditionalExpenses.m; sourceTree = "<group>"; };
+		77B205901C08D84700D168FF /* HistoryOfTheMovement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HistoryOfTheMovement.h; sourceTree = "<group>"; };
+		77B205911C08D84700D168FF /* HistoryOfTheMovement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HistoryOfTheMovement.m; sourceTree = "<group>"; };
 		77C4FD4D1BDFF123009D7C1A /* UIView+MKAnnotationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+MKAnnotationView.h"; sourceTree = "<group>"; };
 		77C4FD4E1BDFF123009D7C1A /* UIView+MKAnnotationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+MKAnnotationView.m"; sourceTree = "<group>"; };
 		77C903721BD6AC4200B54E6A /* MyOrdersViewDetail.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyOrdersViewDetail.h; sourceTree = "<group>"; };
@@ -293,8 +301,13 @@
 		7766B40B1C01B32A00740E76 /* Finance */ = {
 			isa = PBXGroup;
 			children = (
+				779679F01C0B7E810098CC59 /* deleteButton.png */,
 				7766B40C1C01B38100740E76 /* FinanceView.h */,
 				7766B40D1C01B38100740E76 /* FinanceView.m */,
+				77B2058D1C08D2A100D168FF /* AdditionalExpenses.h */,
+				77B2058E1C08D2A100D168FF /* AdditionalExpenses.m */,
+				77B205901C08D84700D168FF /* HistoryOfTheMovement.h */,
+				77B205911C08D84700D168FF /* HistoryOfTheMovement.m */,
 			);
 			name = Finance;
 			sourceTree = "<group>";
@@ -644,6 +657,7 @@
 			files = (
 				779C5AB31BCAFD4600F4F31D /* LaunchScreen.storyboard in Resources */,
 				77FAA9BC1BCFB42900349A05 /* imageMetro2.png in Resources */,
+				779679F11C0B7E810098CC59 /* deleteButton.png in Resources */,
 				77FAA9BB1BCFB42900349A05 /* imageMetro1.png in Resources */,
 				779C5AB01BCAFD4600F4F31D /* Assets.xcassets in Resources */,
 				77E8F4201BD2B97F00D2509E /* timeImage.png in Resources */,
@@ -751,7 +765,9 @@
 				779C5AA51BCAFD4600F4F31D /* main.m in Sources */,
 				776F17291BD19B3D0085891A /* DetailsScoreboardOrderView.m in Sources */,
 				77E36FC51BF384270094FD29 /* WorksCompletedView.m in Sources */,
+				77B2058F1C08D2A100D168FF /* AdditionalExpenses.m in Sources */,
 				AD2A24981BD0CFBD00E0BC31 /* ParserResponseOrders.m in Sources */,
+				77B205921C08D84700D168FF /* HistoryOfTheMovement.m in Sources */,
 				77E36FC81BF3BAFF0094FD29 /* WorksCompletedViewDetail.m in Sources */,
 				AD2A24A41BD1327A00E0BC31 /* MyOrdersView.m in Sources */,
 				77ED7D141BECDF26001A2F8E /* PartialSaleView.m in Sources */,

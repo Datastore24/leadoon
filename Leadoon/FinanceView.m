@@ -10,6 +10,8 @@
 #import "SettingsView.h"
 #import "HeightForText.h"
 #import "UIColor+HexColor.h"
+#import "AdditionalExpenses.h"
+#import "HistoryOfTheMovement.h"
 
 @interface FinanceView ()
 @property (weak, nonatomic) IBOutlet UIView *topBarFinanceView; //Топ бар
@@ -168,16 +170,31 @@
     NSInteger number = 200 + self.heightAllItems;
     self.scrollViewFinanceView.contentSize = CGSizeMake(320, number);
     
-    //Создание кнопки присвоить--------------------------------------------
+    //Создание кнопки История движения--------------------------------------------
     UIButton * buttonAssigned = [UIButton buttonWithType:UIButtonTypeCustom];
     [buttonAssigned setTitle:@"История движения" forState:UIControlStateNormal];
     buttonAssigned.titleLabel.font = [UIFont fontWithName:@"Helvetica-Bold" size:14];
-    buttonAssigned.frame = CGRectMake(70, 50 + self.heightAllItems, 180, 30);
+    buttonAssigned.frame = CGRectMake(70, 60 + self.heightAllItems, 180, 30);
     buttonAssigned.backgroundColor = [UIColor colorWithHexString:@"046323"];
     buttonAssigned.layer.borderColor = [UIColor darkGrayColor].CGColor;
     buttonAssigned.layer.borderWidth = 1.f;
     buttonAssigned.layer.cornerRadius = 9.f;
+    [buttonAssigned addTarget:self action:@selector(actionButtonAssigned)
+                         forControlEvents:UIControlEventTouchUpInside];
     [self.scrollViewFinanceView addSubview: buttonAssigned];
+    
+    //Создание кнопки История движения--------------------------------------------
+    UIButton * buttonExprenses = [UIButton buttonWithType:UIButtonTypeCustom];
+    [buttonExprenses setTitle:@"Доп расходы" forState:UIControlStateNormal];
+    buttonExprenses.titleLabel.font = [UIFont fontWithName:@"Helvetica-Bold" size:14];
+    buttonExprenses.frame = CGRectMake(70, 20 + self.heightAllItems, 180, 30);
+    buttonExprenses.backgroundColor = [UIColor colorWithHexString:@"e41937"];
+    buttonExprenses.layer.borderColor = [UIColor darkGrayColor].CGColor;
+    buttonExprenses.layer.borderWidth = 1.f;
+    buttonExprenses.layer.cornerRadius = 9.f;
+    [buttonExprenses addTarget:self action:@selector(actionButtonExprenses)
+             forControlEvents:UIControlEventTouchUpInside];
+    [self.scrollViewFinanceView addSubview: buttonExprenses];
     
 
 }
@@ -194,6 +211,20 @@
 - (void)actionButtonSettingFinanceView
 {
     SettingsView * detail = [self.storyboard instantiateViewControllerWithIdentifier:@"settingsView"];
+    [self.navigationController pushViewController:detail animated:YES];
+}
+
+//Параметры кнопки ButtonExprenses---------------------------------------------------
+- (void)actionButtonExprenses
+{
+    AdditionalExpenses * detail = [self.storyboard instantiateViewControllerWithIdentifier:@"additionalExpenses"];
+    [self.navigationController pushViewController:detail animated:YES];
+}
+
+//Параметры кнопки ButtonAssigned----------------------------------------------------
+- (void)actionButtonAssigned
+{
+    HistoryOfTheMovement * detail = [self.storyboard instantiateViewControllerWithIdentifier:@"historyOfTheMovement"];
     [self.navigationController pushViewController:detail animated:YES];
 }
 
