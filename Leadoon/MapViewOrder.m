@@ -10,6 +10,11 @@
 #import "SettingsView.h"
 #import <SCLAlertView-Objective-C/SCLAlertView.h>
 #import "ParserOrder.h"
+#import "ParserCourier.h"
+#import "SingleTone.h"
+#import "APIPostClass.h"
+#import "MyOrdersView.h"
+#import "ScoreboardOrdersView.h"
 
 @interface MapViewOrder () <CLLocationManagerDelegate, MKMapViewDelegate>
 
@@ -19,8 +24,8 @@
 @property (weak, nonatomic) IBOutlet UIButton* buttomZoomIn; //Кнопка увеличения
 @property (weak, nonatomic) IBOutlet UIButton* ButtonZoomOut; //Кнопка уменьшения
 @property (weak, nonatomic) IBOutlet UIButton *buttonAssigned; //Кнопка присвоить
+@property (weak, nonatomic) IBOutlet UILabel *labelTopBarMapViewOrder;
 
-@property (strong, nonatomic) NSMutableArray *annotationArray;
 @property (strong, nonatomic) MKDirections* direction;
 
 @end
@@ -32,6 +37,10 @@
     [super viewDidLoad];
     
     ParserOrder * parser = [self.parseItems objectAtIndex:0];
+    
+    self.labelTopBarMapViewOrder.text = [NSString stringWithFormat:@"№ 000%@", parser.order_id];
+    
+    
     
 //    NSLog(@"orderLat %@", parser.orderLat);
 //    NSLog(@"orderLong %@", parser.orderLong);
@@ -59,11 +68,6 @@
         
         [self.mapView addAnnotation:annotation];
     }
-    
-    
-
-    
-    
     
     CLLocationCoordinate2D cord;
     cord.latitude = [parser.orderLat floatValue];
@@ -160,7 +164,35 @@
 //Подтвержение заказа---------------------------------------------------------------------------
 - (void)alertButtonYes
 {
-   //Тут метод Кирилла, по подверждению
+    NSString * status;
+    if([self.getting_type integerValue] == 0){
+        status = [NSString stringWithFormat:@"%i",60];
+    }else if ([self.getting_type integerValue] == 2 || [self.getting_type integerValue] == 1) {
+        status = [NSString stringWithFormat:@"%i",130];
+    }
+    //Передаваемые параметры
+    NSMutableArray* arrayCourier = [[SingleTone sharedManager] parsingArray];
+    ParserCourier* parse = [arrayCourier objectAtIndex:0];
+    
+    NSDictionary* params = [[NSDictionary alloc] initWithObjectsAndKeys:
+                            parse.courierId, @"courier_id",
+                            self.orderID, @"order_id",
+                            status,@"status",
+                            nil];
+    
+    APIPostClass* api = [APIPostClass new]; //создаем API
+    [api postDataToServerWithParams:params
+                             method:@"action=take_order"
+                    complitionBlock:^(id response) {
+                        NSDictionary* dict = (NSDictionary*)response;
+                        if ([[dict objectForKey:@"error"] integerValue] == 0) {
+                            ScoreboardOrdersView* myOrderView = [self.storyboard instantiateViewControllerWithIdentifier:@"scoreboardMyOrders"];
+                            [self.navigationController pushViewController:myOrderView animated:YES];
+                        }
+                        else {
+                            [self showAlertViewWithMessage:@"Ошибка присвоения заказа, обратитесь к оператору"];
+                        }
+                    }];
 }
 //Отмена заказа---------------------------------------------------------------------------------
 - (void)alertButtonNo
@@ -207,13 +239,21 @@
     if (![annotation isKindOfClass:[MKUserLocation class]]) {
         
         MKPinAnnotationView* annView = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"ParkingPin"];
-        //Создание кнопки перехода в  детали------------------------------------------------------
+//        //Создание кнопки перехода в  детали------------------------------------------------------
         UIButton* buttonDetailMapAnnotation = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
-        [buttonDetailMapAnnotation addTarget:self action:@selector(actionButtonDetailMapAnnotation:) forControlEvents:UIControlEventTouchUpInside];
         
         //Создание кнопки построение маршрута-----------------------------------------------------
-        UIButton* directionButton = [UIButton buttonWithType:UIButtonTypeContactAdd];
-        [directionButton addTarget:self action:@selector(actionButtonDirection:) forControlEvents:UIControlEventTouchUpInside];
+        UIImageView * buttonImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"nav.png"]];
+        buttonImage.frame = buttonDetailMapAnnotation.frame;
+        
+        
+        UIButton *directionButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        [directionButton addTarget:self
+                            action:@selector(actionButtonDirection:)
+                  forControlEvents:UIControlEventTouchUpInside];
+        [directionButton setTitle:@"Show View" forState:UIControlStateNormal];
+        directionButton.frame = buttonDetailMapAnnotation.frame;
+        [directionButton addSubview:buttonImage];
         
         AnnotationMap* annotationTest = (AnnotationMap*)annotation;
         if ([annotationTest.type integerValue] == 0) {
@@ -225,7 +265,7 @@
             annView.canShowCallout = YES;
             annView.calloutOffset = CGPointMake(0, 0);
             [annView addSubview:imageView];
-            annView.rightCalloutAccessoryView = buttonDetailMapAnnotation;
+//            annView.rightCalloutAccessoryView = buttonDetailMapAnnotation;
             annView.leftCalloutAccessoryView = directionButton;
             
             return annView;
@@ -240,7 +280,7 @@
             annView.canShowCallout = YES;
             annView.calloutOffset = CGPointMake(0, 0);
             [annView addSubview:imageView];
-            annView.rightCalloutAccessoryView = buttonDetailMapAnnotation;
+//            annView.rightCalloutAccessoryView = buttonDetailMapAnnotation;
             annView.leftCalloutAccessoryView = directionButton;
             
             return annView;
@@ -255,7 +295,7 @@
             annView.canShowCallout = YES;
             annView.calloutOffset = CGPointMake(0, 0);
             [annView addSubview:imageView];
-            annView.rightCalloutAccessoryView = buttonDetailMapAnnotation;
+//            annView.rightCalloutAccessoryView = buttonDetailMapAnnotation;
             annView.leftCalloutAccessoryView = directionButton;
             
             return annView;
@@ -350,7 +390,7 @@
             
             [self.mapView addOverlays:array level:MKOverlayLevelAboveRoads];
             
-            [self.mapView setRegion:MKCoordinateRegionMakeWithDistance(self.mapView.userLocation.coordinate, 10000, 10000) animated:YES];
+            [self.mapView setRegion:MKCoordinateRegionMakeWithDistance(self.mapView.userLocation.coordinate, 4000, 4000) animated:YES];
             
             
             
@@ -358,6 +398,8 @@
     }];
     
 }
+
+
 
 
 //Имя станции метро--------------------------------------
@@ -906,6 +948,16 @@
     }
     
     return stationName;
+}
+
+
+//Создание AlertView---------------------------------------------------------
+
+- (void)showAlertViewWithMessage:(NSString*)message
+{
+    SCLAlertView* alert = [[SCLAlertView alloc] init];
+    
+    [alert showNotice:self title:@"Внимание!!!" subTitle:message closeButtonTitle:@"Ок" duration:0.f];
 }
 
 

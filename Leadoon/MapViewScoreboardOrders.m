@@ -13,6 +13,7 @@
 #import "APIClass.h"
 #import "APIPostClass.h"
 #import "ParserOrders.h"
+#import "ParserOrder.h"
 #import "HeightForText.h"
 
 #import "MyOrdersView.h"
@@ -20,6 +21,9 @@
 #import "ParserResponseOrders.h"
 #import "AnnotationMap.h"
 #import "UIView+MKAnnotationView.h"
+
+#import "DetailsScoreboardOrderView.h"
+#import "ParserResponseOrder.h"
 
 @interface MapViewScoreboardOrders () <CLLocationManagerDelegate, MKMapViewDelegate>
 
@@ -33,9 +37,9 @@
 @property (weak, nonatomic) IBOutlet UILabel* labelButtonZoomIn;
 @property (weak, nonatomic) IBOutlet UILabel* labelButtomZoomOut;
 
-@property (strong, nonatomic) NSMutableArray* arrayAnnotations;
-
 @property (strong, nonatomic) MKDirections* direction;
+
+@property (strong, nonatomic) NSArray* arrayResponse; //Тестовый массив списка товаров
 
 @end
 
@@ -50,16 +54,6 @@
     for (int i = 0; i < self.arrayOrders.count; i++) {
         ParserOrders* parser = [self.arrayOrders objectAtIndex:i];
 
-//        NSLog(@"* * * * * * * * * * * *  * * * * * * * * * * *");
-//        NSLog(@"getting_type == \"%@\"", parser.getting_type);
-//        NSLog(@"order_id == \"%@\"", parser.order_id);
-//        NSLog(@"olat == \"%@\"", parser.olat);
-//        NSLog(@"olong == \"%@\"", parser.olong);
-//
-//        //        NSLog(@"%@", parser.address);
-//        //            annotation.title = parser.address;
-//        //            annotation.subtitle = [self metroStationNameByID:parser.metro_id];
-
         if (parser.olat == nil) {
 
             NSLog(@"Error data");
@@ -72,11 +66,14 @@
             CLLocationCoordinate2D coord;
             coord.latitude = [parser.olat floatValue];
             coord.longitude = [parser.olong floatValue];
+            
 
             annotation.coordinate = coord;
             annotation.title = parser.address;
             annotation.subtitle = [self metroStationNameByID:parser.metro_id];
             annotation.type = parser.getting_type;
+            annotation.orderID = parser.order_id;
+            
 
             [self.mapView addAnnotation:annotation];
         }
@@ -208,11 +205,24 @@
         MKPinAnnotationView* annView = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"ParkingPin"];
         //Создание кнопки перехода в  детали------------------------------------------------------
         UIButton* buttonDetailMapAnnotation = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
+        
         [buttonDetailMapAnnotation addTarget:self action:@selector(actionButtonDetailMapAnnotation:) forControlEvents:UIControlEventTouchUpInside];
+        AnnotationMap* annotationMap = annotation;
+        buttonDetailMapAnnotation.tag = [annotationMap.orderID intValue];
 
         //Создание кнопки построение маршрута-----------------------------------------------------
-        UIButton* directionButton = [UIButton buttonWithType:UIButtonTypeContactAdd];
-        [directionButton addTarget:self action:@selector(actionButtonDirection:) forControlEvents:UIControlEventTouchUpInside];
+        UIImageView * buttonImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"nav.png"]];
+        buttonImage.frame = buttonDetailMapAnnotation.frame;
+        
+        
+        UIButton *directionButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        [directionButton addTarget:self
+                   action:@selector(actionButtonDirection:)
+         forControlEvents:UIControlEventTouchUpInside];
+        [directionButton setTitle:@"Show View" forState:UIControlStateNormal];
+        directionButton.frame = buttonDetailMapAnnotation.frame;
+        [directionButton addSubview:buttonImage];
+        
 
         AnnotationMap* annotationTest = (AnnotationMap*)annotation;
         if ([annotationTest.type integerValue] == 0) {
@@ -280,19 +290,54 @@
     return nil;
 }
 
+//Тащим заказы с сервера
+- (void)getApiOrder:(NSString *) orderID block:(void (^)(void))block
+{
+    //Передаваемые параметры
+    
+    NSDictionary* params = [[NSDictionary alloc] initWithObjectsAndKeys:
+                            orderID, @"id",
+                            nil];
+    
+    APIClass* api = [APIClass new]; //создаем API
+    [api getDataFromServerWithParams:params
+                              method:@"action=load_order"
+                     complitionBlock:^(id response) {
+                         
+                         ParserResponseOrder* parsingResponce = [[ParserResponseOrder alloc] init];
+                         //                         NSLog(@"%@",response);
+                         self.arrayResponse = [parsingResponce parsing:response];
+                         
+                         block();
+                     }];
+}
+
 //Действие кнопки actionButtonDetailMapAnnotation--------
 - (void)actionButtonDetailMapAnnotation:(UIButton*)sender
 {
     //Выбирем наше вью-----------------------------------------------
     MKAnnotationView* annotationView = [sender superAnnotationView];
     if (!annotationView) {
-
+        
         return;
     }
+    
+    [self getApiOrder:[NSString stringWithFormat:@"%i",sender.tag] block:^{
+        
+        ParserOrder* parser = [self.arrayResponse objectAtIndex:0];
+        
+        DetailsScoreboardOrderView* detail = [self.storyboard instantiateViewControllerWithIdentifier:@"DetailsScoreboardOrder"];
+        [self.navigationController pushViewController:detail animated:YES];
+        detail.orderID=[NSString stringWithFormat:@"%i",sender.tag];
+        detail.getting_type=parser.getting_type;
+        
+        
+    }];
+    
+    
+    
+//    CLLocationCoordinate2D location = annotationView.annotation.coordinate;
 
-    CLLocationCoordinate2D location = annotationView.annotation.coordinate;
-
-    NSLog(@"location.latitude %f, location.longitude %f", location.latitude, location.longitude);
 }
 
 //Действие кнопки actionButtonDirection-----------------
@@ -348,6 +393,8 @@
             }
 
             [self.mapView addOverlays:array level:MKOverlayLevelAboveRoads];
+            
+            [self.mapView setRegion:MKCoordinateRegionMakeWithDistance(self.mapView.userLocation.coordinate, 4000, 4000) animated:YES];
         }
     }];
 }

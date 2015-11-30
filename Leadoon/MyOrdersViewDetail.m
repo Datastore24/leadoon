@@ -12,6 +12,7 @@
 #import "MapViewOrder.h"
 #import "SettingsView.h"
 #import "MapViewDetailMyOrders.h"
+#import "PartialSaleView.h"
 
 #import "SingleTone.h"
 #import <SCLAlertView-Objective-C/SCLAlertView.h>
@@ -180,6 +181,77 @@
         LabelFieldComments.backgroundColor = [UIColor clearColor];
         [self.scrollViewMyOrdersDetail addSubview:LabelFieldComments];
 
+        //Требование для забора
+        if ([self.getting_type integerValue] == 1) {
+
+            UILabel* labelHeaderDemand = [[UILabel alloc] initWithFrame:CGRectMake(100, 210 + self.textFieldCommentsHeight, 180, 20)];
+            labelHeaderDemand.text = @"Требования";
+            labelHeaderDemand.textColor = [UIColor colorWithHexString:@"175e07"];
+            labelHeaderDemand.font = [UIFont fontWithName:@"Helvetica-Bold" size:18];
+            [self.scrollViewMyOrdersDetail addSubview:labelHeaderDemand];
+
+            UILabel* labelOrderNum = [[UILabel alloc] initWithFrame:CGRectMake(40, 240 + self.textFieldCommentsHeight, 160, 20)];
+            labelOrderNum.text = @"Заказ:";
+            labelOrderNum.font = [UIFont fontWithName:@"HelveticaNeue-Italic" size:12];
+            [self.scrollViewMyOrdersDetail addSubview:labelOrderNum];
+
+            //Номер заказа
+            UILabel* labelOrderAPINum = [[UILabel alloc] initWithFrame:CGRectMake(120, 240 + self.textFieldCommentsHeight, 160, 20)];
+            labelOrderAPINum.text = [NSString stringWithFormat:@"№ %@", parser.supplier_getting_id];
+            labelOrderAPINum.font = [UIFont fontWithName:@"Helvetica-Bold" size:12];
+
+            [self.scrollViewMyOrdersDetail addSubview:labelOrderAPINum];
+
+            //
+
+            UILabel* labelPayment = [[UILabel alloc] initWithFrame:CGRectMake(40, 260 + self.textFieldCommentsHeight, 160, 20)];
+            labelPayment.text = @"Оплата:";
+            labelPayment.font = [UIFont fontWithName:@"HelveticaNeue-Italic" size:12];
+            [self.scrollViewMyOrdersDetail addSubview:labelPayment];
+
+            //Оплата заказа
+            UILabel* labelOrderAPIPayment = [[UILabel alloc] initWithFrame:CGRectMake(120, 260 + self.textFieldCommentsHeight, 160, 20)];
+
+            if ([parser.getting_payment_type integerValue] == 1) {
+                labelOrderAPIPayment.text = @"Оплачено";
+            }
+            else {
+                labelOrderAPIPayment.text = [NSString stringWithFormat:@"%@ руб.", parser.getting_payment];
+            }
+
+            labelOrderAPIPayment.font = [UIFont fontWithName:@"Helvetica-Bold" size:12];
+
+            [self.scrollViewMyOrdersDetail addSubview:labelOrderAPIPayment];
+
+            //
+
+            UILabel* labelLetter = [[UILabel alloc] initWithFrame:CGRectMake(40, 280 + self.textFieldCommentsHeight, 160, 20)];
+            labelLetter.text = @"Доверенность:";
+            labelLetter.font = [UIFont fontWithName:@"HelveticaNeue-Italic" size:12];
+            [self.scrollViewMyOrdersDetail addSubview:labelLetter];
+
+            //Доверенность
+            UILabel* labelOrderAPILetter = [[UILabel alloc] initWithFrame:CGRectMake(140, 280 + self.textFieldCommentsHeight, 160, 20)];
+
+            if ([parser.letter integerValue] == 0) {
+                labelOrderAPILetter.text = @"Нет";
+            }
+            else if ([parser.letter integerValue] == 1 || [parser.letter integerValue] == 2) {
+                labelOrderAPILetter.text = @"Да";
+            }
+            else {
+                labelOrderAPILetter.text = @"Ошибка в базе";
+            }
+
+            labelOrderAPILetter.font = [UIFont fontWithName:@"Helvetica-Bold" size:12];
+
+            [self.scrollViewMyOrdersDetail addSubview:labelOrderAPILetter];
+
+            //
+
+            self.textFieldCommentsHeight += 150;
+        }
+
         //Заголовок списка товаров----------------------------------------
         UILabel* labelHeaderItems = [[UILabel alloc] initWithFrame:CGRectMake(125, 215 + self.textFieldCommentsHeight, 70, 20)];
         labelHeaderItems.text = @"Товары";
@@ -191,35 +263,53 @@
 
         for (int i = 0; i < self.parseItems.count; i++) {
             NSDictionary* dict = [self.parseItems objectAtIndex:i];
-
+            
             //Высота нашего лейбла
-            self.labelNameItemsHeight = [heightForText getHeightForText:[dict objectForKey:@"name"] textWith:self.view.frame.size.width withFont:[UIFont systemFontOfSize:18.2f]];
-
-            UILabel* labelNameItems = [[UILabel alloc] initWithFrame:
-                                                           CGRectMake(15, 230 + self.textFieldCommentsHeight + self.labelNameItemsHeight * i, 160, self.labelNameItemsHeight)];
+            self.labelNameItemsHeight = [heightForText getHeightForText:[dict objectForKey:@"name"] textWith:self.view.frame.size.width withFont:[UIFont systemFontOfSize:14]];
+            UILabel* labelNameItems;
+            if([self.getting_type integerValue] == 0){
+                
+                labelNameItems = [[UILabel alloc] initWithFrame:
+                                  CGRectMake(15, 230 + self.textFieldCommentsHeight + 10 + 60 * i , 160, self.labelNameItemsHeight + 15)];
+                
+                
+            }else if([self.getting_type integerValue] == 2 || [self.getting_type integerValue] == 1){
+                labelNameItems = [[UILabel alloc] initWithFrame:
+                                  CGRectMake(40, 230 + self.textFieldCommentsHeight + 10 + 60 * i , 160, self.labelNameItemsHeight + 10)];
+                UILabel * labelOrderId = [[UILabel alloc] initWithFrame:  CGRectMake(10, 230 + self.textFieldCommentsHeight + 10 + 60 * i , 40, self.labelNameItemsHeight + 10)];
+                labelOrderId.numberOfLines = 0;
+                labelOrderId.lineBreakMode = NSLineBreakByWordWrapping;
+                labelOrderId.text = [dict objectForKey:@"order_id"];
+                labelOrderId.font = [UIFont fontWithName:@"HelveticaNeue" size:12];
+                [self.scrollViewMyOrdersDetail addSubview:labelOrderId];
+                
+            }
+            
             labelNameItems.numberOfLines = 0;
             labelNameItems.lineBreakMode = NSLineBreakByWordWrapping;
             labelNameItems.text = [dict objectForKey:@"name"];
             labelNameItems.font = [UIFont fontWithName:@"HelveticaNeue" size:12];
+            
             [self.scrollViewMyOrdersDetail addSubview:labelNameItems];
-
+            
+            
             UILabel* labelNumberItems = [[UILabel alloc] initWithFrame:
-                                                             CGRectMake(200, 225 + self.textFieldCommentsHeight + self.labelNameItemsHeight * i, 150, self.labelNameItemsHeight)];
+                                         CGRectMake(200, 230 + self.textFieldCommentsHeight + 10 + 60 * i, 150, self.labelNameItemsHeight + 10 )];
             NSString* resultCount = [NSString stringWithFormat:@"%@ шт.", [dict objectForKey:@"count"]];
             labelNumberItems.text = resultCount;
             labelNumberItems.font = [UIFont fontWithName:@"HelveticaNeue" size:12];
             [self.scrollViewMyOrdersDetail addSubview:labelNumberItems];
-
+            
             UILabel* labelCostItems = [[UILabel alloc] initWithFrame:
-                                                           CGRectMake(240, 225 + self.textFieldCommentsHeight + self.labelNameItemsHeight * i, 150, self.labelNameItemsHeight)];
+                                       CGRectMake(240, 230 + 10 + self.textFieldCommentsHeight + 60 * i, 150, self.labelNameItemsHeight + 10)];
             NSString* resultPrice = [NSString stringWithFormat:@"%@ руб.", [dict objectForKey:@"price"]];
             labelCostItems.text = resultPrice;
             labelCostItems.font = [UIFont fontWithName:@"HelveticaNeue" size:12];
             [self.scrollViewMyOrdersDetail addSubview:labelCostItems];
         }
-
+        
         //Высота всех товаров--------------------------------------------------------------------
-        self.heightAllItems = 230 + self.textFieldCommentsHeight + self.labelNameItemsHeight * self.parseItems.count;
+        self.heightAllItems = 230 + self.textFieldCommentsHeight + 60 * self.parseItems.count;
 
         //Параметры mainScrollViewOrder----------------------------------------------------------
         NSInteger number = 340 + self.heightAllItems;
@@ -299,6 +389,13 @@
         [self.buttonMade addTarget:self action:@selector(tapButtonAssigned) forControlEvents:UIControlEventTouchDown];
         [self.buttonMade addTarget:self action:@selector(actionButtonAssigned) forControlEvents:UIControlEventTouchUpInside];
 
+        if ([self.getting_type integerValue] == 2 || [self.getting_type integerValue] == 1) {
+            CGRect rect;
+            rect = self.buttonMade.frame;
+            rect.origin.y = rect.origin.y + 30.f;
+            self.buttonMade.frame = rect;
+        }
+
         //Создание кнопки обратный звонок--------------------------------------
 
         self.buttonBackCall = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -358,10 +455,16 @@
         self.buttonFailure.layer.cornerRadius = 9.f;
         [self.scrollViewMyOrdersDetail addSubview:self.buttonFailure];
 
+        if ([self.getting_type integerValue] == 2 || [self.getting_type integerValue] == 1) {
+
+            self.buttonFailure.userInteractionEnabled = NO;
+            self.buttonFailure.alpha = 0.f;
+        }
+
         //Создание кнопки Отмена--------------------------------------
-        
+
         //Вычесление разницы в минутах между текущим временем и настоящим
-        
+
         //Время из базы
         NSString* endTime;
         if (!parser.delivery_time_to) {
@@ -370,68 +473,73 @@
         else {
             endTime = parser.delivery_time_to;
         }
-        
-        NSArray * endTimeArray = [endTime componentsSeparatedByString:@":"];
-         int endTimeInMinutes = [[endTimeArray objectAtIndex:0] intValue]*60+[[endTimeArray objectAtIndex:1] intValue];
+
+        NSArray* endTimeArray = [endTime componentsSeparatedByString:@":"];
+        int endTimeInMinutes = [[endTimeArray objectAtIndex:0] intValue] * 60 + [[endTimeArray objectAtIndex:1] intValue];
         //
-        
+
         //Текущая время
-        NSDate *currentDate = [NSDate date];
-        NSDateFormatter *dateFormatter = [NSDateFormatter new];
+        NSDate* currentDate = [NSDate date];
+        NSDateFormatter* dateFormatter = [NSDateFormatter new];
         [dateFormatter setDateFormat:@"HH:mm"];
-        NSString *currentTime = [dateFormatter stringFromDate:currentDate];
-        
-        NSArray * currentTimeArray = [currentTime componentsSeparatedByString:@":"];
-        int currentTimeInMinutes =  [[currentTimeArray objectAtIndex:0] intValue] * 60+[[currentTimeArray objectAtIndex:1] intValue];
-        
+        NSString* currentTime = [dateFormatter stringFromDate:currentDate];
+
+        NSArray* currentTimeArray = [currentTime componentsSeparatedByString:@":"];
+        int currentTimeInMinutes = [[currentTimeArray objectAtIndex:0] intValue] * 60 + [[currentTimeArray objectAtIndex:1] intValue];
+
         //
-        
-        
+
         int resultTimeInMinutes = endTimeInMinutes - currentTimeInMinutes; //Разница в менутах
-        
+
         self.buttonCancell = [UIButton buttonWithType:UIButtonTypeCustom];
         [self.buttonCancell setTitle:@"Отмена" forState:UIControlStateNormal];
         [self.buttonCancell addTarget:self
                                action:@selector(createAlertonButtonCancell)
                      forControlEvents:UIControlEventTouchUpInside];
-        
+
         self.buttonCancell.titleLabel.font = [UIFont fontWithName:@"Helvetica-Bold" size:14];
         self.buttonCancell.frame = CGRectMake(90, 230 + self.heightAllItems, 140, 30);
         self.buttonCancell.backgroundColor = [UIColor colorWithHexString:@"9c4002"];
         self.buttonCancell.layer.borderColor = [UIColor darkGrayColor].CGColor;
         self.buttonCancell.layer.borderWidth = 1.f;
         self.buttonCancell.layer.cornerRadius = 9.f;
-        
+
         //Подготовка кнопки частичная продажа, в зависимости от того, есть ли кнопка Отмены
-        
+
         self.buttonPartialSale = [UIButton buttonWithType:UIButtonTypeCustom];
-        
+
         if ([parser.delivery_date isEqual:[parseDate dateFormatToDay]]) {
-            if(resultTimeInMinutes >= 180){
+            if (resultTimeInMinutes >= 180) {
                 self.buttonPartialSale.frame = CGRectMake(85, 270 + self.heightAllItems, 150, 30);
                 [self.scrollViewMyOrdersDetail addSubview:self.buttonCancell];
-            }else{
+            }
+            else {
                 self.buttonPartialSale.frame = CGRectMake(85, 230 + self.heightAllItems, 150, 30);
             }
-        }else{
-          self.buttonPartialSale.frame = CGRectMake(85, 270 + self.heightAllItems, 150, 30);
-          [self.scrollViewMyOrdersDetail addSubview:self.buttonCancell];
+        }
+        else {
+            self.buttonPartialSale.frame = CGRectMake(85, 270 + self.heightAllItems, 150, 30);
+            [self.scrollViewMyOrdersDetail addSubview:self.buttonCancell];
         }
 
-        
         //Создание кнопки Частичная продажа------------------------------------
-    
+
         [self.buttonPartialSale setTitle:@"Частичная продажа" forState:UIControlStateNormal];
         self.buttonPartialSale.titleLabel.font = [UIFont fontWithName:@"Helvetica-Bold" size:14];
         self.buttonPartialSale.backgroundColor = [UIColor colorWithHexString:@"eca011"];
         self.buttonPartialSale.layer.borderColor = [UIColor darkGrayColor].CGColor;
         self.buttonPartialSale.layer.borderWidth = 1.f;
         self.buttonPartialSale.layer.cornerRadius = 9.f;
+        [self.buttonPartialSale addTarget:self
+                                   action:@selector(actionButtonPartialSale)
+                         forControlEvents:UIControlEventTouchUpInside];
         [self.scrollViewMyOrdersDetail addSubview:self.buttonPartialSale];
-        
-        
 
-        
+        if ([self.getting_type integerValue] == 2 || [self.getting_type integerValue] == 1) {
+
+            self.buttonPartialSale.userInteractionEnabled = NO;
+            self.buttonPartialSale.alpha = 0.f;
+        }
 
         //Создание кнопки на карте---------------------------------------------
         self.buttonOnMapMyOrder = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -444,7 +552,6 @@
         self.buttonOnMapMyOrder.layer.cornerRadius = 9.f;
         [self.scrollViewMyOrdersDetail addSubview:self.buttonOnMapMyOrder];
         [self.buttonOnMapMyOrder addTarget:self action:@selector(actionButtonMapViewMyOrderDetail) forControlEvents:UIControlEventTouchUpInside];
-
 
         //Изображение времени---------------------------------------------------
         NSString* imageTimeName = @"timeImage.png";
@@ -502,26 +609,33 @@
     [alertView addButton:@"Отмена" target:self selector:@selector(alertButtonNo)];
 
     [alertView showNotice:self title:@"Внимание!!" subTitle:@"Вы уверенны что вы хотите отменить выполнение этого заказа ?" closeButtonTitle:nil duration:0.0f];
-
-
 }
 
 //Подтвержение заказа---------------------------------------------------------------------------
 - (void)alertButtonYes
 {
     //Передаваемые параметры
+    NSString* status;
+    if ([self.getting_type integerValue] == 0) {
+        status = [NSString stringWithFormat:@"%i", 50];
+    }
+    else if ([self.getting_type integerValue] == 2 || [self.getting_type integerValue] == 1) {
+        status = [NSString stringWithFormat:@"%i", 120];
+    }
+
     NSDictionary* params = [[NSDictionary alloc] initWithObjectsAndKeys:
-                            self.orderID, @"order_id",
-                            nil];
-    
+                                                     self.orderID, @"order_id",
+                                                 status, @"status",
+                                                 nil];
+
     APIPostClass* api = [APIPostClass new]; //создаем API
     [api postDataToServerWithParams:params
                              method:@"action=courier_order_cancel"
                     complitionBlock:^(id response) {
                         NSDictionary* dict = (NSDictionary*)response;
-                        
+
                         if ([[dict objectForKey:@"error"] integerValue] == 0) {
-                            
+
                             MyOrdersView* myOrdersView = [self.storyboard instantiateViewControllerWithIdentifier:@"scoreboardMyOrders"];
                             [self.navigationController pushViewController:myOrdersView animated:YES];
                         }
@@ -543,6 +657,7 @@
 
     NSDictionary* params = [[NSDictionary alloc] initWithObjectsAndKeys:
                                                      self.orderID, @"id",
+                                                 self.getting_type, @"getting_type",
                                                  nil];
 
     APIClass* api = [APIClass new]; //создаем API
@@ -1263,15 +1378,22 @@
 - (void)actionButtonAssigned
 {
 
-
-
     [Animation move_Label_Text_View_Right:self.buttonMade Points:0.f alpha:1.f];
 }
 
 //Действие по кнопке buttonOnMap-----------------------------------------------------------
-- (void) actionButtonMapViewMyOrderDetail
+- (void)actionButtonMapViewMyOrderDetail
 {
-    MapViewDetailMyOrders * detail = [self.storyboard instantiateViewControllerWithIdentifier:@"mapViewMyOrderDetail"];
+    MapViewDetailMyOrders* detail = [self.storyboard instantiateViewControllerWithIdentifier:@"mapViewMyOrderDetail"];
+    detail.parseItems = self.arrayResponse;
+    detail.orderID = self.orderID;
+    [self.navigationController pushViewController:detail animated:YES];
+}
+
+//Действие по кнопке buttonPartialSale-----------------------------------------------------------
+- (void)actionButtonPartialSale
+{
+    PartialSaleView * detail = [self.storyboard instantiateViewControllerWithIdentifier:@"partialSaleView"];
     detail.parseItems = self.arrayResponse;
     [self.navigationController pushViewController:detail animated:YES];
 }
