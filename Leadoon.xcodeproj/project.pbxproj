@@ -62,6 +62,8 @@
 		AD2A24A41BD1327A00E0BC31 /* MyOrdersView.m in Sources */ = {isa = PBXBuildFile; fileRef = AD2A24A31BD1327A00E0BC31 /* MyOrdersView.m */; };
 		AD2A24A71BD4CFB800E0BC31 /* ParserOrder.m in Sources */ = {isa = PBXBuildFile; fileRef = AD2A24A61BD4CFB800E0BC31 /* ParserOrder.m */; };
 		AD2A24AA1BD52B3000E0BC31 /* ParserResponseOrder.m in Sources */ = {isa = PBXBuildFile; fileRef = AD2A24A91BD52B3000E0BC31 /* ParserResponseOrder.m */; };
+		AD45722E1C186F3F0053324F /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = AD45722D1C186F3F0053324F /* Reachability.m */; };
+		AD45723C1C187AA00053324F /* InternetErrorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD45723B1C187AA00053324F /* InternetErrorViewController.m */; };
 		AD87E9A51BCCF4AB00AF5C11 /* UsersModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = AD87E9A31BCCF4AB00AF5C11 /* UsersModel.xcdatamodeld */; };
 		AD87E9AA1BCCF56000AF5C11 /* Couriers+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = AD87E9A71BCCF56000AF5C11 /* Couriers+CoreDataProperties.m */; };
 		AD87E9AB1BCCF56000AF5C11 /* Couriers.m in Sources */ = {isa = PBXBuildFile; fileRef = AD87E9A91BCCF56000AF5C11 /* Couriers.m */; };
@@ -186,6 +188,10 @@
 		AD2A24A61BD4CFB800E0BC31 /* ParserOrder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ParserOrder.m; sourceTree = "<group>"; };
 		AD2A24A81BD52B3000E0BC31 /* ParserResponseOrder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParserResponseOrder.h; sourceTree = "<group>"; };
 		AD2A24A91BD52B3000E0BC31 /* ParserResponseOrder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ParserResponseOrder.m; sourceTree = "<group>"; };
+		AD45722C1C186F3F0053324F /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
+		AD45722D1C186F3F0053324F /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
+		AD45723A1C187AA00053324F /* InternetErrorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InternetErrorViewController.h; sourceTree = "<group>"; };
+		AD45723B1C187AA00053324F /* InternetErrorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InternetErrorViewController.m; sourceTree = "<group>"; };
 		AD87E9A41BCCF4AB00AF5C11 /* UsersModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = UsersModel.xcdatamodel; sourceTree = "<group>"; };
 		AD87E9A61BCCF56000AF5C11 /* Couriers+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "Couriers+CoreDataProperties.h"; path = "../Couriers+CoreDataProperties.h"; sourceTree = "<group>"; };
 		AD87E9A71BCCF56000AF5C11 /* Couriers+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "Couriers+CoreDataProperties.m"; path = "../Couriers+CoreDataProperties.m"; sourceTree = "<group>"; };
@@ -376,10 +382,14 @@
 				779C5AD91BCB061A00F4F31D /* MainView */,
 				779C5AA61BCAFD4600F4F31D /* AppDelegate.h */,
 				779C5AA71BCAFD4600F4F31D /* AppDelegate.m */,
+				AD45722C1C186F3F0053324F /* Reachability.h */,
+				AD45722D1C186F3F0053324F /* Reachability.m */,
 				AD87E9BE1BCD924600AF5C11 /* SingleTone.h */,
 				AD87E9BF1BCD924600AF5C11 /* SingleTone.m */,
 				779C5AA91BCAFD4600F4F31D /* LoginView.h */,
 				779C5AAA1BCAFD4600F4F31D /* LoginView.m */,
+				AD45723A1C187AA00053324F /* InternetErrorViewController.h */,
+				AD45723B1C187AA00053324F /* InternetErrorViewController.m */,
 				779C5AAC1BCAFD4600F4F31D /* Main.storyboard */,
 				779C5AAF1BCAFD4600F4F31D /* Assets.xcassets */,
 				779C5AB11BCAFD4600F4F31D /* LaunchScreen.storyboard */,
@@ -777,6 +787,7 @@
 				77E36FC51BF384270094FD29 /* WorksCompletedView.m in Sources */,
 				77B2058F1C08D2A100D168FF /* AdditionalExpenses.m in Sources */,
 				AD2A24981BD0CFBD00E0BC31 /* ParserResponseOrders.m in Sources */,
+				AD45723C1C187AA00053324F /* InternetErrorViewController.m in Sources */,
 				77B205921C08D84700D168FF /* HistoryOfTheMovement.m in Sources */,
 				77E36FC81BF3BAFF0094FD29 /* WorksCompletedViewDetail.m in Sources */,
 				AD2A24A41BD1327A00E0BC31 /* MyOrdersView.m in Sources */,
@@ -794,6 +805,7 @@
 				AD87E9A51BCCF4AB00AF5C11 /* UsersModel.xcdatamodeld in Sources */,
 				7777DCB31BD7C63D0068922D /* MapViewDetailMyOrders.m in Sources */,
 				AD2A24AA1BD52B3000E0BC31 /* ParserResponseOrder.m in Sources */,
+				AD45722E1C186F3F0053324F /* Reachability.m in Sources */,
 				AD87E9AA1BCCF56000AF5C11 /* Couriers+CoreDataProperties.m in Sources */,
 				77C903741BD6AC4300B54E6A /* MyOrdersViewDetail.m in Sources */,
 				AD2A24A71BD4CFB800E0BC31 /* ParserOrder.m in Sources */,

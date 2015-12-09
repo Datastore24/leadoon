@@ -12,7 +12,7 @@
 
 
 @interface InternetErrorViewController ()
-@property (assign,nonatomic) BOOL isError;
+
 
 @end
 
@@ -20,25 +20,6 @@
 
 
 
-
-
--(void) showHideAlert: (NSString*)result{
-    
-    if([result isEqualToString:@"0"]){
-        NSLog(@"error Connection");
-        self.isError = YES;
-        
-    }else{
-        if(self.isError==YES){
-            self.isError = NO;
-            MainView* detail = [self.storyboard instantiateViewControllerWithIdentifier:@"mainView"];
-            [self.navigationController pushViewController:detail animated:YES];
-        }
-
-    }
-    
-    
-}
 
 
 

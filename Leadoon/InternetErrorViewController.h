@@ -10,6 +10,6 @@
 
 @interface InternetErrorViewController : UIViewController
 
--(void) showHideAlert: (NSString*)result;
+
 
 @end

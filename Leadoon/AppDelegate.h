@@ -8,7 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
-@interface AppDelegate : UIResponder <UIApplicationDelegate>
+@interface AppDelegate : UIResponder <UIApplicationDelegate>{
+    NSTimer *timer;
+}
+
+@property (nonatomic, retain) NSTimer *timer;
 
 @property (strong, nonatomic) UIWindow *window;
 
