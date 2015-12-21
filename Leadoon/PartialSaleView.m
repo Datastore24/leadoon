@@ -11,6 +11,7 @@
 #import "UIColor+HexColor.h"
 #import "ParserOrder.h"
 #import "HeightForText.h"
+#import "MyOrdersView.h"
 
 #import "APIPostClass.h"
 
@@ -25,6 +26,8 @@
 @property (assign, nonatomic) CGFloat heightAllItems; //Высота всех товаров
 @property (strong, nonatomic) UIPickerView * discountPicker; //Пикер скидок
 @property (strong, nonatomic) NSMutableArray * mArrayDiscount; //Массива элементов дикера скидок
+@property (strong, nonatomic) UILabel* labelInTotal; //Сумма общая
+@property (strong, nonatomic) NSString* discount;
 
 @end
 
@@ -40,6 +43,8 @@
 
     ParserOrder* parser = [self.parseItems objectAtIndex:0];
     self.items = parser.items;
+    self.discount = 0;
+   
 
     self.scrollViewPartialSaleView.backgroundColor = [UIColor groupTableViewBackgroundColor];
 
@@ -160,6 +165,7 @@
         self.discountPicker = [[UIPickerView alloc] initWithFrame:CGRectMake(157.5, 87.5 + self.heightAllItems, 50, 40)];
         self.discountPicker.dataSource = self;
         self.discountPicker.delegate = self;
+        self.discountPicker.tag = 120001;
         for (int i = 0; i <= [parser.discount integerValue]; i ++) {
             
             NSString * discountString = [[NSNumber numberWithInt:i] stringValue];
@@ -197,11 +203,11 @@
     [self.scrollViewPartialSaleView addSubview:labelInTotalNotActive];
     
     //Итого изменяемый--------------------------------------------------------------
-    UILabel* labelInTotal = [[UILabel alloc] initWithFrame:CGRectMake(170, 180 + self.heightAllItems, 80, 20)];
-    labelInTotal.text = parser.amount;
-    labelInTotal.font = [UIFont fontWithName:@"Helvetica-Bold" size:16];
-    labelInTotal.textColor = [UIColor colorWithHexString:@"2d5348"];
-    [self.scrollViewPartialSaleView addSubview:labelInTotal];
+    self.labelInTotal = [[UILabel alloc] initWithFrame:CGRectMake(170, 180 + self.heightAllItems, 80, 20)];
+    self.labelInTotal.text = parser.amount;
+    self.labelInTotal.font = [UIFont fontWithName:@"Helvetica-Bold" size:16];
+    self.labelInTotal.textColor = [UIColor colorWithHexString:@"2d5348"];
+    [self.scrollViewPartialSaleView addSubview:self.labelInTotal];
     
     
     //Кнопка расчета суммы с не полным колличеством товаров--------------------------
@@ -213,7 +219,7 @@
     buttonUpdates.layer.borderColor = [UIColor blackColor].CGColor;
     buttonUpdates.layer.borderWidth = 1.5f;
     buttonUpdates.layer.cornerRadius = 10.f;
-    [buttonUpdates setTitle:@"Расчиать стоимость" forState:UIControlStateNormal];
+    [buttonUpdates setTitle:@"Расчитать стоимость" forState:UIControlStateNormal];
     buttonUpdates.frame = CGRectMake(60, self.heightAllItems - 10, 190.0, 30.0);
     [self.scrollViewPartialSaleView addSubview:buttonUpdates];
     
@@ -233,21 +239,32 @@
 
 }
 
+
 - (void)pickerView:(UIPickerView *)thePickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
     
     //Выдергиваем данные из PickerView
+    
     NSUInteger selectedRow = [thePickerView selectedRowInComponent:0];
     NSString * title = [[thePickerView delegate] pickerView:thePickerView titleForRow:selectedRow forComponent:0];
-    NSDictionary* dict = [self.items objectAtIndex:thePickerView.tag-1];
     
-    NSString * item_id=[NSString stringWithFormat:@"%i",[[dict objectForKey:@"item_id"] integerValue]];
     
-    [self postCountOfItemToTheServer:item_id count:title];
+    if(thePickerView.tag==120001){
+        NSLog(@"%@",title);
+        self.discount=title;
+    }else{
+        NSDictionary* dict = [self.items objectAtIndex:thePickerView.tag-1];
+        
+        NSString * item_id=[NSString stringWithFormat:@"%i",[[dict objectForKey:@"item_id"] integerValue]];
+        
+        [self postCountOfItemToTheServer:item_id count:title];
+    }
+   
     //
     
 
     
 }
+
 
 //Отправка данных о количестве на сервер
 -(void) postCountOfItemToTheServer: (NSString *) item_id count: (NSString *) count{
@@ -267,10 +284,64 @@
     
 }
 
+
+//Пересчет цены и стоимости
+-(void) postPriceToTheServer: (NSString *) order_id discount: (NSString *) discount{
+    
+    
+    NSDictionary * params = [[NSDictionary alloc] initWithObjectsAndKeys:
+                             order_id,@"order_id",
+                             discount,@"discount",
+                             nil];
+    
+    APIPostClass * api =[APIPostClass new]; //создаем API
+    
+    [api postDataToServerWithParams:params method:@"action=update_all_price" complitionBlock:^(id response) {
+        NSDictionary * respDict = response;
+        if([[respDict objectForKey:@"error"] integerValue] ==0 ){
+            self.labelInTotal.text = [NSString stringWithFormat:@"%@",[respDict objectForKey:@"price"]];
+        }
+    }];
+    
+    
+}
+
+//Подтверждение изменений
+-(void) postFinishPriceToTheServer: (NSString *) order_id discount: (NSString *) discount{
+    
+    
+    NSDictionary * params = [[NSDictionary alloc] initWithObjectsAndKeys:
+                             order_id,@"order_id",
+                             discount,@"discount",
+                             nil];
+    
+    APIPostClass * api =[APIPostClass new]; //создаем API
+    
+    [api postDataToServerWithParams:params method:@"action=finish_update_all_price" complitionBlock:^(id response) {
+        NSDictionary * respDict = response;
+        if([[respDict objectForKey:@"error"] integerValue] ==0 ){
+            self.labelInTotal.text = [NSString stringWithFormat:@"%@",[respDict objectForKey:@"price"]];
+        }
+    }];
+    
+    
+}
+
 //Действи кнопки ButtonBackScoreboardOrdersView---------------------------------------
 - (void)actionButtonBackScoreboardOrdersView
 {
-    [self.navigationController popViewControllerAnimated:YES];
+    
+    for (int i = 0; i < self.items.count; i++) {
+        NSDictionary* dict = [self.items objectAtIndex:i];
+        
+        [self postCountOfItemToTheServer:[dict objectForKey:@"item_id"] count:[dict objectForKey:@"count"]];
+       
+        if(i==self.items.count-1){
+         [self.navigationController popViewControllerAnimated:YES];
+        }
+    }
+    
+    
 }
 
 //Действи кнопки ButtonSettingsScoreboardOrdersView---------------------------------------
@@ -282,12 +353,18 @@
 
 - (void) actionButtonUpdates
 {
-    NSLog(@"Пост данных на изменение суммы доставки и скидки");
+    
+    //Нужно скидку прописать
+    [self postPriceToTheServer:self.orderID discount:self.discount];
+    
 }
 
 - (void) actionButtonPerform
 {
-    NSLog(@"Реализация кнопки выполнить");
+    //Нужно скидку прописать
+    [self postFinishPriceToTheServer:self.orderID discount:self.discount];
+    MyOrdersView* myOrderView = [self.storyboard instantiateViewControllerWithIdentifier:@"scoreboardMyOrders"];
+    [self.navigationController pushViewController:myOrderView animated:YES];
 }
 
 #pragma mark - UIPickerViewDataSource

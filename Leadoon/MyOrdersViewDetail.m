@@ -1395,6 +1395,7 @@
 {
     PartialSaleView * detail = [self.storyboard instantiateViewControllerWithIdentifier:@"partialSaleView"];
     detail.parseItems = self.arrayResponse;
+    detail.orderID = self.orderID;
     [self.navigationController pushViewController:detail animated:YES];
 }
 
