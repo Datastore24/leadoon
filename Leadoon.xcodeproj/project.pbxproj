@@ -636,7 +636,7 @@
 				TargetAttributes = {
 					779C5A9F1BCAFD4500F4F31D = {
 						CreatedOnToolsVersion = 7.0;
-						DevelopmentTeam = 8W954C8DEM;
+						DevelopmentTeam = Y2KN3X79KQ;
 					};
 					779C5AB81BCAFD4600F4F31D = {
 						CreatedOnToolsVersion = 7.0;
@@ -952,6 +952,7 @@
 			baseConfigurationReference = AEF5C251689197AD98D73673 /* Pods-Leadoon.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = Leadoon/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "Ugi-Ugi.Leadoon";
@@ -964,6 +965,7 @@
 			baseConfigurationReference = 8086FCD04285A708D5862A6C /* Pods-Leadoon.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = Leadoon/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "Ugi-Ugi.Leadoon";
