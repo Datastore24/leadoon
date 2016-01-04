@@ -13,6 +13,12 @@
 #import "AdditionalExpenses.h"
 #import "HistoryOfTheMovement.h"
 
+#import "SingleTone.h"
+#import "ParserCourier.h"
+#import "ParserFinance.h"
+#import "ParserResponseFinance.h"
+#import "APIClass.h"
+
 @interface FinanceView ()
 @property (weak, nonatomic) IBOutlet UIView *topBarFinanceView; //Топ бар
 @property (weak, nonatomic) IBOutlet UILabel *labelTopBarFinanceView; //Заголовок
@@ -23,6 +29,10 @@
 @property (assign, nonatomic) CGFloat labelNameItemsHeight; //ВЫсота наименования товара
 @property (assign, nonatomic) CGFloat heightAllItems; //Высота всех товаров
 
+@property (strong, nonatomic) NSMutableArray * arrayCourier; //Массив с данными из базы
+@property (strong, nonatomic) NSArray* arrayResponse; //Массив с данными API
+@property (strong, nonatomic) NSString * courierID;
+
 @end
 
 @implementation FinanceView
@@ -32,6 +42,11 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    //Массив данных авторизованного пользователя
+    self.arrayCourier = [[SingleTone sharedManager] parsingArray];
+    ParserCourier * parse = [self.arrayCourier objectAtIndex:0];
+    self.courierID=parse.courierId;
     
     self.scrollViewFinanceView.backgroundColor = [UIColor groupTableViewBackgroundColor];
     
@@ -55,63 +70,97 @@
     
     //Заголовок---
     self.labelTopBarFinanceView.text = @"Финансы";
-    
+    [self getApiOrder:^{
+        NSLog(@"resp %@",self.arrayResponse);
+   
+        ParserFinance * parser = [self.arrayResponse objectAtIndex:0];
+        
     //Заголовок - Текущий баланс----------------------------------------------------
     UILabel* labelCurrentBalance = [[UILabel alloc] initWithFrame:CGRectMake(90, 15, 240, 40)];
     labelCurrentBalance.text = @"Текущий баланс";
     labelCurrentBalance.font = [UIFont fontWithName:@"HelveticaNeue" size:18];
     [self.scrollViewFinanceView addSubview:labelCurrentBalance];
     
-    //К сдаче не изменяеммый---------------------------------------------------------
-    UILabel* labelLetting = [[UILabel alloc] initWithFrame:CGRectMake(110, 60, 60, 40)];
-    labelLetting.text = @"К сдаче: ";
-    labelLetting.font = [UIFont fontWithName:@"HelveticaNeue" size:13];
-    [self.scrollViewFinanceView addSubview:labelLetting];
+    //Старый долг не изменяеммый---------------------------------------------------------
+    UILabel* labelOldMoney = [[UILabel alloc] initWithFrame:CGRectMake(80, 60, 150, 40)];
+    labelOldMoney.text = @"Старый долг: ";
+    labelOldMoney.font = [UIFont fontWithName:@"HelveticaNeue" size:13];
+    [self.scrollViewFinanceView addSubview:labelOldMoney];
     
-    //К сдаче изменяеммый---------------------------------------------------------
-    UILabel* labelLettingAction = [[UILabel alloc] initWithFrame:CGRectMake(170, 60, 240, 40)];
-    labelLettingAction.text = @"17800";
-    labelLettingAction.font = [UIFont fontWithName:@"HelveticaNeue" size:13];
-    [self.scrollViewFinanceView addSubview:labelLettingAction];
+    //Старый долг изменяеммый---------------------------------------------------------
+    UILabel* labelOldMoneyAction = [[UILabel alloc] initWithFrame:CGRectMake(170, 60, 240, 40)];
+    labelOldMoneyAction.text = parser.old_money;
+    labelOldMoneyAction.font = [UIFont fontWithName:@"HelveticaNeue" size:13];
+    [self.scrollViewFinanceView addSubview:labelOldMoneyAction];
     
-    //Зароботок не изменяеммый----------------------------------------------------
-    UILabel* labelEarnMoney = [[UILabel alloc] initWithFrame:CGRectMake(92, 85, 80, 40)];
-    labelEarnMoney.text = @"Зароботок: ";
-    labelEarnMoney.font = [UIFont fontWithName:@"HelveticaNeue" size:13];
-    [self.scrollViewFinanceView addSubview:labelEarnMoney];
+    //Принято сегодня не изменяеммый----------------------------------------------------
+    UILabel* labelGetMoney = [[UILabel alloc] initWithFrame:CGRectMake(53, 85, 150, 40)];
+    labelGetMoney.text = @"Принято сегодня: ";
+    labelGetMoney.font = [UIFont fontWithName:@"HelveticaNeue" size:13];
+    [self.scrollViewFinanceView addSubview:labelGetMoney];
     
-    //Зароботок изменяеммый----------------------------------------------------
-    UILabel* labelEarnMoneyAction = [[UILabel alloc] initWithFrame:CGRectMake(170, 85, 80, 40)];
-    labelEarnMoneyAction.text = @"1950";
-    labelEarnMoneyAction.font = [UIFont fontWithName:@"HelveticaNeue" size:13];
-    [self.scrollViewFinanceView addSubview:labelEarnMoneyAction];
+    //Принято сегодня изменяеммый----------------------------------------------------
+    UILabel* labelGetMoneyAction = [[UILabel alloc] initWithFrame:CGRectMake(170, 85, 80, 40)];
+    labelGetMoneyAction.text = parser.get_money;
+    labelGetMoneyAction.font = [UIFont fontWithName:@"HelveticaNeue" size:13];
+    [self.scrollViewFinanceView addSubview:labelGetMoneyAction];
     
-    //Штрафные не изменяеммый----------------------------------------------------
-    UILabel* labelPenalty = [[UILabel alloc] initWithFrame:CGRectMake(90, 110, 80, 40)];
-    labelPenalty.text = @"Штрафные: ";
-    labelPenalty.font = [UIFont fontWithName:@"HelveticaNeue" size:13];
-    [self.scrollViewFinanceView addSubview:labelPenalty];
+    //Заработок сегодня не изменяеммый----------------------------------------------------
+    UILabel* labelPlusMoney = [[UILabel alloc] initWithFrame:CGRectMake(40, 110, 150, 40)];
+    labelPlusMoney.text = @"Заработок сегодня: ";
+    labelPlusMoney.font = [UIFont fontWithName:@"HelveticaNeue" size:13];
+    [self.scrollViewFinanceView addSubview:labelPlusMoney];
     
-    //Штрафные изменяеммый----------------------------------------------------
-    UILabel* labelPenaltyAction = [[UILabel alloc] initWithFrame:CGRectMake(170, 110, 80, 40)];
-    labelPenaltyAction.text = @"220";
-    labelPenaltyAction.font = [UIFont fontWithName:@"HelveticaNeue" size:13];
-    [self.scrollViewFinanceView addSubview:labelPenaltyAction];
+    //Заработок сегодня изменяеммый----------------------------------------------------
+    UILabel* labelPlusMoneyAction = [[UILabel alloc] initWithFrame:CGRectMake(170, 110, 80, 40)];
+    labelPlusMoneyAction.text = parser.plus_money;
+    labelPlusMoneyAction.font = [UIFont fontWithName:@"HelveticaNeue" size:13];
+    [self.scrollViewFinanceView addSubview:labelPlusMoneyAction];
+        
+        //Расходы сегодня не изменяеммый----------------------------------------------------
+        UILabel* labelPayMoney = [[UILabel alloc] initWithFrame:CGRectMake(53, 135, 150, 40)];
+        labelPayMoney.text = @"Расходы сегодня: ";
+        labelPayMoney.font = [UIFont fontWithName:@"HelveticaNeue" size:13];
+        [self.scrollViewFinanceView addSubview:labelPayMoney];
+        
+        //Расходы сегодня изменяеммый----------------------------------------------------
+        UILabel* labelPayMoneyAction = [[UILabel alloc] initWithFrame:CGRectMake(170, 135, 80, 40)];
+        labelPayMoneyAction.text = parser.pay_money;
+        labelPayMoneyAction.font = [UIFont fontWithName:@"HelveticaNeue" size:13];
+        [self.scrollViewFinanceView addSubview:labelPayMoneyAction];
+        
+        //Штрафы сегодня не изменяеммый----------------------------------------------------
+        UILabel* labelPenalty = [[UILabel alloc] initWithFrame:CGRectMake(40, 160, 150, 40)];
+        labelPenalty.text = @"Штрафные сегодня: ";
+        labelPenalty.font = [UIFont fontWithName:@"HelveticaNeue" size:13];
+        [self.scrollViewFinanceView addSubview:labelPenalty];
+        
+        //Штрафы сегодня изменяеммый----------------------------------------------------
+        UILabel* labelPenaltyAction = [[UILabel alloc] initWithFrame:CGRectMake(170, 160, 80, 40)];
+        labelPenaltyAction.text = parser.penalty;
+        labelPenaltyAction.font = [UIFont fontWithName:@"HelveticaNeue" size:13];
+        [self.scrollViewFinanceView addSubview:labelPenaltyAction];
+        
+    
     
     //Итого к сдаче не изменяеммый----------------------------------------------------
-    UILabel* labelOutcome = [[UILabel alloc] initWithFrame:CGRectMake(66, 155, 100, 40)];
+    UILabel* labelOutcome = [[UILabel alloc] initWithFrame:CGRectMake(66, 195, 100, 40)];
     labelOutcome.text = @"Итого к сдаче: ";
     labelOutcome.font = [UIFont fontWithName:@"Helvetica-Bold" size:13];
     [self.scrollViewFinanceView addSubview:labelOutcome];
     
     //Итого к сдаче изменяеммый----------------------------------------------------
-    UILabel* labelOutcomeAction = [[UILabel alloc] initWithFrame:CGRectMake(170, 155, 100, 40)];
-    labelOutcomeAction.text = @"15780";
+    UILabel* labelOutcomeAction = [[UILabel alloc] initWithFrame:CGRectMake(170, 195, 100, 40)];
+    labelOutcomeAction.text = parser.total;
     labelOutcomeAction.font = [UIFont fontWithName:@"Helvetica-Bold" size:13];
     [self.scrollViewFinanceView addSubview:labelOutcomeAction];
     
+    }];
+    
+    
+    
     //Товары на руках----------------------------------------------------
-    UILabel* labelOnHands = [[UILabel alloc] initWithFrame:CGRectMake(80, 220, 180, 40)];
+    UILabel* labelOnHands = [[UILabel alloc] initWithFrame:CGRectMake(80, 230, 180, 40)];
     labelOnHands.text = @"Товары на руках";
     labelOnHands.font = [UIFont fontWithName:@"Helvetica-Bold" size:18];
     [self.scrollViewFinanceView addSubview:labelOnHands];
@@ -198,6 +247,33 @@
     
 
 }
+
+//Тащим информацию по финансам
+
+//Тащим заказы с сервера
+- (void)getApiOrder:(void (^)(void))block
+{
+    //Передаваемые параметры
+    
+    NSDictionary* params = [[NSDictionary alloc] initWithObjectsAndKeys:
+                            self.courierID, @"courier_id",
+                            nil];
+
+    
+    APIClass* api = [APIClass new]; //создаем API
+    [api getDataFromServerWithParams:params
+                              method:@"action=finance"
+                     complitionBlock:^(id response) {
+                         NSLog(@"%@",response);
+                         ParserResponseFinance* parsingResponce = [[ParserResponseFinance alloc] init];
+                         //                         NSLog(@"%@",response);
+                         self.arrayResponse = [parsingResponce parsing:response];
+                         
+                         block();
+                     }];
+}
+
+
 
 #pragma mark - Buttons
 
